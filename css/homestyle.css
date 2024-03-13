@@ -102,7 +102,7 @@ body, html {
 
 .container-fluid{
     background-color: #2B80DD;
-    padding: 10px;
+    padding:2px;
 }
 
 .navbar-nav {
@@ -112,6 +112,6 @@ body, html {
 
 .nav-item a{
     text-decoration: none;
-    color:rgb(62, 41, 139);
+    color: rgb(0, 0, 0);
 }
 
