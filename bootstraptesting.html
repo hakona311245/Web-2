@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/homestyle.css"/>
 
 </head>
-<body>
+<body style="height:2000px">
     
 <header>
     <div class="header">
@@ -40,26 +40,44 @@
             </div>
 
             <div class="cart-row">
-                <i class="fa-solid fa-cart-shopping" style="color: #2B80DD;"></i>
+                <i class="fa-solid fa-cart-shopping" style="color: rgb(44, 130, 221);"></i>
                 <a href="">Giỏ Hàng</a>
             </div>
 
         </div>
 
-        <nav class="navbar navbar-expand-sm bg-light">
-           
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+        <div class="navigation-container">
+        <nav class="navbar navbar-expand-lg bg-custom">
+            <button 
+            type = "button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            class="navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav custom-nav">
                     <li class="nav-item active">
                         <a href="#" class="nav-link">
                             Home
                         </a>
                     </li>
 
-                    <li class="nav-item active">
-                        <a href="#" class="nav-link">
-                            Laptop
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle"
+                        id="navbarDropdown" role="button"
+                        data-bs-target="dropdown"
+                        aria-expanded="false"
+                        >
+                            Laptop Mới
                         </a>
+                        <ul class="dropdown-menu"
+                        aria-labelledby="navbarDropdown">
+                            <li><a href="#">Asus</a></li>
+                        </ul>
                     </li>
 
                     <li class="nav-item active">
@@ -80,7 +98,7 @@
 
 
         </nav>
-        
+    </div>
     </div> 
 
 </header>
