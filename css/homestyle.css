@@ -97,7 +97,11 @@ body, html {
 
 .menu-box a{
     text-decoration: none;
-    color: white;
+    color: rgb(255, 255, 255);
+}
+
+.navigation-container .navbar-nav .nav-link {
+    color: #ffffff !important; /* Use !important to override Bootstrap's default styling */
 }
 
 .bg-custom{
@@ -106,6 +110,9 @@ body, html {
 .navbar-toggler{
     margin-left: 15px;
 }
+.custom-nav{
+    margin-left: 2%;
+}
 @media (min-width: 992px) { /* Adjust this breakpoint to match Bootstrap's lg size if needed */
     .custom-nav {
         display: flex;
@@ -113,6 +120,12 @@ body, html {
         width: 100%; /* Ensures the navbar-nav takes up the full width */
         padding-left: 6%;
         padding-right: 6%;
+    }
+}
+
+@media (min-width: 992px) { /* Adjusts for large devices where hover is more applicable */
+    .navbar .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
     }
 }
 
