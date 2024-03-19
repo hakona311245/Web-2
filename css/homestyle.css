@@ -27,6 +27,16 @@ body, html {
     margin-right: 4%;
 }
 
+@media (max-width: 576px) {
+    .form-control {
+      margin-bottom: 10px; /* Adds a margin at the bottom for smaller devices */
+    }
+  
+    .btn {
+      width: 100%; /* Makes the button full width on smaller devices */
+    }
+  }
+  
 
 #frm-search {
     width: 100%;
@@ -104,6 +114,11 @@ body, html {
     color: #ffffff !important; /* Use !important to override Bootstrap's default styling */
 }
 
+.navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .bg-custom{
     background-color:#2B80DD;
 }
@@ -113,6 +128,21 @@ body, html {
 .custom-nav{
     margin-left: 2%;
 }
+.search-btn{
+    color: black;
+    border-color: #2B80DD;
+}
+.search-btn:hover {
+    background-color: #2B80DD; /* Blue background */
+    color: white; /* Change text color to white for better visibility */
+    border-color: black; /* Optional: Change border color to match background */
+}
+
+.dropdown-menu-left {
+    right: 0;
+    left: auto;
+}
+
 @media (min-width: 992px) { /* Adjust this breakpoint to match Bootstrap's lg size if needed */
     .custom-nav {
         display: flex;
@@ -121,11 +151,27 @@ body, html {
         padding-left: 6%;
         padding-right: 6%;
     }
-}
+}   
 
-@media (min-width: 992px) { /* Adjusts for large devices where hover is more applicable */
-    .navbar .nav-item.dropdown:hover .dropdown-menu {
+/* Ensure larger screens only to avoid affecting mobile usability */
+@media (min-width: 992px) {
+    /* Initial state of the dropdown menu */
+    .navbar .nav-item.dropdown .dropdown-menu {
         display: block;
+        min-width: 400px;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden; /* Ensures the menu isn't accidentally interactable when invisible */
+        transform: translateY(-5px); /* Adjust the value as needed */
+        transition: opacity 0.1s ease, transform 0.5s ease;
+    }
+
+    /* State of the dropdown menu when hovering over the dropdown item */
+    .navbar .nav-item.dropdown:hover .dropdown-menu {
+        opacity: 1;
+        margin-top: .02rem;
+        visibility: visible; /* The menu becomes interactable */
+        transform: translateY(0);
     }
 }
 
@@ -140,6 +186,3 @@ body, html {
     display:flex
 }
 
-.column1{
-
-}
