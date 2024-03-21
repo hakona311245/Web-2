@@ -189,6 +189,9 @@ body, html {
 
 /*Main home*/
 
+.carousel{
+    margin-top: px;
+}
 /* Adjust the position of the carousel control buttons */
 .carousel-control-prev, .carousel-control-next {
     /* Adjust these values as needed to bring the buttons closer to the center */
@@ -202,6 +205,46 @@ body, html {
 .carousel-control-next {
     right: 0;
 }
+
+.carousel-control-prev, .carousel-control-next {
+    /* Adding a semi-transparent background for better visibility */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Smooth transition for hover effects */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Style for the icons within the buttons */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    /* Ensuring the icon color is visible against light backgrounds */
+    filter: invert(100%);
+}
+
+/* Hover styles for the control buttons */
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    /* Change background color and add shadow on hover for better visibility */
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Adjusting the hover color of the icons to maintain contrast */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    /* Changing the icon color to white upon hover */
+    filter: invert(0%);
+}   
+
+.carousel-item {
+    /* Set the height of the carousel */
+    height: 500px; /* Example height, adjust as needed */
+}
+
+.carousel-item img {
+    width: 100%; /* Make image span the full width of the carousel */
+    height: 500px; /* Match carousel item height */
+    object-fit: cover; /* Cover the area without breaking aspect ratio */
+    object-position: center; /* Center the image within the element */
+}
+
 
 .image-container {
     position: relative;
