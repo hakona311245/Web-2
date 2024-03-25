@@ -1,0 +1,49 @@
+.hinh1{
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s ease;
+}
+.hinh1:hover {
+    transform: scale(1.3); /* Phóng to hình ảnh lên 130% khi di chuột vào */
+}
+.gia1{
+    color: red;
+}
+.giamgia1{
+    text-decoration: line-through;
+}
+.container1{
+    width: 450px;
+    display: inline-block;
+    display: flex;
+    border: 2px solid red;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.giagoc{
+    color: #777575;;
+}
+.hinh2{
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s ease;
+}
+.hinh2:hover {
+    transform: scale(1.3); /* Phóng to hình ảnh lên 130% khi di chuột vào */
+}
+.gia2{
+    color: red;
+}
+.giamgia2{
+    text-decoration: line-through;
+}
+.container2{
+    width: 450px;
+    display: inline-block;
+    display: flex;
+    border: 2px solid red;
+    border-radius: 5px;
+}
+.container-top{
+    display: flex;
+}

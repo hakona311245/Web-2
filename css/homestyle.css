@@ -15,44 +15,24 @@ body, html {
 }
 
 .logo-row{
-    margin-right:12%;
-}
-
-.search-bar-row{
-    width: 450px;
-}
-
-.search-bar-row {
-    display: flex; 
-    margin-right: 4%;
+    margin-right:15px;
 }
 
 
-#frm-search {
-    width: 100%;
-    display: flex; 
-    align-items: center; 
-}
+  
 
-#frm-search input[type="text"] {
-    border-color: #3F79FF;
-    border-width: 1px;
-    border-radius: 2%;
-    margin-right: -1px;
-    height: 40px;
-}
 
-#frm-search button {
-    background-color: #2B80DD;
-    border:none;
-    cursor: pointer; 
-    width: 40px;
-    height: 40px;
-}
+@media (max-width: 576px) {
+    .form-control {
+      margin-bottom: 10px; /* Adds a margin at the bottom for smaller devices */
+    }
+  
+    .btn {
+      width: 100%; /* Makes the button full width on smaller devices */
+    }
+  }
+  
 
-.search-box{
-    width:100%;
-}
 
 .account-row{
     margin-right: 5%;
@@ -68,19 +48,50 @@ body, html {
 }
 
 
-
-.cart-row{
+.cart-container {
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif; /* You can use any font of your choice */
+  }
+  
+  .cart-link {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;   
-}
-
-.cart-row a{
     text-decoration: none;
-}
-
-
+    color: #000;
+  }
+  
+  .icon-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fa-cart-shopping {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .item-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 12px;
+  }
+  
+  .cart-text {
+    margin-top: 8px; /* Adjust the space between the icon and text as needed */
+  }
+  
+  
 
 
 /*phan menu cua header*/ 
@@ -104,6 +115,11 @@ body, html {
     color: #ffffff !important; /* Use !important to override Bootstrap's default styling */
 }
 
+.navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .bg-custom{
     background-color:#2B80DD;
 }
@@ -113,6 +129,21 @@ body, html {
 .custom-nav{
     margin-left: 2%;
 }
+.search-btn{
+    color: black;
+    border-color: #2B80DD;
+}
+.search-btn:hover {
+    background-color: #2B80DD; /* Blue background */
+    color: white; /* Change text color to white for better visibility */
+    border-color: black; /* Optional: Change border color to match background */
+}
+
+.dropdown-menu-left {
+    right: 0;
+    left: auto;
+}
+
 @media (min-width: 992px) { /* Adjust this breakpoint to match Bootstrap's lg size if needed */
     .custom-nav {
         display: flex;
@@ -121,11 +152,27 @@ body, html {
         padding-left: 6%;
         padding-right: 6%;
     }
-}
+}   
 
-@media (min-width: 992px) { /* Adjusts for large devices where hover is more applicable */
-    .navbar .nav-item.dropdown:hover .dropdown-menu {
+/* Ensure larger screens only to avoid affecting mobile usability */
+@media (min-width: 992px) {
+    /* Initial state of the dropdown menu */
+    .navbar .nav-item.dropdown .dropdown-menu {
         display: block;
+        min-width: 400px;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden; /* Ensures the menu isn't accidentally interactable when invisible */
+        transform: translateY(-5px); /* Adjust the value as needed */
+        transition: opacity 0.1s ease, transform 0.5s ease;
+    }
+
+    /* State of the dropdown menu when hovering over the dropdown item */
+    .navbar .nav-item.dropdown:hover .dropdown-menu {
+        opacity: 1;
+        margin-top: .02rem;
+        visibility: visible; /* The menu becomes interactable */
+        transform: translateY(0);
     }
 }
 
@@ -140,6 +187,83 @@ body, html {
     display:flex
 }
 
-.column1{
+/*Main home*/
 
+.carousel{
+    margin-top: px;
+}
+/* Adjust the position of the carousel control buttons */
+.carousel-control-prev, .carousel-control-next {
+    /* Adjust these values as needed to bring the buttons closer to the center */
+    width: 5%;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    /* Adding a semi-transparent background for better visibility */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Smooth transition for hover effects */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Style for the icons within the buttons */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    /* Ensuring the icon color is visible against light backgrounds */
+    filter: invert(100%);
+}
+
+/* Hover styles for the control buttons */
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    /* Change background color and add shadow on hover for better visibility */
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Adjusting the hover color of the icons to maintain contrast */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    /* Changing the icon color to white upon hover */
+    filter: invert(0%);
+}   
+
+.carousel-item {
+    /* Set the height of the carousel */
+    height: 500px; /* Example height, adjust as needed */
+}
+
+.carousel-item img {
+    width: 100%; /* Make image span the full width of the carousel */
+    height: 500px; /* Match carousel item height */
+    object-fit: cover; /* Cover the area without breaking aspect ratio */
+    object-position: center; /* Center the image within the element */
+}
+
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+.image-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+}
+.image-container img:hover {
+    transform: scale(1.1);
+}
+.image-description {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
 }
