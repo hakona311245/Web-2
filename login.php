@@ -14,6 +14,7 @@
         <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
                         
     </head>
+    <form action="" method="post">
     <body>
         <section class="container forms">
             <div class="form login">
@@ -52,4 +53,5 @@
         <!-- JavaScript -->
         <script src="script.js"></script>
     </body>
+</form>
 </html>

@@ -7,10 +7,12 @@
     <title> Register</title> 
     <link rel="stylesheet" href="/css/register.css">
    </head>
+
+
 <body>
   <div class="wrapper">
     <h2>ĐĂNG KÝ</h2>
-    <form action="#">
+    <form action="includes/formholder.inc.php" method="post">
       <div class="input-box">
         <input type="text" placeholder="Họ và tên" required>
       </div>
