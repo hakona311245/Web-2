@@ -25,7 +25,7 @@
         <div class="carousel-inner">
           <!-- Existing carousel items -->
           <div class="carousel-item active">
-            <a href="zephyrus.html">
+            <a href="zephyrus.php">
             <img src="img/Wallpaper laptop/zephyrus g14 ad.webp" class="d-block w-100" alt="...">
             </a>
           </div>
@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="image-container">
-                <a href="laptopgaming.html">
+                <a href="laptopgaming.php">
                     <img src="img/ROG gallery.webp" alt="Image 1">
                     <div class="image-description">Bộ Sưu Tập ROG</div>
                   </a>  
@@ -67,15 +67,15 @@
             </div>
             <div class="col-md-4">
                 <div class="image-container">
-                  <a href="laptopgaming.html">
-                    <img src="img/MSI Collection (croped).png" alt="Image 2">
+                  <a href="laptopgaming.php">
+                    <img src="img/MSI Collection.png" alt="Image 2">
                     <div class="image-description">Bộ Sưu Tập MSI</div>
                   </a>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="image-container">
-                  <a href="laptopgaming.html">
+                  <a href="laptopgaming.php">
                     <img src="img/Legion lineup (cropped).png" alt="Image 3">
                     <div class="image-description">Bộ Sưu Tập Legion</div>
                   </a>
@@ -87,15 +87,14 @@
 
     </main>
   
-
     <footer class="bg-light text-dark pt-5 pb-4">
         <div class="container text-center text-md-left">
             <div class="row text-center text-md-left">
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <h5 class="text-uppercase md-4 font-weight-bold text-uppercase">
-                        Trực thuộc tập đoàn
+                        Thương hiệu SGtech
                     </h5>
-                    <p>Với tận tình lao động và chăm sóc khách hàng như bố</p>
+                    <p>Cam đoan chất lượng sản phẩm tin dùng</p>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                     <h5 class="text-uppercase md-4 font-weight-bold text-uppercase">
