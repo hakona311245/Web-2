@@ -12,7 +12,7 @@
 <body>
   <div class="wrapper">
     <h2>ĐĂNG KÝ</h2>
-    <form action="includes/formholder.inc.php" method="post">
+    <form action="includes/dbh.inc.php" method="post">
       <div class="input-box">
         <input type="text" placeholder="Họ và tên" required>
       </div>

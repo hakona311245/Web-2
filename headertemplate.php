@@ -40,8 +40,8 @@
                           Tài Khoản
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <li><a class="dropdown-item" href="#signin">Đăng Nhập</a></li>
-                          <li><a class="dropdown-item" href="#signup">Đăng Ký</a></li>
+                          <li><a class="dropdown-item" href="login.php">Đăng Nhập</a></li>
+                          <li><a class="dropdown-item" href="register.php">Đăng Ký</a></li>
                         </ul>
                       </div>
                     </div>
