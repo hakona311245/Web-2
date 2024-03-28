@@ -82,7 +82,7 @@
             <div class="navbar-list collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav custom-nav">
                     <li class="nav-item ">
-                        <a href="#" class="nav-link">
+                        <a href="Home.php" class="nav-link">
                             Home
                         </a>
                     </li>
