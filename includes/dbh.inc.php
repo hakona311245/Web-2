@@ -1,11 +1,10 @@
 <?php 
 // phpinfo();
-$dsn = "localhost";
-$username = "";
+$dsn = "mysql:host=localhost;dbname=web2";
+$username = "root";
 $pwd= "";
-$dbhname = "classicmodels";
 try{
-    $pdo= new PDO("sqlsrv:Server=$dsn; Database=$dbhname", $username, $pwd);
+    $pdo= new PDO($dsn, $username, $pwd);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connection succeed.";
 }   catch(PDOException $e){
