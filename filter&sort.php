@@ -41,7 +41,7 @@
 
             <div class="cart-row">
                 <i class="fa-solid fa-cart-shopping" style="color: #2B80DD;"></i>
-                <a href="">Giỏ Hàng</a>
+                <a href="giohang.php">Giỏ Hàng</a>
             </div>
 
         </div>
