@@ -6,7 +6,7 @@ class Myheader extends HTMLElement{
             <div class="logo-container">
     
                 <div class="logo-row">
-                    <a href="Home.html"><img width="100" height="123" src="img/logopng.png"></a>
+                    <a href="Home.php"><img width="100" height="123" src="img/logopng.png"></a>
                 </div>
                 
                 <div class="container my-4">
@@ -29,8 +29,8 @@ class Myheader extends HTMLElement{
                               Tài Khoản
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <li><a class="dropdown-item" href="#signin">Đăng Nhập</a></li>
-                              <li><a class="dropdown-item" href="#signup">Đăng Ký</a></li>
+                              <li><a class="dropdown-item" href="login.php">Đăng Nhập</a></li>
+                              <li><a class="dropdown-item" href="register.php">Đăng Ký</a></li>
                             </ul>
                           </div>
                         </div>
@@ -142,3 +142,83 @@ class Myheader extends HTMLElement{
 }
 
 customElements.define('header-template', Myheader)
+
+class Myfooter extends HTMLElement{
+    connectedCallback(){
+        this.innerHTML=`   
+
+        <footer class="bg-light text-dark pt-5 pb-4">
+        <div class="container text-center text-md-left">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase md-4 font-weight-bold text-uppercase">
+                        Thương hiệu SGtech
+                    </h5>
+                    <p>Cam đoan chất lượng sản phẩm tin dùng</p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase md-4 font-weight-bold text-uppercase">
+                        Các sản phẩm của chúng tôi
+                    </h5>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase  mb-4 font font-weight-bold text-uppercase">Những đường link bạn quan tâm</h5>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                    <p class="my-0">
+                        <a href="#" class="text-md-left" style="text-decoration: none;">Laptop chất lượng cao</a>
+                    </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase  mb-4 font font-weight-bold text-uppercase">
+                        Liên hệ chúng tôi
+                    </h5>
+                    <p>
+                        <i class="fas fa-home mr-3"></i>
+                        Nhập địa chỉ vào đây
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i>
+                        Nhập địa chỉ vào đây
+                    </p>
+                    <p>
+                        <i class="fas fa-phone mr-3"></i>
+                        Nhập địa chỉ vào đây
+                    </p>
+                    <p>
+                        <i class="fas fa-print mr-3"></i>
+                        Nhập địa chỉ vào đây
+                    </p>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8">
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+        `    
+    }
+}
+customElements.define('footer-template', Myfooter)

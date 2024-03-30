@@ -17,7 +17,7 @@
         <div class="logo-container">
 
             <div class="logo-row">
-                <a href="Home.html"><img width="100" height="123" src="img/logopng.png"></a>
+                <a href="Home.php"><img width="100" height="123" src="img/logopng.png"></a>
             </div>
             
             <div class="container my-4">
