@@ -40,7 +40,7 @@
                     </form>
 
                     <div class="form-link">
-                        <span>Bạn chưa có tài khoản? <a href="#" class="link signup-link">Đăng ký tại đây</a></span>
+                        <span>Bạn chưa có tài khoản? <a href="register.php"class="link signup-link">Đăng ký tại đây</a></span>
                     </div>
                 </div>
 
