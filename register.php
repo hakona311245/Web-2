@@ -20,7 +20,7 @@
         <input type="text" name="user_email" placeholder="Email" required>
       </div>
       <div class="input-box">
-        <input type="number" name="user_phone" placeholder="Số điện thoại" required>
+        <input type="text" name="user_phone" placeholder="Số điện thoại" required>
       </div>
       <div class="input-box">
         <input type="password" name="user_pwd" placeholder="Password" required>
