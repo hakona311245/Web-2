@@ -6,12 +6,12 @@
     <title>SG Tech</title>
     <script src="https://kit.fontawesome.com/8c6957fe62.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/productcard.css"/>
     <link rel="stylesheet" href="css/homestyle.css"/>
 
 </head>
-    
-    <header-template></header-template>
+<body>
+  <header-template></header-template>
     <main>
 
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -55,9 +55,10 @@
       
 
       <h2 style="text-align: center; margin: 2rem">HÃY KHÁM PHÁ CÁC SẢN PHẨM CỦA CHÚNG MÌNH</h2>
-      <div class="container">
+
+      <div class="container product-series-container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 product-series">
                 <div class="image-container">
                 <a href="laptopgaming.php">
                     <img src="img/ROG gallery.webp" alt="Image 1">
@@ -65,7 +66,7 @@
                   </a>  
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 product-series">
                 <div class="image-container">
                   <a href="laptopgaming.php">
                     <img src="img/MSI Collection.png" alt="Image 2">
@@ -73,7 +74,7 @@
                   </a>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 product-series">
                 <div class="image-container">
                   <a href="laptopgaming.php">
                     <img src="img/Legion lineup (cropped).png" alt="Image 3">
@@ -84,6 +85,15 @@
         </div>
     </div>
       
+    <div class="product-card">
+    <img src="img/productcard/zephyrusg15.png" alt="Product Image" class="product-img">
+    <div class="product-info">
+        <div class="product-name">Asus ROG Zephyrus G15 GA503RM </div>
+        
+    </div>
+    </div>
+
+    
 
     </main>
   <footer-template></footer-template>
@@ -95,29 +105,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+    
 
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-      // Get dropdowns on the page
-      var dropdowns = document.querySelectorAll('.dropdown');
-    
-      // Add hover event to each dropdown
-      dropdowns.forEach(function(dropdown) {
-        dropdown.addEventListener('mouseenter', function(e) {
-          var dropdownMenu = this.querySelector('.dropdown-menu');  
-          if (dropdownMenu) {
-            dropdownMenu.classList.add('show');
-          }
-        });
-    
-        dropdown.addEventListener('mouseleave', function(e) {
-          var dropdownMenu = this.querySelector('.dropdown-menu');
-          if (dropdownMenu) {
-            dropdownMenu.classList.remove('show');
-          }
-        });
-      });
-    });
-    </script>
-    
 </html>
