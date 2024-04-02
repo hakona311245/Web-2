@@ -84,14 +84,33 @@
             </div>
         </div>
     </div>
-      
+    <div class="container">
+  
     <div class="product-card">
-    <img src="img/productcard/zephyrusg15.png" alt="Product Image" class="product-img">
-    <div class="product-info">
-        <div class="product-name">Asus ROG Zephyrus G15 GA503RM </div>
+    <a href="your-target-page-url.html" class="product-link">
+    <div class="product-img-container">
+    
+      <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
+   
         
     </div>
+    
+    <div class="product-info">
+        <div class="product-name">Laptop gaming ASUS ROG Zephyrus G14 GA403UU QS101W</div>
+        <div class="product-specs">
+            <div>CPU: i7-13620H</div>
+            <div>GPU: RTX 4070</div>
+            <div>RAM: 16 GB</div>
+            <div>SSD: 512 GB</div>
+            <div>Màn: 15.6" FHD</div>
+            <div>RAM: 16 GB</div>
+        </div>
+        <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
     </div>
+    </div>
+</a>
+    </div>
+    
 
     
 
