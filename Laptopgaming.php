@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="css/productcard.css"/>
     <link rel="stylesheet" href="css/homestyle.css"/>
     <link rel="stylesheet" href="css/header&footer.css"/>
+    <link rel="stylesheet" href="css/productpage.css"/>
 
 </head>
 <body>
   <header-template></header-template>
     <main>
 
-    <div class="black-bar">
+    <div class="page-title">
       LAPTOP GAMING
     </div>
 
-    <div class="container product-showcase">
+    <div class="container product-container">
     
     
     <div class="product-card">
