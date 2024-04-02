@@ -14,20 +14,19 @@
         <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
                         
     </head>
-    <form action="" method="post">
+
     <body>
         <section class="container forms">
             <div class="form login">
                 <div class="form-content">
                     <header>ĐĂNG NHẬP</header>
-                    <form action="#">
+                    <form action="includes/formhandler.inc.php" method="post">
                         <div class="field input-field">
                             <input type="text" placeholder="Tên đăng nhập" class="input">
                         </div>
 
                         <div class="field input-field">
                             <input type="password" placeholder="Password" class="password">
-                            <i class='bx bx-hide eye-icon'></i>
                         </div>
 
                         <div class="form-link">
@@ -53,5 +52,4 @@
         <!-- JavaScript -->
         <script src="script.js"></script>
     </body>
-</form>
 </html>

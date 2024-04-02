@@ -6,7 +6,6 @@ $pwd= "";
 try{
     $pdo= new PDO($dsn, $user_name, $pwd);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connection succeed.";
 }   catch(PDOException $e){
     echo "Connection failed: ". $e->getMessage();
 }

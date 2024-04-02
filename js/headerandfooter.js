@@ -13,7 +13,7 @@ class Myheader extends HTMLElement{
                     <div class="row justify-content-center">
                       <div class="col-12 col-md-8">
                         <form class="d-flex" action="search.php" method="post">
-                          <input class="form-control me-2" type="search" placeholder="Nhập vào sản phẩm cần tìm" aria-label="Search">
+                          <input class="form-control me-2" name="usersearch" type="search" placeholder="Nhập vào sản phẩm cần tìm" aria-label="Search">
                           <button class="search-btn btn btn-outline-success" type="submit">Search</button>
                         </form>
                       </div>
