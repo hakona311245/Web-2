@@ -39,7 +39,7 @@ class Myheader extends HTMLElement{
     
     
                 <div class="cart-container">
-                  <a href="giohang.php" class="cart-link">
+                  <a href="Cart.html" class="cart-link">
                     <div class="icon-wrapper">
                       <i class="fa-solid fa-cart-shopping"></i>
                       <span class="item-count">3</span> <!-- Example item count -->
@@ -71,7 +71,7 @@ class Myheader extends HTMLElement{
                 <div class="navbar-list collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav custom-nav">
                         <li class="nav-item ">
-                            <a href="#" class="nav-link">
+                            <a href="Home.php" class="nav-link">
                                 Home
                             </a>
                         </li>
@@ -86,12 +86,32 @@ class Myheader extends HTMLElement{
                             </a>
                             <ul class="dropdown-menu"
                             aria-labelledby="navbarDropdown">
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
                             </ul>
                         </li>
     
@@ -105,12 +125,32 @@ class Myheader extends HTMLElement{
                             </a>
                             <ul class="dropdown-menu"
                             aria-labelledby="navbarDropdown">
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
-                                <li><a href="#"
-                                    class="dropdown-item">Asus</a></li>
+                            <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
                             </ul>
                         </li>
     
@@ -121,9 +161,32 @@ class Myheader extends HTMLElement{
                                 Laptop Đồ Hoạ
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <li><a href="#" class="dropdown-item">Asus</a></li>
-                                <li><a href="#" class="dropdown-item">Asus</a></li>
-                                <li><a href="#" class="dropdown-item">Asus</a></li>
+                            <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -133,7 +196,7 @@ class Myheader extends HTMLElement{
     
     
             </nav>
-        </div>
+        </div>  
         </div> 
     
     </header>

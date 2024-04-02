@@ -100,44 +100,28 @@
                             <li>
                               <a href="#"
                                 class="dropdown-item">Asus</a>
-                              <ul>
-                                <li>
-                                  <a href="#" class="dropdown-item">Asus Vivobook</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="dropdown-item">Asus Zenbook</a>
-                                </li>
-                              </ul>
+                            
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Acer</a>
+                              
                             </li>
                             <li>
                               <a href="#"
                                 class="dropdown-item">Dell</a>
-                              <ul>
-                                <li>
-                                  <a href="#" class="dropdown-item">Dell Inspiron</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="dropdown-item">Dell Lattitude</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="dropdown-item">Dell XPS</a>
-                                </li>
-                              </ul>
                             </li>
                             <li>
                               <a href="#"
                                 class="dropdown-item">HP</a>
-                              <ul>
-                                <li>
-                                  <a href="#" class="dropdown-item">HP Probook</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="dropdown-item">HP Envy</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="dropdown-item">HP Pavilion</a>
-                                </li>
-                              </ul>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Lenovo</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">MSI</a>
                             </li>
                         </ul>
                     </li>
@@ -152,12 +136,32 @@
                         </a>
                         <ul class="dropdown-menu"
                         aria-labelledby="navbarDropdown">
-                            <li><a href="#"
-                                class="dropdown-item">Asus</a></li>
-                            <li><a href="#"
-                                class="dropdown-item">Asus</a></li>
-                            <li><a href="#"
-                                class="dropdown-item">Asus</a></li>
+                        <li>
+                              <a href="#"
+                                class="dropdown-item">Asus</a>
+                            
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Acer</a>
+                              
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Dell</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">HP</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Lenovo</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">MSI</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -168,9 +172,32 @@
                             Laptop Đồ Hoạ
                         </a>
                         <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                            <li><a href="#" class="dropdown-item">Asus</a></li>
-                            <li><a href="#" class="dropdown-item">Asus</a></li>
-                            <li><a href="#" class="dropdown-item">Asus</a></li>
+                        <li>
+                              <a href="#"
+                                class="dropdown-item">Asus</a>
+                            
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Acer</a>
+                              
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Dell</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">HP</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">Lenovo</a>
+                            </li>
+                            <li>
+                              <a href="#"
+                                class="dropdown-item">MSI</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -5,15 +5,15 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-body{
+main{
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2a2d34;
+
 }
 .wrapper{
-  position: relative;
+
   max-width: 430px;
   width: 100%;
   background: #fff;
