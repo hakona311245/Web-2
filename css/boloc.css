@@ -58,7 +58,7 @@
 }
 
 .result-button {
-    background-color: #ff0000;
+    background-color: #2b80dd;
     color: white;
     padding: 15px; /* Thay đổi kích thước của nút "Bỏ Chọn" và "Xem Kết Quả" */
     border: none;
@@ -67,12 +67,12 @@
 }
 
 .result-button:hover {
-    background-color: #cc0000;
+    background-color: #2b80dd;
 }
 
 /* CSS để hiển thị các mục đã chọn */
 .selected {
-    background-color: #ff0000 !important;
+    background-color: #2b80dd !important;
     color: white !important;
 }
 

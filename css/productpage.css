@@ -1,12 +1,61 @@
 .page-title{
-    margin: 2rem;
+    margin: 1rem;
     text-decoration: none;
     color: #000000;
     font-size: 32px;
     font-weight: 650;
     text-align: center;
 }
+.brand-page{
+    margin: 1rem;
+    text-decoration: none;
+    color: #000000;
+    font-size: 28px;
+    font-weight: 400;
+    text-align: center;
+}
 
+.filter-button{
+    display: flex;
+    margin-left: 10%;
+}
+.filter-option{
+    margin-left: 10%;
+}
+.browse-tags{
+    display: flex;
+    margin-left:77%;
+}
+
+@media (max-width: 1384px) { /* Adjust breakpoint as needed */
+
+    .filter-button{
+        display: flex;
+        margin-left: 15%;
+    }
+    .filter-option{
+        margin-left: 15%;
+    }
+    .browse-tags{
+        display: flex;
+        margin-left:68%;
+    }
+}
+@media (max-width: 770px) { /* Adjust breakpoint as needed */
+
+    .filter-button{
+        display: flex;
+        margin-left: 44%;
+        margin-bottom: 20px;
+    }
+    .filter-option{
+        margin-left: 2%;
+    }
+    .browse-tags{
+        display: flex;
+        margin-left:36%;
+    }
+}
 .product-container{
     display: flex;
     flex-wrap: wrap;

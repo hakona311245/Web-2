@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/homestyle.css"/>
     <link rel="stylesheet" href="css/header&footer.css"/>
     <link rel="stylesheet" href="css/productpage.css"/>
+    <link rel="stylesheet" href="/css/boloc.css">
 
 </head>
 <body>
@@ -19,6 +20,66 @@
     <div class="page-title">
       LAPTOP GAMING
     </div>
+    <div class="brand-page">
+      Tất cả các hãng
+    </div>
+
+    <!-- Nút chính -->
+
+
+    <button class="button filter-button" id="dropdownButton">Bộ Lọc</button>
+
+    <!-- Các nút con -->
+    <div class="dropdown-content filter-option" id="dropdownContent">
+    
+    <div class="dropdown-item">
+        Kích Thước:
+        <br>
+        <button class="size-button">13.3 inch</button>
+        <button class="size-button">14 inch</button>
+        <button class="size-button">15.6 inch</button>
+        <button class="size-button">16 inch</button>
+        <button class="size-button">17.3 inch</button>
+
+
+        </div>
+
+        <div class="dropdown-item">
+            Nhu Cầu:
+            <br>
+            <button class="usage-button">Laptop Gaming</button>
+            <button class="usage-button">Học tập - Văn phòng</button>
+            <button class="usage-button">Đồ hoạ - Kỹ thuật</button>
+        </div>
+        <div class="dropdown-item">
+            Độ Phân Giải:
+            <br>
+            <button class="resolution-button">Laptop màn Full HD</button>
+            <button class="resolution-button">Laptop màn 2K</button>
+            <button class="resolution-button">Laptop màn 4K</button>
+            <button class="resolution-button">Laptop Độ phân giải khác</button>
+        </div>
+
+        <button class="result-button" id="clearButton">Bỏ Chọn</button>
+        <button class="result-button" id="showResultButton">Xem Kết Quả</button>
+    </div>
+    </div>
+
+  <div class="browse-tags">
+    <span>Sắp xếp theo:</span>
+    <span class="custom-dropdown custom-dropdown--white">
+  <select class="sort-by custom-dropdown__select custom-dropdown__select--white">
+  <option value="price-ascending" data-filter="&sortby=(price:product=asc)">Giá: Tăng dần</option>
+  <option value="price-descending" data-filter="&sortby=(price:product=desc)">Giá: Giảm dần</option>
+  <option value="title-ascending" data-filter="&sortby=(title:product=asc)">Tên: A-Z</option>
+  <option value="title-descending" data-filter="&sortby=(price:product=desc)">Tên: Z-A</option>
+  <option value="created-ascending" data-filter="&sortby=(updated_at:product=desc)">Cũ nhất</option>
+  <option value="created-descending" data-filter="&sortby=(updated_at:product=asc)">Mới nhất</option>
+  <option value="best-selling" data-filter="&sortby=(sold_quantity:product=desc)">Bán chạy nhất</option>
+  <!--<option value="quantity-descending" >Tồn kho: Giảm dần</option>-->
+  </select>
+  </span>
+  </div>
 
     <div class="container product-container">
     
@@ -135,7 +196,7 @@
   <footer-template></footer-template>
 
 
-
+    <script src="/js/boloc.js"></script>
     <script src="js/headerandfooter.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

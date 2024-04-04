@@ -126,6 +126,11 @@ class Myheader extends HTMLElement{
                             <ul class="dropdown-menu"
                             aria-labelledby="navbarDropdown">
                             <li>
+                                  <a href="Laptopgaming.php"
+                                    class="dropdown-item">Tất cả các hãng</a>
+                                
+                                </li>
+                            <li>
                                   <a href="#"
                                     class="dropdown-item">Asus</a>
                                 
