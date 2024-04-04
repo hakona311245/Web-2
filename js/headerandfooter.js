@@ -39,7 +39,7 @@ class Myheader extends HTMLElement{
     
     
                 <div class="cart-container">
-                  <a href="Cart.html" class="cart-link">
+                  <a href="giohang.php" class="cart-link">
                     <div class="icon-wrapper">
                       <i class="fa-solid fa-cart-shopping"></i>
                       <span class="item-count">3</span> <!-- Example item count -->
