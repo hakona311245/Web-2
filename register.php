@@ -1,3 +1,8 @@
+<?php
+  require_once 'includes/config_session.inc.php';
+  require_once 'includes/signup_view.inc.php';
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -17,16 +22,16 @@
     <h2>ĐĂNG KÝ</h2>
     <form action="includes/formhandler.inc.php" method="post">
       <div class="input-box">
-        <input type="text" name="user_name" placeholder="Họ và tên" required>
+        <input type="text" name="user_name" placeholder="Tên đăng nhập">
       </div>
       <div class="input-box">
-        <input type="text" name="user_email" placeholder="Email" required>
+        <input type="text" name="user_email" placeholder="Email">
       </div>
       <div class="input-box">
-        <input type="text" name="user_phone" placeholder="Số điện thoại" required>
+        <input type="text" name="user_phone" placeholder="Số điện thoại">
       </div>
       <div class="input-box">
-        <input type="password" name="user_pwd" placeholder="Password" required>
+        <input type="password" name="user_pwd" placeholder="Password">
       </div>
 
       <div class="input-box button">
@@ -36,6 +41,9 @@
         <h3>Bạn đã có tài khoản? <a href="login.php">Đăng nhập</a></h3>
       </div>
     </form>
+    <?php
+      check_signup_errors();
+    ?>
   </div>
   </main>
 
