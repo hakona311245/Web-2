@@ -7,7 +7,6 @@
     <script src="https://kit.fontawesome.com/8c6957fe62.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/productcard.css"/>
-    <link rel="stylesheet" href="css/homestyle.css"/>
     <link rel="stylesheet" href="css/header&footer.css"/>
     <link rel="stylesheet" href="css/productpage.css"/>
     <link rel="stylesheet" href="/css/boloc.css">
@@ -32,7 +31,7 @@
     <!-- Các nút con -->
     <div class="dropdown-content filter-option" id="dropdownContent">
     
-    <div class="dropdown-item">
+    <div class="dropdown-item filter-item">
         Kích Thước:
         <br>
         <button class="size-button">13.3 inch</button>
@@ -44,14 +43,14 @@
 
         </div>
 
-        <div class="dropdown-item">
+        <div class="dropdown-item filter-item">
             Nhu Cầu:
             <br>
             <button class="usage-button">Laptop Gaming</button>
             <button class="usage-button">Học tập - Văn phòng</button>
             <button class="usage-button">Đồ hoạ - Kỹ thuật</button>
         </div>
-        <div class="dropdown-item">
+        <div class="dropdown-item filter-item">
             Độ Phân Giải:
             <br>
             <button class="resolution-button">Laptop màn Full HD</button>
