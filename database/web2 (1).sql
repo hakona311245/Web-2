@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2024 at 08:17 AM
+-- Generation Time: Apr 09, 2024 at 10:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,18 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `web2`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chinhanh`
---
-
-CREATE TABLE `chinhanh` (
-  `office_id` int(10) NOT NULL,
-  `office_address` varchar(255) NOT NULL,
-  `office_phone` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -91,8 +79,17 @@ CREATE TABLE `sanpham` (
   `RAM` int(11) NOT NULL,
   `brand` varchar(50) NOT NULL,
   `resolution` varchar(255) NOT NULL,
-  `weight` float NOT NULL
+  `weight` float NOT NULL,
+  `hinhanh` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sanpham`
+--
+
+INSERT INTO `sanpham` (`product_id`, `product_name`, `volume`, `price`, `CPU`, `VGA`, `screen_ratio`, `Memory`, `RAM`, `brand`, `resolution`, `weight`, `hinhanh`) VALUES
+(1, 'Asus ROG Zephyrus G15 GA503RM', 15, 28.89, 'Ryzen 9-6900HS', 'Nvidia - RTX 3060 6GB', 15.60, 512, 16, 'Asus', 'màn hình 16:9 2K 240Hz', 2, NULL),
+(2, 'Asus ROG Zephyrus G14 GA402NU', 15, 26.89, 'Ryzen 7-7735HS', 'RTX 4050', 14.00, 512, 16, 'Asus', 'HD 2k', 1.7, NULL);
 
 -- --------------------------------------------------------
 
@@ -104,40 +101,25 @@ CREATE TABLE `taikhoannguoidung` (
   `user_id` int(10) NOT NULL,
   `user_name` varchar(30) NOT NULL,
   `user_pwd` varchar(255) NOT NULL,
-  `user_address` varchar(255) NOT NULL,
+  `user_address` varchar(255) DEFAULT NULL,
   `user_phone` varchar(10) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `user_status` enum('active','banned','non-active') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `taikhoannhanvien`
+-- Dumping data for table `taikhoannguoidung`
 --
 
-CREATE TABLE `taikhoannhanvien` (
-  `staff_id` int(10) NOT NULL,
-  `staff_name` varchar(30) NOT NULL,
-  `staff_pwd` varchar(255) NOT NULL,
-  `staff_address` varchar(255) NOT NULL,
-  `staff_phone` varchar(10) NOT NULL,
-  `staff_email` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `staff_status` enum('active','inactive') DEFAULT 'active',
-  `office_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_address`, `user_phone`, `user_email`, `user_status`, `created_at`) VALUES
+(7, 'Lâm Quang Khôi', '123', NULL, '0909797540', 'lamquangkhoi2016@gmail.com', 'active', '2024-03-30 03:54:30'),
+(8, 'Hồ Đắc Bằng', '123123', NULL, '0909090909', 'Bangbang@gmail.com', 'active', '2024-04-07 05:25:26'),
+(9, 'Lâm Quang K', '$2y$12$PkNNzzb5KKEw3C5fDEMD5.eUywJ.Fn77QZ3EuSbwwfsRDxPrH.S.u', NULL, '0909797541', 'lamquangkhoi@gmail.com', 'active', '2024-04-09 03:44:52');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `chinhanh`
---
-ALTER TABLE `chinhanh`
-  ADD PRIMARY KEY (`office_id`);
 
 --
 -- Indexes for table `chitiethoadon`
@@ -173,21 +155,8 @@ ALTER TABLE `taikhoannguoidung`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `taikhoannhanvien`
---
-ALTER TABLE `taikhoannhanvien`
-  ADD PRIMARY KEY (`staff_id`),
-  ADD KEY `fk_office_id` (`office_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `chinhanh`
---
-ALTER TABLE `chinhanh`
-  MODIFY `office_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `phuongthucthanhtoan`
@@ -199,19 +168,13 @@ ALTER TABLE `phuongthucthanhtoan`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `taikhoannguoidung`
 --
 ALTER TABLE `taikhoannguoidung`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `taikhoannhanvien`
---
-ALTER TABLE `taikhoannhanvien`
-  MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -235,12 +198,6 @@ ALTER TABLE `hoa_don`
 --
 ALTER TABLE `phuongthucthanhtoan`
   ADD CONSTRAINT `phuongthucthanhtoan_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `taikhoannhanvien` (`staff_id`);
-
---
--- Constraints for table `taikhoannhanvien`
---
-ALTER TABLE `taikhoannhanvien`
-  ADD CONSTRAINT `fk_office_id` FOREIGN KEY (`office_id`) REFERENCES `chinhanh` (`office_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
