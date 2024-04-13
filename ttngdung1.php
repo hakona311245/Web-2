@@ -104,7 +104,7 @@
                 <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
                     <h1 class="title-head margin-top-0">Chỉnh sửa thông tin</h1>
                     <div class="containertt">
-                        <form>
+                        <form method="post">
                             <label for="fullname">Họ tên:</label>
                             <input type="text" id="fullname" name="fullname" value="Thành Hưng">
                 
