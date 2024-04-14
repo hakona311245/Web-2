@@ -11241,3 +11241,17 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+.form-control {
+  width: 710px;
+}
+.activebox
+{
+  border-radius: 8px;
+  margin-left: 19px;
+}
+.Status_go{
+  margin-left: 19px;
+}
+.error-message{
+  color:red;
+}

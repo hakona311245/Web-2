@@ -126,6 +126,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 Bảng dữ liệu
                             </div>
                             <div class="card-body">
+                            <div><a href="add_user.php"><i class="fa-solid fa-user-plus"></i></a></div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -140,6 +141,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                     <?php
                                             if(!empty($listUsers)):
