@@ -14,6 +14,10 @@ require_once("function.php");
             $errors ['user_phone']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
         }
 
+        if(empty($filterAll['user_address'])){
+            $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        }
+
         if(empty($filterAll['user_email'])){
             $errors ['user_email']['required'] = 'Email bắt buộc phải nhập'; 
         }else{
@@ -52,6 +56,7 @@ require_once("function.php");
                 'user_email' => $filterAll['user_email'],
                 'user_phone' => $filterAll['user_phone'],
                 'user_pwd' => $filterAll['user_pwd'],
+                'user_address' => $filterAll['user_address'],
                 'created_at' => date('Y-m-d H:i:s'),
                 'user_status' => $filterAll['user_status'],
             ];
@@ -138,6 +143,19 @@ require_once("function.php");
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
+                                                        <input name="user_address" class="form-control" id="inputFirstName" type="text" placeholder="Enter your address" />
+                                                        <label for="inputFirstName">Địa chỉ</label>
+                                                        <?php
+                                                        if (!empty($errors['user_address'])) {
+                                                            echo '<span class="error-message">' . reset($errors['user_address']) . '</span>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
                                                         <input name="user_pwd" class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
                                                         <label for="inputPassword">Password</label>
                                                         <?php echo (!empty($errors['user_pwd']['required'])) ? '<span class="error-message">' . $errors['user_pwd']['required'] . '</span>' : null;?>
@@ -170,7 +188,7 @@ require_once("function.php");
                                                     </div>
                                                 </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><button class="btn btn-primary btn-block" href="">Create Account</button></div>
+                                                <div class="d-grid"><button class="btn btn-primary btn-block" href="">Add Account</button></div>
                                             </div>
                                             
                                         </form>

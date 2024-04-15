@@ -126,7 +126,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 Bảng dữ liệu
                             </div>
                             <div class="card-body">
-                            <div><a href="add_user.php"><i class="fa-solid fa-user-plus"></i></a></div>
+                            <div class="nutthem_user"><a href="add_user.php"><i class="fa-solid fa-user-plus"></i></a></div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -134,6 +134,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                             <th>User Name</th>
                                             <th>Số điện thoại</th>
                                             <th>Địa chỉ email</th>
+                                            <th>Địa chỉ</th>
                                             <th>Password</th>
                                             <th>Trạng thái</th>
                                             <th>Ngày tạo tài khoản</th>
@@ -154,6 +155,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                             <td><?php echo $item['user_name']; ?></td>
                                             <td><?php echo $item['user_phone']; ?></td>
                                             <td><?php echo $item['user_email']; ?></td>
+                                            <td><?php echo $item['user_address']; ?></td>
                                             <td><?php echo $item['user_pwd']; ?></td>
                                             <td><?php echo $item['user_status']; ?></td>
                                             <td><?php echo $item['created_at']; ?></td>
