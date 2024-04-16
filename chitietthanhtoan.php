@@ -86,7 +86,8 @@ if ($result->rowCount() > 0) {
                    <div class="two1"> <p>Email:        <?php echo $email;?></p></div>
                    <div class="two2"> <p>Họ và tên:    <?php echo $username;?></p></div>
                    <div class="two3"> <p>Số điện thoại:<?php echo $userPhone;?></p></div>
-                   <div class="two4"> <p>Địa chỉ:      <?php echo $userAddress;?></p></div> 
+                   <div class="two4"> <p>Địa chỉ: (có thể thay đổi)</p></div>
+                   <input type="text" class="divv1"value="<?php echo $userAddress;?>"> 
                 </div>
             </div>
             <div class="second">
