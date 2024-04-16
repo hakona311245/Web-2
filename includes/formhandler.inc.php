@@ -33,11 +33,19 @@
 
             if($errors){
                 $_SESSION["errors_signup"] = $errors;
+                
+                // $signup_data=[
+                //     "user_name"=>$username,
+                //     "user_email"=>$email,
+                //     "user_phone"=>$phone, 
+                // ];
+                // $_SESSION["signup_data"] = $signup_data;
+                
                 header("Location: ../register.php");
                 die();
             }
 
-            create_user($pdo , $pwd, $username, $email, $phone);
+            create_user($pdo , $password, $username, $email, $phone);
 
             header("Location: ../register.php?signup=success");
             $pdo = null;

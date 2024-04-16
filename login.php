@@ -1,3 +1,7 @@
+<?php
+  require_once 'includes/config_session.inc.php';
+  require_once 'includes/login_view.inc.php';
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -15,12 +19,12 @@
   <main>
   <div class="wrapper">
     <h2>ĐĂNG NHẬP</h2>
-    <form action="includes/formhandler.inc.php" method="post">
+    <form action="includes/login.inc.php" method="post">
       <div class="input-box">
-        <input type="text" name="user_name" placeholder="Tên đăng nhập" required>
+        <input type="text" name="user_name" placeholder="Tên đăng nhập">
       </div>
       <div class="input-box">
-        <input type="password" name="user_pwd" placeholder="Password" required>
+        <input type="password" name="user_pwd" placeholder="Password">
       </div>
 
       <div class="input-box button">
@@ -30,6 +34,10 @@
         <h3>Bạn chưa có tài khoản? <a href="register.php">Đăng kí</a></h3>
       </div>
     </form>
+    <?php
+      check_login_errors();
+    ?>
+
   </div>
   </main>
 

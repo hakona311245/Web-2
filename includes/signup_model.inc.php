@@ -30,6 +30,7 @@ function set_user(object $pdo , string $pwd, string $username, string $email, st
     $stmt -> bindParam(":username", $username);
     $stmt -> bindParam(":email", $email);
     $stmt -> bindParam(":phone", $phone);
+    // $stmt -> bindParam(":pwd", $pwd);
     $stmt -> bindParam(":pwd", $hashedPwd);
     $stmt -> execute();
 
