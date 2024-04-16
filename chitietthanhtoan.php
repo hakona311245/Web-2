@@ -1,4 +1,67 @@
-<!DOCTYPE html>
+<?php
+const _HOST = 'localhost';
+const _DB = 'web2';
+const _USER = 'root';
+const _PASS = '';
+
+try{
+    if(class_exists('PDO')){
+        $dsn = 'mysql:dbname='._DB.';host='._HOST;
+
+        $options = [
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAME utf8', //set utf8
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION //Tạo thông báo ra ngoại lệ khi gặp lỗi
+        ];
+        $conn = new PDO($dsn, _USER, _PASS);
+    }
+
+}catch(Exception $exp){
+    echo $exp -> getMessage().'<br>';
+    echo 'loi';
+    die();
+}
+// email
+$sql = "SELECT user_email FROM taikhoannguoidung WHERE user_id = 10";
+$result = $conn->query($sql);
+if ($result->rowCount() > 0) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $email = $row["user_email"];
+} else {
+    $email = ""; 
+}
+
+
+
+// Thực hiện truy vấn họ và tên
+$sql = "SELECT user_name FROM taikhoannguoidung WHERE user_id = 10";
+$result = $conn->query($sql);
+if ($result->rowCount() > 0) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $username = $row["user_name"];
+} else {
+    $username = ""; 
+}
+
+// số điện thoại
+$sql = "SELECT user_phone FROM taikhoannguoidung WHERE user_id = 10";
+$result = $conn->query($sql);
+if ($result->rowCount() > 0) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $userPhone = $row["user_phone"];
+} else {
+    $userPhone = ""; 
+}
+
+//địa chỉ
+$sql = "SELECT user_address FROM taikhoannguoidung WHERE user_id = 10";
+$result = $conn->query($sql);
+if ($result->rowCount() > 0) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $userAddress = $row["user_address"];
+} else {
+    $userAddress = ""; 
+}
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,18 +81,16 @@
             <div class="first">
                 <div class="one">
                     <div class="title"><h2 class="one-one">Thông tin nhận hàng</h2></div>
-                    <div>
-                        <a href="">
-                            <i class="fa-regular fa-circle-user"></i>
-                        <span>Đăng nhập</span>
-                        </a>
-                    </div>
                 </div>
                 <div class="two">
-                    <div class="two1"><input class="divv1" type="email" placeholder="Email"></div>
-                    <div class="two2"><input class="divv2" type="text" placeholder="Họ và tên"></div>
-                    <div class="two3"><input class="divv3" type="tel" placeholder="Số điện thoại"></div>
-                    <div class="two4"><input class="divv4" type="text" placeholder="Địa chỉ"></div>
+                    <h3>Email:</h3>
+                    <div class="two1"><input class="divv1" type="email" value="<?php echo $email; ?>"></div>
+                    <h3>Họ và tên:</h3>
+                    <div class="two2"><input class="divv2" type="text" value="<?php echo $username;?>"></div>
+                    <h3>Số điện thoại:</h3>
+                    <div class="two3"><input class="divv3" type="tel" value="<?php echo $userPhone;?>"></div>
+                    <h3>Địa chỉ:</h3>
+                    <div class="two4"><input class="divv4" type="text" value="<?php echo $userAddress;?>"></div>
                 </div>
             </div>
             <div class="second">
