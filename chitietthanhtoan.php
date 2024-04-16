@@ -83,14 +83,10 @@ if ($result->rowCount() > 0) {
                     <div class="title"><h2 class="one-one">Thông tin nhận hàng</h2></div>
                 </div>
                 <div class="two">
-                    <h3>Email:</h3>
-                    <div class="two1"><input class="divv1" type="email" value="<?php echo $email; ?>"></div>
-                    <h3>Họ và tên:</h3>
-                    <div class="two2"><input class="divv2" type="text" value="<?php echo $username;?>"></div>
-                    <h3>Số điện thoại:</h3>
-                    <div class="two3"><input class="divv3" type="tel" value="<?php echo $userPhone;?>"></div>
-                    <h3>Địa chỉ:</h3>
-                    <div class="two4"><input class="divv4" type="text" value="<?php echo $userAddress;?>"></div>
+                   <div class="two1"> <p>Email:        <?php echo $email;?></p></div>
+                   <div class="two2"> <p>Họ và tên:    <?php echo $username;?></p></div>
+                   <div class="two3"> <p>Số điện thoại:<?php echo $userPhone;?></p></div>
+                   <div class="two4"> <p>Địa chỉ:      <?php echo $userAddress;?></p></div> 
                 </div>
             </div>
             <div class="second">
