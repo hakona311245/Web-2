@@ -87,7 +87,11 @@ if ($result->rowCount() > 0) {
                    <div class="two2"> <p>Họ và tên:    <?php echo $username;?></p></div>
                    <div class="two3"> <p>Số điện thoại:<?php echo $userPhone;?></p></div>
                    <div class="two4"> <p>Địa chỉ: (có thể thay đổi)</p></div>
-                   <input type="text" class="divv1"value="<?php echo $userAddress;?>"> 
+                   <form action="includes/formhandler1.inc.php" method="post">
+                        <div class="input-box">
+                            <input class="divv1" type="text" name="user_address" placeholder="your address" value="<?php echo $userAddress;?>">
+                        </div>
+                   </form>
                 </div>
             </div>
             <div class="second">
@@ -160,7 +164,9 @@ if ($result->rowCount() > 0) {
         </div>
         <div class="dathang">
             <div class="dathang1"><a href="">Quay về giỏ hàng</a></div>
-            <div class="dathang2"><button type="button" class="dathang3">Đặt hàng</button></div>
+           <form action="includes/formhandler1.inc.php" method="post">
+           <div class="dathang2"><button type="button" class="dathang3">Đặt hàng</button></div>
+           </form>
         </div>
     </aside>
 </div>
