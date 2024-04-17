@@ -61,3 +61,16 @@
         header("Location:../register.php");
         die();
     }
+    ?>
+
+<?php
+        if(isset($_POST['add'])){
+        $useraddressofficial = $_POST['user_address_official'];
+
+    if($conn-> query("INSERT INTO hoa_don(user_address_official) VALUE(N'$useraddressofficial')")){
+        echo"Đặt hàng thành công!";
+    }else{
+        echo"Đặt hàng không thành công!";
+    }
+ }
+?>

@@ -20,47 +20,32 @@ try{
     echo 'loi';
     die();
 }
-// email
-$sql = "SELECT user_email FROM taikhoannguoidung WHERE user_id = 10";
-$result = $conn->query($sql);
-if ($result->rowCount() > 0) {
-    $row = $result->fetch(PDO::FETCH_ASSOC);
+
+// Lấy thông tin người dùng từ cơ sở dữ liệu
+$user_id = 10; // Giả sử bạn muốn lấy thông tin cho user_id = 10
+
+// Thực hiện truy vấn để lấy thông tin người dùng từ bảng taikhoannguoidung
+$sql = "SELECT * FROM taikhoannguoidung WHERE user_id = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+
+// Lấy dữ liệu từ kết quả truy vấn
+if ($stmt->rowCount() > 0) {
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Gán giá trị vào các biến tương ứng
     $email = $row["user_email"];
-} else {
-    $email = ""; 
-}
-
-
-
-// Thực hiện truy vấn họ và tên
-$sql = "SELECT user_name FROM taikhoannguoidung WHERE user_id = 10";
-$result = $conn->query($sql);
-if ($result->rowCount() > 0) {
-    $row = $result->fetch(PDO::FETCH_ASSOC);
     $username = $row["user_name"];
-} else {
-    $username = ""; 
-}
-
-// số điện thoại
-$sql = "SELECT user_phone FROM taikhoannguoidung WHERE user_id = 10";
-$result = $conn->query($sql);
-if ($result->rowCount() > 0) {
-    $row = $result->fetch(PDO::FETCH_ASSOC);
     $userPhone = $row["user_phone"];
+    $userAddress = $row["user_address"];
+    // Gán giá trị user_id để sử dụng làm khóa ngoại
+    $user_id_foreign_key = $row["user_id"];
 } else {
-    $userPhone = ""; 
+    // Không tìm thấy người dùng với user_id tương ứng
+    // Xử lý tùy ý, ví dụ: thông báo lỗi hoặc thực hiện hành động phù hợp
 }
 
-//địa chỉ
-$sql = "SELECT user_address FROM taikhoannguoidung WHERE user_id = 10";
-$result = $conn->query($sql);
-if ($result->rowCount() > 0) {
-    $row = $result->fetch(PDO::FETCH_ASSOC);
-    $userAddress = $row["user_address"];
-} else {
-    $userAddress = ""; 
-}
 ?>
 <html lang="en">
 <head>
@@ -87,11 +72,15 @@ if ($result->rowCount() > 0) {
                    <div class="two2"> <p>Họ và tên:    <?php echo $username;?></p></div>
                    <div class="two3"> <p>Số điện thoại:<?php echo $userPhone;?></p></div>
                    <div class="two4"> <p>Địa chỉ: (có thể thay đổi)</p></div>
-                   <form action="includes/formhandler1.inc.php" method="post">
-                        <div class="input-box">
-                            <input class="divv1" type="text" name="user_address" placeholder="your address" value="<?php echo $userAddress;?>">
-                        </div>
+                   <!--- form --->
+                   <form action="includes/kiemtraform.php" method="post">
+    <div class="input-box">
+        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+        <input class="divv1" type="text" name="user_address_official" placeholder="Your address" value="<?php echo $userAddress;?>">
+    </div>
+    <div class="dathang2"><button type="submit" name="add" class="dathang3">Đặt hàng</button></div>
                    </form>
+
                 </div>
             </div>
             <div class="second">
@@ -164,9 +153,6 @@ if ($result->rowCount() > 0) {
         </div>
         <div class="dathang">
             <div class="dathang1"><a href="">Quay về giỏ hàng</a></div>
-           <form action="includes/formhandler1.inc.php" method="post">
-           <div class="dathang2"><button type="button" class="dathang3">Đặt hàng</button></div>
-           </form>
         </div>
     </aside>
 </div>
