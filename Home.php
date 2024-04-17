@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+  require_once("");
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +13,7 @@
     <link rel="stylesheet" href="css/header&footer.css"/>
 </head>
 <body>
+  <!-- php chạy điều kiện cho header và footer sau khi kiểm tra session -->
   <header-template></header-template>
     <main>
 
