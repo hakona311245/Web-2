@@ -189,9 +189,9 @@ require_once("function.php");
                                                 </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Add Account</button></div>
-                                            </div>
-                                            
+                                            </div>                                          
                                         </form>
+                                        <a  href="index.php">Trở về</a>
                                     </div>
                         
                                 </div>

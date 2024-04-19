@@ -27,12 +27,12 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <!-- <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
-            </form>
+            </form> -->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -56,64 +56,13 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách khách hàng
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <a class="nav-link" href="index.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Danh sách sản phẩm
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.php">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.php">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.php">Login</a>
-                                            <a class="nav-link" href="register.php">Register</a>
-                                            <a class="nav-link" href="password.php">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.php">401 Page</a>
-                                            <a class="nav-link" href="404.php">404 Page</a>
-                                            <a class="nav-link" href="500.php">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
 
-                    </div>
+
+
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -159,8 +108,8 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                             <td><?php echo $item['user_pwd']; ?></td>
                                             <td><?php echo $item['user_status']; ?></td>
                                             <td><?php echo $item['created_at']; ?></td>
-                                            <td><a href="" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
+                                            <td><a href="update_user.php?user_id=<?php echo $item['user_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="delete_user.php?user_id=<?php echo $item['user_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                         <?php 
                                             endforeach;

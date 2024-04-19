@@ -11243,6 +11243,8 @@ body {
 }
 .form-control {
   width: 710px;
+  text-align: left;
+
 }
 .activebox
 {
@@ -11259,3 +11261,4 @@ body {
   margin-left: 5px;
   margin-bottom: 15px;
 }
+

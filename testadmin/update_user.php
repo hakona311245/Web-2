@@ -1,3 +1,138 @@
+<?php
+
+require_once("databaseadmin.php");
+require_once("session.php");
+require_once("function.php");
+
+
+
+$filterAll = filter();
+
+if(!empty($filterAll['user_id'])){
+    $userID = $filterAll['user_id'];
+    //ktra xem userid co ton tai trong database khong
+    //neu ton tai thi => lay ra thong tin nguoi dung
+    //neu khong ton tai thi => chuyen huong ve trang list
+
+    $userDetail=oneRaw("SELECT * FROM taikhoannguoidung WHERE user_id = $userID");
+    if(!empty($userDetail)){
+        //ton tai
+        setFlashData('user_detail',$userDetail);
+    }
+    else {
+        redirect('index.php');
+    }
+}
+    if(isPost()){
+        $filterAll = filter();
+        $errors = [];
+ 
+        if(empty($filterAll['user_name'])){
+            $errors ['user_name']['required'] = 'Họ bắt buộc phải nhập'; 
+        }
+    
+        if(empty($filterAll['user_phone'])){
+            $errors ['user_phone']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
+        }
+
+        if(empty($filterAll['user_address'])){
+            $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        }
+
+        if(empty($filterAll['user_email'])){
+            $errors ['user_email']['required'] = 'Email bắt buộc phải nhập'; 
+        }else{
+            $email = $filterAll['user_email'];
+            $sql = "SELECT user_id FROM taikhoannguoidung WHERE user_email = '$email' AND id <> $userID" ;//AND id <> $userID"
+            if(getRows($sql) > 0){
+                $errors['user_email']['unique'] = 'Email đã được đăng kí';
+            }
+        }
+
+        if(!empty($filterAll['user_pwd'])){
+            if(empty($filterAll['user_cfpwd'])){
+                $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
+            }else{
+                if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
+                    $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
+                }
+            }
+        }
+        // if(empty($filterAll['user_pwd'])){
+        //     $errors ['user_pwd']['required'] = 'Pass bắt buộc phải nhập'; 
+        // }else{
+        //     if(strlen($filterAll['user_pwd']) < 8){
+        //         $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
+        //     }
+        // }
+    
+        // if(empty($filterAll['user_cfpwd'])){
+        //     $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
+        // }else{
+        //     if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
+        //         $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
+        //     }
+        // }
+
+        // echo '<pre>';
+        // print_r($errors);
+        // echo '</pre>';
+        if(empty($errors)){
+            $dataUpdate = [
+                'user_name' => $filterAll['user_name'],
+                'user_email' => $filterAll['user_email'],
+                'user_phone' => $filterAll['user_phone'],
+                'user_address' => $filterAll['user_address'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'user_status' => $filterAll['user_status'],
+            ];
+
+            if(!empty($filterAll['user_pwd'])){
+                $dataUpdate = [
+                    'user_name' => $filterAll['user_name'],
+                    'user_email' => $filterAll['user_email'],
+                    'user_phone' => $filterAll['user_phone'],
+                    'user_address' => $filterAll['user_address'],
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'user_status' => $filterAll['user_status'],
+                    'user_pwd' => $filterAll['user_pwd']
+                ];
+                // $dataUpdate['password'] = password_hash($filterAll['user_pwd'],PASSWORD_DEFAULT);
+            }
+
+            $contition ="user_id=$userID";
+            $insertStatus = update('taikhoannguoidung', $dataUpdate,$contition);
+            if($insertStatus){
+                setFlashData('smg','Sửa người dùng thành công!!');
+                setFlashData('smg_type', 'success');
+            }
+            else{
+                setFlashData('smg','Hệ thống đang lỗi vui lòng thử lại sau');
+                setFlashData('smg_type', 'danger');
+            }
+        }else{
+            setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu!');
+            setFlashData('smg_type', 'danger');
+            setFlashData('errors', $errors);
+            setFlashData('old', $filterAll);
+        }
+        redirect('update_user.php?user_id='.$userID.'');
+    }
+    $smg = getFlashData('smg');
+    $smg_type = getFlashData('smg_type');
+    $errors = getFlashData('errors');
+    $old = getFlashData('old');
+    $userDatail = getFlashData('user_detail');
+    if(!empty($userDatail)){
+        $old = $userDatail;
+    }
+ 
+    // echo '<pre>';
+    // print_r($userDatail);
+    // echo '</pre>';
+    //     // echo $filterAll['id'];
+    
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -9,7 +144,7 @@
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-primary">
+    <body class="">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -17,49 +152,106 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Update Account</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form method="post">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
-                                                        <label for="inputFirstName">First name</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
-                                                        <label for="inputLastName">Last name</label>
+                                                        <input style="text-align: left;" name="user_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" 
+                                                        value="<?php echo old('user_name',$old);?>"/>
+                                                         <label for="inputFirstName">Full name</label>
+                                                         <?php echo (!empty($errors['user_name']['required'])) ? '<span class="error-message">' . $errors['user_name']['required'] . '</span>' : null;
+                                                        ?>                                               
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                           <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input style="text-align: left;" name="user_phone" class="form-control" id="inputFirstName" type="text" placeholder="Enter your phonenumber" 
+                                                        value="<?php echo old('user_phone',$old);?>" />
+                                                        <label for="inputFirstName">Số điện thoại</label>
+                                                        <?php echo (!empty($errors['user_phone']['required'])) ? '<span class="error-message">' . $errors['user_phone']['required'] . '</span>' : null;?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-floating mb-3">
+                                                <input name="user_email" class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
                                                 <label for="inputEmail">Email address</label>
+                                            </div> -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input name="user_email" class="form-control" id="inputFirstName" type="email" placeholder="Enter your Email" value="
+                                                        <?php echo old('user_email',$old);
+                                                        ?>"
+                                                        />
+                                                        <label for="inputFirstName">Email</label>
+                                                        <?php
+                                                        if (!empty($errors['user_email'])) {
+                                                            echo '<span class="error-message">' . reset($errors['user_email']) . '</span>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-                                                        <label for="inputPassword">Password</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                        <label for="inputPasswordConfirm">Confirm Password</label>
+                                                        <input style="text-align: left;" name="user_address" class="form-control" id="inputFirstName" type="text" placeholder="Enter your address" 
+                                                        value="<?php echo old('user_address',$old);?>"/>
+                                                        <label for="inputFirstName">Địa chỉ</label>
+                                                        <?php
+                                                        if (!empty($errors['user_address'])) {
+                                                            echo '<span class="error-message">' . reset($errors['user_address']) . '</span>';
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input style="text-align: left;" name="user_pwd" class="form-control" id="inputPassword" type="password" placeholder="Password(Không nhập nếu không thay đổi)"/>
+                                                        <label for="inputPassword">Mật khẩu (Không nhập nếu không thay đổi)</label>
+                                                        <?php echo (!empty($errors['user_pwd']['required'])) ? '<span class="error-message">' . $errors['user_pwd']['required'] . '</span>' : null;?>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input style="text-align: left;" name="user_cfpwd" class="form-control" id="inputPasswordConfirm" type="password" placeholder="Password(Không nhập nếu không thay đổi)"/>
+                                                        <label for="inputPasswordConfirm">Nhập lại mật khẩu</label>
+                                                        <?php
+                                                        if (!empty($errors['user_cfpwd'])) {
+                                                            echo '<span class="error-message">' . reset($errors['user_cfpwd']) . '</span>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                  </div>
+                                                  <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <div class="Status_go">Status:</div>
+                                                        <select class="activebox" name="user_status" id="">
+                                                            <option value="active">Active</option>
+                                                            <option value="banned">Banned</option>
+                                                        </select>
+                                                    </div>
+                                                    </div>
+                                                </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.php">Create Account</a></div>
+                                            <input type="hidden" name="user_id" value="<?php echo $userID ?>">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block" href="">Update Account</button>
+                                            </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.php">Have an account? Go to login</a></div>
-                                    </div>
+                        
                                 </div>
                             </div>
                         </div>
