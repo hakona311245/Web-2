@@ -63,5 +63,18 @@ function redirect($path = 'index.php'){
 function old($fileName, $oldData, $default = null){
     return (!empty($oldData[$fileName])) ? $oldData[$fileName] : $default;
 }
-
+function isLogin(){
+    $checkLogin = false;
+    if(getSession('user_username')){
+        $userLogin = getSession('user_username');
+    
+        $queryToken = oneRaw("SELECT user_name FROM taikhoannguoidung WHERE user_name = '$userLogin'");
+        if(!empty($queryToken)){
+            $checkLogin = true;
+        }else{
+            removeSession('user_username');
+        }
+    }   
+    return $checkLogin;
+}
 ?>

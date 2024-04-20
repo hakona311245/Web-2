@@ -5,8 +5,12 @@ require_once("./testadmin/session.php");
 require_once("./testadmin/function.php");
 
 session_start();
-$user_name = $_SESSION['user_username'];
-$userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name'");
+if(isLogin())
+{
+  $user_name = $_SESSION['user_username'];
+  $userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name'");
+}
+
 // removeSession('user_username');
 
 // echo '<pre>';
@@ -62,9 +66,10 @@ $userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name
                         echo $item['user_name'];
                         echo '</button>';
                         echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
-                        echo     '<li><a class="dropdown-item" href="login.php">Đăng nhập</a></li>';
-                        echo    '<li><a class="dropdown-item" href="register.php">Đăng Ký</a></li>';
+                        echo     '<li><a class="dropdown-item" href="ttngdung.php">Thông tin người dùng</a></li>';
+                        echo     '<li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>';
             }else{
+            
                 echo '</button>';
                         echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
                         echo     '<li><a class="dropdown-item" href="login.php">Đăng nhập</a></li>';
