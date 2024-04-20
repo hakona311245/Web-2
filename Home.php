@@ -1,6 +1,14 @@
 <?php
+  require_once("./testadmin/databaseadmin.php");
   session_start();
-  echo $_SESSION['user_username'];
+  $userName=  $_SESSION['user_username'];
+  $userDetail = oneRaw("SELECT * FROM taikhoannguoidung WHERE user_name = '$userName'");
+  // echo '<pre>';
+  // print_r($userDetail);
+  // echo '</pre>';
+  echo $userDetail['user_name'];
+
+  // echo $userName;
 ?>
 <html lang="en">
 <head>
