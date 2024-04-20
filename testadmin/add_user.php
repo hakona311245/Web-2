@@ -191,7 +191,9 @@ require_once("function.php");
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Add Account</button></div>
                                             </div>                                          
                                         </form>
-                                        <a  href="index.php">Trở về</a>
+                                        <br>
+                                        <a style="text-align : center;" class="nutdidetrove"  href="index.php"><button class="trovenao" style="border-radius :8px; color :black;">Trở về</button></a>
+                                        <br>
                                     </div>
                         
                                 </div>

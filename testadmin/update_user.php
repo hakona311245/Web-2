@@ -43,21 +43,21 @@ if(!empty($filterAll['user_id'])){
             $errors ['user_email']['required'] = 'Email bắt buộc phải nhập'; 
         }else{
             $email = $filterAll['user_email'];
-            $sql = "SELECT user_id FROM taikhoannguoidung WHERE user_email = '$email' AND id <> $userID" ;//AND id <> $userID"
+            $sql = "SELECT user_id FROM taikhoannguoidung WHERE user_email = '$email' AND user_id <> $userID" ;//AND id <> $userID"
             if(getRows($sql) > 0){
                 $errors['user_email']['unique'] = 'Email đã được đăng kí';
             }
         }
 
-        if(!empty($filterAll['user_pwd'])){
-            if(empty($filterAll['user_cfpwd'])){
-                $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
-            }else{
-                if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
-                    $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
-                }
-            }
-        }
+        // if(!empty($filterAll['user_pwd'])){
+        //     if(empty($filterAll['user_cfpwd'])){
+        //         $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
+        //     }else{
+        //         if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
+        //             $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
+        //         }
+        //     }
+        // }
         // if(empty($filterAll['user_pwd'])){
         //     $errors ['user_pwd']['required'] = 'Pass bắt buộc phải nhập'; 
         // }else{
@@ -105,18 +105,21 @@ if(!empty($filterAll['user_id'])){
             if($insertStatus){
                 setFlashData('smg','Sửa người dùng thành công!!');
                 setFlashData('smg_type', 'success');
+                
             }
             else{
                 setFlashData('smg','Hệ thống đang lỗi vui lòng thử lại sau');
                 setFlashData('smg_type', 'danger');
+                
             }
         }else{
             setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu!');
             setFlashData('smg_type', 'danger');
             setFlashData('errors', $errors);
             setFlashData('old', $filterAll);
+            redirect('update_user.php?user_id='.$userID.'');
         }
-        redirect('update_user.php?user_id='.$userID.'');
+        
     }
     $smg = getFlashData('smg');
     $smg_type = getFlashData('smg_type');
@@ -153,6 +156,11 @@ if(!empty($filterAll['user_id'])){
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Update Account</h3></div>
+                                    <?php
+                                        if(!empty($smg)){
+                                            getSmg($smg, $smg_type);
+                                        }
+                                    ?> 
                                     <div class="card-body">
                                         <form method="post">
                                             <div class="row mb-3">
@@ -249,9 +257,10 @@ if(!empty($filterAll['user_id'])){
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Update Account</button>
                                             </div>
                                             </div>
+                                               
                                         </form>
+                                        
                                     </div>
-                        
                                 </div>
                             </div>
                         </div>

@@ -26,12 +26,10 @@ class Myheader extends HTMLElement{
                           <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="fa-solid fa-user" style="color: #ffffff;"></i>
-                              <?php
-                              echo $_SESSION["user_username"];                            
-                              ?>
+                              <?php echo $item['user_name'] ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <li><a class="dropdown-item" href="login.php">Đăng Nhập</a></li>
+                              <li><a class="dropdown-item" href="login.php">Đăng nhập</a></li>
                               <li><a class="dropdown-item" href="register.php">Đăng Ký</a></li>
                             </ul>
                           </div>

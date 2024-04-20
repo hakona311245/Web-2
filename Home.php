@@ -1,6 +1,26 @@
 <?php
+
+require_once("./testadmin/databaseadmin.php");
+require_once("./testadmin/session.php");
+require_once("./testadmin/function.php");
+
 session_start();
-require_once('includes/product_view.php');
+if(isLogin())
+{
+  $user_name = $_SESSION['user_username'];
+  $userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name'");
+}
+
+// removeSession('user_username');
+
+// echo '<pre>';
+// print_r($userInfo);
+// echo '</pre>';
+//  if(!empty($userInfo)):
+//   foreach($userInfo as $item):  
+
+
+
 ?>
 <html lang="en">
 <head>
@@ -15,7 +35,221 @@ require_once('includes/product_view.php');
 </head>
 <body>
   <!-- php chạy điều kiện cho header và footer sau khi kiểm tra session -->
-  <header-template></header-template>
+  <header>
+        <div class="header">
+            <div class="logo-container">
+    
+                <div class="logo-row">
+                    <a href="Home.php"><img width="100" height="123" src="img/logopng.png"></a>
+                </div>
+                
+                <div class="container my-4">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-8">
+                        <form class="d-flex" action="search.php" method="post">
+                          <input class="form-control me-2" name="usersearch" type="search" placeholder="Nhập vào sản phẩm cần tìm" aria-label="Search">
+                          <button class="search-btn btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                            
+                <div class="account-row">
+                    <div class="container my-4">
+                        <div class="d-flex justify-content-end">
+                          <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+                              <?php 
+            if(!empty($userInfo)){
+                foreach($userInfo as $item)
+                        echo $item['user_name'];
+                        echo '</button>';
+                        echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                        echo     '<li><a class="dropdown-item" href="ttngdung.php">Thông tin người dùng</a></li>';
+                        echo     '<li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>';
+            }else{
+            
+                echo '</button>';
+                        echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                        echo     '<li><a class="dropdown-item" href="login.php">Đăng nhập</a></li>';
+                        echo    '<li><a class="dropdown-item" href="register.php">Đăng Ký</a></li>';
+            }
+?>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>    
+                </div>
+    
+    
+                <div class="cart-container">
+                  <a href="giohang.php" class="cart-link">
+                    <div class="icon-wrapper">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                      <span class="item-count">3</span> <!-- Example item count -->
+                    </div>
+                    <span class="cart-text">Giỏ hàng</span>
+                  </a>
+                </div>
+                
+                
+                
+    
+    
+    
+                
+            </div>
+    
+            <div class="navigation-container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button 
+                type = "button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                class="navbar-toggler">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-list collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav custom-nav">
+                        <li class="nav-item ">
+                            <a href="Home.php" class="nav-link">
+                                Home
+                            </a>
+                        </li>
+    
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"
+                            id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            >
+                                Laptop Văn Phòng
+                            </a>
+                            <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdown">
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
+                            </ul>
+                        </li>
+    
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"
+                            id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            >
+                                Laptop Gaming
+                            </a>
+                            <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdown">
+                            <li>
+                                  <a href="Laptopgaming.php"
+                                    class="dropdown-item">Tất cả các hãng</a>
+                                
+                                </li>
+                            <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
+                            </ul>
+                        </li>
+    
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               id="navbarDropdownGraphics" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Laptop Đồ Hoạ
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                            <li>
+                                  <a href="#"
+                                    class="dropdown-item">Asus</a>
+                                
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Acer</a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Dell</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">HP</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">Lenovo</a>
+                                </li>
+                                <li>
+                                  <a href="#"
+                                    class="dropdown-item">MSI</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+    
+    
+    
+    
+            </nav>
+        </div>  
+        </div> 
+    
+    </header>
     <main>
 
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -102,7 +336,7 @@ require_once('includes/product_view.php');
     
       <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
    
-        
+    
     </div>
     </a>
     <div class="product-info">
@@ -445,5 +679,4 @@ require_once('includes/product_view.php');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
     
-
 </html>
