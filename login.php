@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="css/header&footer.css"/>
   </head>
-
-
 <body>
   <header-template></header-template>
   <main>

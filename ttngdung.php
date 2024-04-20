@@ -1,6 +1,21 @@
 <?php
 
+require_once("./testadmin/databaseadmin.php");
+require_once("./testadmin/session.php");
+require_once("./testadmin/function.php");
+
+session_start();
+$user_name = $_SESSION['user_username'];
+$userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name'");
+
+// echo '<pre>';
+// print_r($userInfo);
+// echo '</pre>';
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,17 +32,20 @@
                 <div class="col-xs-12 col-sm-12 col-lg-3 col-left-ac">
                     <div class="block-account">
                         <h5 class="title-account">Trang tài khoản</h5>
-                        <p>Xin chào, <span style="color:#141414;">Thành Hưng</span>&nbsp;!</p>
+                        <?php if(!empty($userInfo)):
+                                foreach($userInfo as $item):  
+                         ?>
+                        <p>Xin chào, <span style="color:#141414;"><?php echo $item['user_name']; ?></span>&nbsp;!</p>
                         <ul>
                             <li>
                                 <a disabled="disabled" href="ttngdung.php" class="title-info active" title="Thông tin tài khoản" >Thông tin tài khoản</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a class="title-info" href="ttngdung1.php" title="Đơn hàng của bạn">Thay đổi thông tin</a>
                             </li>
                             <li>
                                 <a class="title-info" href="ttngdung2.php" title="Đổi mật khẩu">Đổi mật khẩu</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a class="title-info" href="login.php" title="Đăng xuất">Đăng xuất</a>
                             </li>
@@ -37,19 +55,17 @@
                 <div class="col-xs-12 col-sm-12 col-lg-9 col-right-ac">
                     <h1 class="title-head margin-top-0">Thông tin tài khoản</h1>
                     <div class="form-signup name-account m992">
-                        <p><strong>Họ tên:</strong> Thành Hưng</p>
-                        <p> <strong>Email:</strong> thanhhungnguyen8204@gmail.com</p>
+                        <p><strong>Họ tên:</strong><?php echo $item['user_name']; ?></p>
+                        <p> <strong>Email:</strong><?php echo $item['user_email']; ?></p>
 
-                        <p> <strong>Điện thoại:</strong> 0376640875 </p>
+                        <p> <strong>Điện thoại:</strong><?php echo $item['user_phone']; ?></p>
 
-
-                        <p><strong>Công ty:</strong> Đại học Sài Gòn</p>
-
-
-                        <p><strong>Địa chỉ :</strong> Ấp 1B xã vĩnh lộc A huyện Bình Chánh, Huyện Bình Chánh, TP Hồ Chí Minh, Việt Nam</p>
+                        <p><strong>Địa chỉ :</strong><?php echo $item['user_address']; ?></p>
 
                     </div>
-
+                                   <?php endforeach; 
+                                        endif;
+                                        ?>
                 </div>
             </div>
         </div>
