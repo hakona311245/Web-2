@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once ('includes/product_view.php');
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,7 +68,7 @@
     </div>
 
   <div class="browse-tags">
-    <span>Sắp xếp theo:</span>
+    <span>Sắp xếp theo</span>
     <span class="custom-dropdown custom-dropdown--white">
   <select class="sort-by custom-dropdown__select custom-dropdown__select--white">
   <option value="price-ascending" data-filter="&sortby=(price:product=asc)">Giá: Tăng dần</option>
@@ -81,38 +85,14 @@
 
     <div class="container product-container">
     
-    
-    <div class="product-card">
-    <a href="your-target-page-url.html" class="product-link">
-    <div class="product-img-container">
-
-      <!-- echo -->
-      <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
-   
-        
-    </div>
-    </a>
-    <div class="product-info">
-    <a href="your-target-page-url.html" class="product-link">
-        <div class="product-name">Laptop gaming ASUS ROG Zephyrus G14 GA403UU QS101W</div>
-        </a>
-        <div class="product-specs">
-            <div>CPU: i7-13620H</div>
-            <div>GPU: RTX 4070</div>
-            <div>RAM: 16 GB</div>
-            <div>SSD: 512 GB</div>
-            <div>Màn: 15.6" FHD</div>
-            <div>RAM: 16 GB</div>
-        </div>
-      
-        <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
-    </div>
-    </div>
-
-
+<?php
+  show_product(2, $pdo);
+  show_product(1, $pdo);
+?> 
 
     </div>
- 
+  
+
 
     </main>
   <footer-template></footer-template>

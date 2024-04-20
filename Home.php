@@ -1,6 +1,6 @@
 <?php
-  session_start();
-  echo $_SESSION['user_username'];
+session_start();
+require_once('includes/product_view.php');
 ?>
 <html lang="en">
 <head>

@@ -1,37 +1,42 @@
 <?php
-function show_product($product){
-    echo '<div class="product-card">
-    <a href="your-target-page-url.html" class="product-link">
-    <div class="product-img-container">
+require_once ('includes/dbh.inc.php');
+function show_product(int $productid, object $pdo){
+    // Truy vấn cơ sở dữ liệu để lấy thông tin sản phẩm
+    $query = "SELECT * FROM sanpham WHERE product_id = :productid";
+    $stmt = $pdo -> prepare($query);
+    $stmt -> bindParam(":productid", $productid);
+    $stmt -> execute();
+    $result = $stmt -> fetch(PDO::FETCH_ASSOC);
 
-      <!-- echo -->
-      <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
-   
-        
-    </div>
-    </a>
-    <div class="product-info">
-    <a href="your-target-page-url.html" class="product-link">
-        <div class="product-name">Laptop gaming ASUS ROG Zephyrus G14 GA403UU QS101W</div>
-        </a>
-        <div class="product-specs">
-            <div>CPU: i7-13620H</div>
-            <div>GPU: RTX 4070</div>
-            <div>RAM: 16 GB</div>
-            <div>SSD: 512 GB</div>
-            <div>Màn: 15.6" FHD</div>
-            <div>RAM: 16 GB</div>
+        echo '<div class="product-card">
+        <a href="your-target-page-url.html" class="product-link">
+        <div class="product-img-container">
+          <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
         </div>
-      
-        <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
-    </div>
-    </div>';
+        </a>
+        <div class="product-info">
+        <a href="your-target-page-url.html" class="product-link">
+            <div class="product-name">'.$result["product_name"].'</div>
+            </a>
+            <div class="product-specs">
+                <div>CPU: '.$result["CPU"].'</div>
+                <div>GPU: '.$result["VGA"].'</div>
+                <div>RAM: '.$result["RAM"].'</div>
+                <div>SSD: '.$result["Memory"].'</div>
+                <div>Màn: '.$result["resolution"].'</div>
+                <div>Cân nặng: '.$result["weight"].'</div>
+            </div>
+          
+            <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
+        </div>
+        </div>';
 }
+
 function product_by_command(){
-    if(){
+    if(111){
 
     }
-    if(){
+    if(1){
 
     }
     else{
