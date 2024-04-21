@@ -20,6 +20,8 @@
   }   else{
       header("Location:../search.php");
   }
+
+  require_once ('includes/product_view.php');
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +34,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/homestyle.css"/>
     <link rel="stylesheet" href="css/header&footer.css"/>
+    <link rel="stylesheet" href="css/productcard.css"/>
+    <link rel="stylesheet" href="css/productpage.css"/>
 </head>
     
   <header-template></header-template>
@@ -44,12 +48,32 @@
           echo "</div>";
         }
         else{
+          echo '<div class="container product-container">';
           foreach ($results as $row) {
-            echo "<div>";
-            echo "<h4> htmlspecialchars($row[product_name]) </h4>" ;
-            echo "<p>$row[volume]</p>";
-            echo "</div>";
+            echo '<div class="product-card">
+     <a href="your-target-page-url.html" class="product-link">
+     <div class="product-img-container">
+       <img src="img/productcard/asustuff15.webp" alt="Product Image" class="product-img">
+     </div>
+     </a>
+     <div class="product-info">
+     <a href="your-target-page-url.html" class="product-link">
+         <div class="product-name">'.htmlspecialchars($row["product_name"]).'</div>
+         </a>
+         <div class="product-specs">
+             <div>CPU: '.htmlspecialchars($row["CPU"]).'</div>
+             <div>GPU: '.htmlspecialchars($row["VGA"]).'</div>
+             <div>RAM: '.htmlspecialchars($row["RAM"]).'</div>
+             <div>SSD: '.htmlspecialchars($row["Memory"]).'</div>
+             <div>Màn: '.htmlspecialchars($row["resolution"]).'</div>
+             <div>Cân nặng: '.htmlspecialchars($row["weight"]).'</div>
+         </div>
+       
+         <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
+     </div>
+     </div>';
           }
+          echo '</div>';
         }
       ?>
     </body>

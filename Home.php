@@ -63,13 +63,13 @@ if(isLogin())
                               <?php 
             if(!empty($userInfo)){
                 foreach($userInfo as $item)
-                        echo $item['user_name'];
+                        echo htmlspecialchars($item['user_name']);
                         echo '</button>';
                         echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
                         echo     '<li><a class="dropdown-item" href="ttngdung.php">Thông tin người dùng</a></li>';
                         echo     '<li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>';
             }else{
-            
+                echo "Tài khoản";      
                 echo '</button>';
                         echo   '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
                         echo     '<li><a class="dropdown-item" href="login.php">Đăng nhập</a></li>';
