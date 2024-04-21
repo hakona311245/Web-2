@@ -20,8 +20,6 @@
   }   else{
       header("Location:../search.php");
   }
-
-  require_once ('includes/product_view.php');
 ?>
 
 <!DOCTYPE html>
