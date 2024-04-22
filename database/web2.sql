@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 09:17 AM
+-- Generation Time: Apr 22, 2024 at 09:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,8 +104,9 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`product_id`, `product_name`, `volume`, `price`, `CPU`, `VGA`, `screen_ratio`, `Memory`, `RAM`, `brand`, `resolution`, `weight`, `hinhanh`, `CPU_full`, `VGA_full`, `resolution_full`, `Memory_full`) VALUES
-(1, 'Asus ROG Zephyrus G15 GA503RM', 15, 28.89, 'Ryzen 9-6900HS', 'Nvidia - RTX 3060 6GB', 15.60, 512, 16, 'Asus', 'màn hình 16:9 2K 240Hz', 2, NULL, '', '', '', ''),
-(2, 'Asus ROG Zephyrus G14 GA402NU', 15, 26.89, 'Ryzen 7-7735HS', 'RTX 4050', 14.00, 512, 16, 'Asus', 'HD 2k', 1.7, NULL, '', '', '', '');
+(1, 'Asus ROG Zephyrus G15 GA503RM', 15, 28899100, 'Ryzen 9-6900HS', 'RTX 3060', 15.60, 512, 16, 'Asus', 'màn hình 16:9 2K 240Hz', 2, 'test.jpg', '', '', '', ''),
+(2, 'Asus ROG Zephyrus G14 GA402NU', 15, 26.89, 'Ryzen 7-7735HS', 'RTX 4050', 14.00, 512, 16, 'Asus', 'HD 2k', 1.7, NULL, '', '', '', ''),
+(3, '[value-2]', 0, 0, '[value-5]', '[value-6]', 0.00, 0, 0, 'hú dè', '[value-11]', 0, '[value-13]', '[value-14]', '[value-15]', '[value-16]', '[value-17]');
 
 -- --------------------------------------------------------
 
@@ -136,7 +137,6 @@ INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_addre
 (13, 'Kohi', '$2y$12$Ys630.eaDxInim02Xg0JOOjrC43dTBsjwxjzUVvYAYsXH1B5s8mB6', NULL, '0909797540', 'Lam@gmail.com', 'active', '2024-04-16 00:51:28'),
 (14, 'K', '1', NULL, '0909797540', 'l@gmail.com', 'active', '2024-04-16 01:38:18'),
 (15, 'L', '', NULL, '0487248722', 'K@gmail.com', 'active', '2024-04-16 01:45:30'),
-(16, 'Q', '$2y$12$yFv0gejyCg/2IGpjg2y1oOStDv60/jfmxdniOokw0eHXgLsz9Limi', NULL, '0997975393', 'Q@gmail.com', 'active', '2024-04-16 01:48:12'),
 (17, 'K12', '123456789', '32i2i2i2j2', '0909090909', 'la2a@gmail.com', 'active', '2024-04-15 22:15:36');
 
 --
@@ -203,7 +203,7 @@ ALTER TABLE `phuongthucthanhtoan`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `taikhoannguoidung`
