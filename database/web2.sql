@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 09:05 AM
+-- Generation Time: Apr 22, 2024 at 09:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,6 +44,18 @@ CREATE TABLE `chitiethoadon` (
   `product_id` int(10) NOT NULL,
   `volume` int(11) NOT NULL,
   `price_each` float(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hinhanh`
+--
+
+CREATE TABLE `hinhanh` (
+  `img_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -158,6 +170,13 @@ ALTER TABLE `chitiethoadon`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `hinhanh`
+--
+ALTER TABLE `hinhanh`
+  ADD PRIMARY KEY (`img_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `hoa_don`
 --
 ALTER TABLE `hoa_don`
@@ -227,6 +246,12 @@ ALTER TABLE `address`
 ALTER TABLE `chitiethoadon`
   ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`bill_id`) REFERENCES `hoa_don` (`bill_id`),
   ADD CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `sanpham` (`product_id`);
+
+--
+-- Constraints for table `hinhanh`
+--
+ALTER TABLE `hinhanh`
+  ADD CONSTRAINT `hinhanh_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `sanpham` (`product_id`);
 
 --
 -- Constraints for table `hoa_don`
