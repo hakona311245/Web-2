@@ -136,6 +136,7 @@ require_once ('includes/product_view.php');
 
     }
   }
+  show_product(1, $pdo)
 ?> 
 
     </div>
