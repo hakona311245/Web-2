@@ -1,52 +1,76 @@
 <?php
+// Kích hoạt phiên làm việc
+session_start();
+
+// Khai báo thông tin kết nối đến cơ sở dữ liệu
 const _HOST = 'localhost';
 const _DB = 'web2';
 const _USER = 'root';
 const _PASS = '';
 
-try{
-    if(class_exists('PDO')){
-        $dsn = 'mysql:dbname='._DB.';host='._HOST;
+try {
+    // Kiểm tra lớp PDO có tồn tại không
+    if (class_exists('PDO')) {
+        // Thiết lập chuỗi kết nối
+        $dsn = 'mysql:dbname=' . _DB . ';host=' . _HOST;
 
+        // Thiết lập các tùy chọn cho kết nối PDO
         $options = [
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAME utf8', //set utf8
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION //Tạo thông báo ra ngoại lệ khi gặp lỗi
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', // Thay đổi 'SET NAME utf8' thành 'SET NAMES utf8'
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Kích hoạt thông báo lỗi dưới dạng ngoại lệ
         ];
-        $conn = new PDO($dsn, _USER, _PASS);
+
+        // Khởi tạo kết nối PDO
+        $conn = new PDO($dsn, _USER, _PASS, $options);
     }
-
-}catch(Exception $exp){
-    echo $exp -> getMessage().'<br>';
-    echo 'loi';
-    die();
+} catch (Exception $exp) {
+    // Xử lý ngoại lệ nếu có lỗi xảy ra trong quá trình kết nối
+    echo $exp->getMessage() . '<br>';
+    echo 'Lỗi kết nối đến cơ sở dữ liệu';
+    die(); // Dừng chương trình
 }
 
-// Lấy thông tin người dùng từ cơ sở dữ liệu
-$user_id = 10; // Giả sử bạn muốn lấy thông tin cho user_id = 10
+// Kiểm tra xem session đã được khởi tạo và có giá trị user_id không
+if (isset($_SESSION["user_id"])) {
+    // Lấy user_id từ session
+    $user_id = $_SESSION["user_id"];
 
-// Thực hiện truy vấn để lấy thông tin người dùng từ bảng taikhoannguoidung
-$sql = "SELECT * FROM taikhoannguoidung WHERE user_id = :user_id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
+    try {
+        // Thực hiện truy vấn để lấy thông tin người dùng từ bảng taikhoannguoidung
+        $sql = "SELECT * FROM taikhoannguoidung WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
 
-// Lấy dữ liệu từ kết quả truy vấn
-if ($stmt->rowCount() > 0) {
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Lấy dữ liệu từ kết quả truy vấn
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Gán giá trị vào các biến tương ứng
-    $email = $row["user_email"];
-    $username = $row["user_name"];
-    $userPhone = $row["user_phone"];
-    $userAddress = $row["user_address"];
-    // Gán giá trị user_id để sử dụng làm khóa ngoại
-    $user_id_foreign_key = $row["user_id"];
+            // Gán giá trị vào các biến tương ứng
+            $email = $row["user_email"];
+            $username = $row["user_name"];
+            $userPhone = $row["user_phone"];
+            $userAddress = $row["user_address"];
+            // Gán giá trị user_id để sử dụng làm khóa ngoại
+            $user_id_foreign_key = $row["user_id"];
+        } else {
+            // Không tìm thấy người dùng với user_id tương ứng
+            // Chuyển hướng người dùng về trang đăng nhập
+            header("Location: login.php");
+            exit(); // Dừng việc thực thi mã ngay sau lệnh header
+        }
+    } catch (Exception $e) {
+        // Xử lý ngoại lệ nếu có lỗi xảy ra trong quá trình thực hiện truy vấn
+        echo $e->getMessage();
+    }
 } else {
-    // Không tìm thấy người dùng với user_id tương ứng
-    // Xử lý tùy ý, ví dụ: thông báo lỗi hoặc thực hiện hành động phù hợp
+    // Không có session user_id (người dùng chưa đăng nhập)
+    // Chuyển hướng người dùng về trang đăng nhập
+    header("Location: login.php");
+    exit(); // Dừng việc thực thi mã ngay sau lệnh header
 }
-
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
