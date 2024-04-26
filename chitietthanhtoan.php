@@ -111,11 +111,11 @@ if (isset($_SESSION["user_id"])) {
                 <div class="title"><h2>Thanh toán</h2></div>
                 <div>
                     <div class="second-one">
-                         <div><input type="radio">Chuyển khoản ngân hàng</div>
+                         <div><input type="checkbox">Chuyển khoản ngân hàng</div>
                          <div class="nganhang"><i class="fa-solid fa-landmark"></i></div>
                     </div>
                     <div class="second-3">
-                         <div><input type="radio">Thanh toán khi ngân hàng(COD)</div>
+                         <div><input type="checkbox">Thanh toán khi ngân hàng(COD)</div>
                          <div class="money"><i class="fa-regular fa-money-bill-1"></i></div>
                     </div>
                 </div>

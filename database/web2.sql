@@ -199,7 +199,7 @@
   -- Indexes for table `phuongthucthanhtoan`
   --
   ALTER TABLE `phuongthucthanhtoan`
-    ADD PRIMARY KEY (`check_id`),
+    ADD PRIMARY KEY (`check_id`);
 
 
   --
