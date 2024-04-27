@@ -23,7 +23,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">GStech</a>
+            <a class="navbar-brand ps-3" href="index.php">SGtech</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -75,7 +75,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 Bảng dữ liệu
                             </div>
                             <div class="card-body">
-                            <div class="nutthem_user"><a href="add_user.php"><i class="fa-solid fa-user-plus"></i></a></div>
+                            <div class="nutthem_user"><a href="add_user.php"><i style="color: black;" class="fa-solid fa-user-plus"></i></a></div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>

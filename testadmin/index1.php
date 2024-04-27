@@ -1,8 +1,13 @@
 <?php
 
 require_once("databaseadmin.php");
-$listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
+require_once("session.php");
+require_once("function.php");
+$listUsers = getRaw("SELECT * FROM sanpham s");
 
+        // echo '<pre>';
+        // print_r($listUsers);
+        // echo '</pre>';
 ?>
 
 <html lang="en">
@@ -23,7 +28,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">GStech</a>
+            <a class="navbar-brand ps-3" href="index.php">SGtech</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -75,18 +80,22 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 Bảng dữ liệu
                             </div>
                             <div class="card-body">
-                            <div class="nutthem_user"><a href="add_user.php"><i class="fa-solid fa-user-plus"></i></a></div>
+                            <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></i></a></div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>User Name</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ email</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Password</th>
-                                            <th>Trạng thái</th>
-                                            <th>Ngày tạo tài khoản</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>CPU</th>
+                                            <th>VGA</th>
+                                            <th>Bộ nhớ</th>
+                                            <th>RAM</th>
+                                            <th>Hãng</th>
+                                            <th>Kích thước màn</th>
+                                            <th>Cân nặng</th>
+                                            <th>Hình ảnh</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -101,15 +110,19 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                     ?>
                                         <tr>
                                             <td><?php echo $count; ?></td>
-                                            <td><?php echo $item['user_name']; ?></td>
-                                            <td><?php echo $item['user_phone']; ?></td>
-                                            <td><?php echo $item['user_email']; ?></td>
-                                            <td><?php echo $item['user_address']; ?></td>
-                                            <td><?php echo $item['user_pwd']; ?></td>
-                                            <td><?php echo $item['user_status']; ?></td>
-                                            <td><?php echo $item['created_at']; ?></td>
-                                            <td><a href="update_user.php?user_id=<?php echo $item['user_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="delete_user.php?user_id=<?php echo $item['user_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
+                                            <td><?php echo $item['product_name']; ?></td>
+                                            <td><?php echo $item['volume']; ?></td>
+                                            <td><?php echo $item['price']; ?></td>
+                                            <td><?php echo $item['CPU']; ?></td>
+                                            <td><?php echo $item['VGA']; ?></td>
+                                            <td><?php echo $item['Memory']; ?></td>
+                                            <td><?php echo $item['RAM']; ?></td>
+                                            <td><?php echo $item['brand']; ?></td>
+                                            <td><?php echo $item['resolution']; ?></td>
+                                            <td><?php echo $item['weight']; ?></td>
+                                            <td><?php echo $item['hinhanh']; ?></td>
+                                            <td><a><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                         <?php 
                                             endforeach;
