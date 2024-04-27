@@ -17,6 +17,29 @@
   <header-template></header-template>
     <main>
         
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="img/productcard/zephyrusg15.png" alt="Laptop Image" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-3">Laptop Model XYZ</h2>
+                <p><strong>CPU:</strong> Intel Core i7-10750H</p>
+                <p><strong>RAM:</strong> 16GB DDR4</p>
+                <p><strong>VGA:</strong> NVIDIA GTX 1660 Ti 6GB</p>
+                <p><strong>Cấu hình máy:</strong> 512GB SSD, 15.6" Full HD Display</p>
+                <p><strong>Giá tiền:</strong> $1200</p>
+                <div class="mt-4">
+                    <label for="quantity" class="form-label">Số lượng:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" class="form-control w-25">
+                </div>
+                <button class="btn btn-primary mt-3" action="">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+
+
+
     </main>
   <footer-template></footer-template>
 

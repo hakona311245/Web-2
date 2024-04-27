@@ -26,68 +26,117 @@ require_once ('includes/product_view.php');
       Tất cả các hãng
     </div>
 
-    <!-- Nút chính -->
-
-
-    <button class="button filter-button" id="dropdownButton">Bộ Lọc</button>
-
-    <!-- Các nút con -->
-    <div class="dropdown-content filter-option" id="dropdownContent">
     
-    <div class="dropdown-item filter-item">
-        Kích Thước:
-        <br>
-        <button class="size-button">13.3 inch</button>
-        <button class="size-button">14 inch</button>
-        <button class="size-button">15.6 inch</button>
-        <button class="size-button">16 inch</button>
-        <button class="size-button">17.3 inch</button>
-
-
+<div class="" id="dropdownContent">
+    
+    <div class="container mt-3">
+    <!-- Size Filter -->
+    <div class="card mb-3">
+        <div class="card-header">Kích Thước:</div>
+        <div class="card-body">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="size13" value="13.3 inch">
+                <label class="form-check-label" for="size13">13.3 inch</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="size14" value="14 inch">
+                <label class="form-check-label" for="size14">14 inch</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="size156" value="15.6 inch">
+                <label class="form-check-label" for="size156">15.6 inch</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="size16" value="16 inch">
+                <label class="form-check-label" for="size16">16 inch</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="size173" value="17.3 inch">
+                <label class="form-check-label" for="size173">17.3 inch</label>
+            </div>
         </div>
-
-        <div class="dropdown-item filter-item">
-            Nhu Cầu:
-            <br>
-            <button class="usage-button">Laptop Gaming</button>
-            <button class="usage-button">Học tập - Văn phòng</button>
-            <button class="usage-button">Đồ hoạ - Kỹ thuật</button>
-        </div>
-        <div class="dropdown-item filter-item">
-            Độ Phân Giải:
-            <br>
-            <button class="resolution-button">Laptop màn Full HD</button>
-            <button class="resolution-button">Laptop màn 2K</button>
-            <button class="resolution-button">Laptop màn 4K</button>
-            <button class="resolution-button">Laptop Độ phân giải khác</button>
-        </div>
-
-        <button class="result-button" id="clearButton">Bỏ Chọn</button>
-        <button class="result-button" id="showResultButton">Xem Kết Quả</button>
     </div>
+
+    <!-- Usage Filter -->
+    <div class="card mb-3">
+        <div class="card-header">Nhu Cầu:</div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gaming" value="Laptop Gaming">
+                <label class="form-check-label" for="gaming">Laptop Gaming</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="office" value="Học tập - Văn phòng">
+                <label class="form-check-label" for="office">Học tập - Văn phòng</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="graphics" value="Đồ hoạ - Kỹ thuật">
+                <label class="form-check-label" for="graphics">Đồ hoạ - Kỹ thuật</label>
+            </div>
+        </div>
     </div>
+
+    <!-- Resolution Filter -->
+    <div class="card mb-3">
+        <div class="card-header">Độ Phân Giải:</div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="fullHD" value="Laptop màn Full HD">
+                <label class="form-check-label" for="fullHD">Laptop màn Full HD</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="2k" value="Laptop màn 2K">
+                <label class="form-check-label" for="2k">Laptop màn 2K</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="4k" value="Laptop màn 4K">
+                <label class="form-check-label" for="4k">Laptop màn 4K</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="otherRes" value="Laptop Độ phân giải khác">
+                <label class="form-check-label" for="otherRes">Laptop Độ phân giải khác</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-secondary" id="clearButton">Bỏ Chọn</button>
+        <button class="btn btn-primary" id="showResultButton">Xem Kết Quả</button>
+    </div>
+</div>
+
 
   <div class="browse-tags">
+
+  <form action="" method="GET">
     <span>Sắp xếp theo</span>
-    <span class="custom-dropdown custom-dropdown--white">
-  <select class="sort-by custom-dropdown__select custom-dropdown__select--white">
-  <option value="price-ascending" data-filter="&sortby=(price:product=asc)">Giá: Tăng dần</option>
-  <option value="price-descending" data-filter="&sortby=(price:product=desc)">Giá: Giảm dần</option>
+  <select name="sort" class="sort-by custom-dropdown__select custom-dropdown__select--white">
+  <option>---Option---</option>  
+  <option value="price-ascending" <?php if(isset($_GET['sort']) && $_GET['sort'] == "sort_price_asc"){echo "selected";}?>>Giá: Tăng dần</option>
+  <option value="price-descending" <?php if(isset($_GET['sort']) && $_GET['sort'] == "sort_price_desc"){echo "selected";}?>>Giá: Giảm dần</option>
   <option value="title-ascending" data-filter="&sortby=(title:product=asc)">Tên: A-Z</option>
   <option value="title-descending" data-filter="&sortby=(price:product=desc)">Tên: Z-A</option>
-  <option value="created-ascending" data-filter="&sortby=(updated_at:product=desc)">Cũ nhất</option>
-  <option value="created-descending" data-filter="&sortby=(updated_at:product=asc)">Mới nhất</option>
-  <option value="best-selling" data-filter="&sortby=(sold_quantity:product=desc)">Bán chạy nhất</option>
   <!--<option value="quantity-descending" >Tồn kho: Giảm dần</option>-->
   </select>
-  </span>
+    <button type="submit">Tìm</button>
+  </form>
+
   </div>
 
     <div class="container product-container">
     
 <?php
-  show_product(2, $pdo);
-  show_product(1, $pdo);
+  $sort_option ="";
+  if(isset($_GET['sort'])){
+    if($_GET['sort'] == "sort_price_asc"){
+      $sort_option = "ASC";
+    }
+    elseif($_GET['sort'] == "sort_price_desc"){
+
+    }
+  }
+  show_product(1, $pdo)
 ?> 
 
     </div>

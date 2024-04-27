@@ -1,5 +1,4 @@
 <?php
-
 require_once("./testadmin/databaseadmin.php");
 require_once("./testadmin/session.php");
 require_once("./testadmin/function.php");
