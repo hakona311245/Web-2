@@ -77,4 +77,19 @@ function isLogin(){
     }   
     return $checkLogin;
 }
+function isLoginAdmin(){
+    $checkLogin = false;
+    if(getSession('tokenLoginAdmin')){
+        $tokenLoginAdmin = getSession('tokenLoginAdmin');
+    
+        $queryToken = oneRaw("SELECT admin_id FROM tokenloginadmin WHERE token = '$tokenLoginAdmin'");
+        if(!empty($queryToken)){
+            $checkLogin = true;
+        }else{
+            removeSession('tokenLoginAdmin');
+        }
+    }   
+    return $checkLogin;
+}
+
 ?>

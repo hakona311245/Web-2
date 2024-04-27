@@ -3,8 +3,7 @@
 require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
-$listUsers = getRaw("SELECT * FROM sanpham s");
-
+$listUsers = getRaw("SELECT * FROM sanpham ");
         // echo '<pre>';
         // print_r($listUsers);
         // echo '</pre>';
@@ -73,7 +72,7 @@ $listUsers = getRaw("SELECT * FROM sanpham s");
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Danh sách khách hàng</h1>
+                        <h1 class="mt-4">Danh sách sản phẩm</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>

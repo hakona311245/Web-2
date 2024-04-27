@@ -1,6 +1,9 @@
 <?php
 
 require_once("databaseadmin.php");
+require_once("session.php");
+require_once("function.php");
+
 $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
 
 ?>
@@ -38,10 +41,10 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!"></a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="logoutadmin.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>

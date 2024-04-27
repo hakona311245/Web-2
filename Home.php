@@ -81,7 +81,6 @@ if(isLogin())
                       </div>    
                 </div>
     
-    
                 <div class="cart-container">
                   <a href="giohang.php" class="cart-link">
                     <div class="icon-wrapper">
@@ -91,13 +90,7 @@ if(isLogin())
                     <span class="cart-text">Giỏ hàng</span>
                   </a>
                 </div>
-                
-                
-                
-    
-    
-    
-                
+  
             </div>
     
             <div class="navigation-container">
