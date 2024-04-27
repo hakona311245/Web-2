@@ -183,27 +183,49 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
 -- Table structure for table `sanpham`
 --
 
-CREATE TABLE `sanpham` (
-  `product_id` int(10) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `volume` int(11) NOT NULL,
-  `price` float NOT NULL,
-  `CPU` varchar(255) NOT NULL,
-  `VGA` varchar(255) NOT NULL,
-  `screen` varchar(255) NOT NULL,
-  `Memory` varchar(255) NOT NULL,
-  `RAM` varchar(255) NOT NULL,
-  `brand` varchar(50) NOT NULL,
-  `resolution` varchar(255) NOT NULL,
-  `weight` float NOT NULL,
-  `CPU_full` varchar(255) NOT NULL,
-  `VGA_full` varchar(255) NOT NULL,
-  `RAM_full` varchar(255) NOT NULL,
-  `screen_full` varchar(255) NOT NULL,
-  `Memory_full` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CREATE TABLE `sanpham` (
+    `product_id` int(10) NOT NULL,
+    `product_name` varchar(255) NOT NULL,
+    `volume` int(11) NOT NULL,
+    `price` float NOT NULL,
+    `CPU` varchar(255) NOT NULL,
+    `VGA` varchar(255) NOT NULL,
+    `screen` varchar(255) NOT NULL,
+    `Memory` varchar(255) NOT NULL,
+    `RAM` varchar(255) NOT NULL,
+    `brand` varchar(50) NOT NULL,
+    `resolution` varchar(255) NOT NULL,
+    `weight` float NOT NULL,
+    `CPU_full` varchar(255) NOT NULL,
+    `VGA_full` varchar(255) NOT NULL,
+    `RAM_full` varchar(255) NOT NULL,
+    `screen_full` varchar(255) NOT NULL,
+    `Memory_full` varchar(255) NOT NULL
 
--- --------------------------------------------------------
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+  --
+  -- Dumping data for table `sanpham`
+  --
+
+  INSERT INTO `sanpham` 
+  (`product_id`, `product_name`, `volume`, `price`, `CPU`, `VGA`, `screen`, `Memory`, `RAM`, `brand`, `resolution`, `weight`, `CPU_full`, `VGA_full`, `screen_full`, `Memory_full`)
+  VALUES
+  (1, 'ASUS TUF Gaming A15 FA507NV LP046W', 60, 26990000, 'Ryzen 7-7735HS', 'RTX 4060 8GB', '16:9', '512GB', '16GB DDR5', 'Asus', '1920x1080', 2.0, 
+  'AMD Ryzen™ 7 7735HS Mobile Processor (8-core/16-thread, 16MB L3 cache, up to 4.7 GHz max boost)', 
+  'NVIDIA® GeForce RTX™ 4060 Laptop GPU 8GB GDDR6, 2420MHz* at 140W', 
+  '15.6" FHD (1920 x 1080) 16:9 IPS, 144Hz, Wide View, 250nits, Narrow Bezel, Non-Glare with 72% NTSC, 100% sRGB, G-Sync', 
+  '512GB PCIe® 4.0 NVMe™ M.2 SSD (Trống 1 khe SSD M2 PCIe®)'),
+  (2, 'ASUS ROG Zephyrus G14 GA402NJ L4056W', 12, 32990000, 'Ryzen 7-7735HS', 'RTX 3050 6GB', '16:9', '512GB', '16GB DDR5', 'Asus', '1920 x 1200', 1.72,
+  'AMD Ryzen™ 7 7735HS Mobile Processor (8-core/16-thread, 16MB L3 cache, up to 4.7 GHz max boost)',
+  'NVIDIA® GeForce RTX™ 3050 6GB GDDR6 With ROG Boost: 1782MHz* at 95W',
+  '14" WUXGA (1920 x 1200) 16:10, IPS, 144Hz', 
+  '512GB PCIe® 4.0 NVMe™ M.2 SSD (Trống 1 khe SSD M2 PCIe®)'),
+  (3, 'ASUS ROG Zephyrus G16 GU605MV QR196WS', 15, 66990000, 'Ultra 9-185H', 'RTX 4060 8GB', '16.9', '1024', '16', 'Brand C', '2560x1440', 2.0, 
+  'Intel Core i7 11th Gen', 'NVIDIA GeForce GTX 1660 Ti 6GB GDDR6', '2560x1440 Quad HD', '1TB SSD'),
+  (4, 'Laptop Model 20', 15, 1650.00, 'AMD Ryzen 9', 'NVIDIA GeForce RTX 3080', '16.9', '2048', '32', 'Brand E', '3840x2160', 2.2, 
+  'AMD Ryzen 9 5900HX', 'NVIDIA GeForce RTX 3080 16GB GDDR6', '3840x2160 4K UHD', '2TB SSD');
+
 
 --
 -- Table structure for table `taikhoannguoidung`
