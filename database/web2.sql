@@ -179,30 +179,48 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
 
 -- --------------------------------------------------------
 
+
+--bảng tài khoản admin
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `admin_name` varchar(100) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `picture` varchar(250) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `mssv` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin`
+--
+
+INSERT INTO `admin` (`id`, `admin_name`, `birthday`, `picture`, `email`, `password`, `phone`, `address`, `mssv`) VALUES
+(1, 'Admin1', '1990-05-15', 'admin1.jpg', 'hung1@gmail.com', '123123123', '123456789', '123 Street, City', '123456'),
+(2, 'Admin2', '1988-10-20', 'admin2.jpg', 'admin2@example.com', 'password2', '987654321', '456 Avenue, Town', '654321'),
+(3, 'Admin3', '1995-03-25', 'admin3.jpg', 'admin3@example.com', 'password3', '111222333', '789 Road, Village', '987654');
+
 --
 -- Table structure for table `sanpham`
 --
 
-  CREATE TABLE `sanpham` (
-    `product_id` int(10) NOT NULL,
-    `product_name` varchar(255) NOT NULL,
-    `volume` int(11) NOT NULL,
-    `price` float NOT NULL,
-    `CPU` varchar(255) NOT NULL,
-    `VGA` varchar(255) NOT NULL,
-    `screen` varchar(255) NOT NULL,
-    `Memory` varchar(255) NOT NULL,
-    `RAM` varchar(255) NOT NULL,
-    `brand` varchar(50) NOT NULL,
-    `resolution` varchar(255) NOT NULL,
-    `weight` float NOT NULL,
-    `CPU_full` varchar(255) NOT NULL,
-    `VGA_full` varchar(255) NOT NULL,
-    `RAM_full` varchar(255) NOT NULL,
-    `screen_full` varchar(255) NOT NULL,
-    `Memory_full` varchar(255) NOT NULL
-
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `sanpham` (
+  `product_id` int(10) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `volume` int(255) NOT NULL,
+  `price` float NOT NULL,
+  `CPU` varchar(255) NOT NULL,
+  `VGA` varchar(255) NOT NULL,
+  `screen_size` varchar(50) NOT NULL,
+  `Memory` bigint(20) NOT NULL,
+  `RAM` int(11) NOT NULL,
+  `brand` varchar(50) NOT NULL,
+  `resolution` varchar(255) NOT NULL,
+  `weight` float NOT NULL,
+  `hinhanh` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
   --
   -- Dumping data for table `sanpham`
@@ -246,27 +264,19 @@ CREATE TABLE `taikhoannguoidung` (
 -- Dumping data for table `taikhoannguoidung`
 --
 
-INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_address`, `user_phone`, `user_email`, `user_status`, `created_at`) VALUES
-(1, 'Nguyễn Văn A', '123', 'Số 1, Phố Hàng Bài, Hà Nội', '0905123456', 'nguyenvana@example.com', 'active', '2024-04-01 01:00:00'),
-(2, 'Trần Thị B', '123', 'Số 2, Đường Trần Hưng Đạo, Hà Nội', '0905123457', 'tranthib@example.com', 'active', '2024-04-02 01:00:00'),
-(3, 'Lê Văn C', '123', 'Số 3, Phố Hàng Mã, Hà Nội', '0905123458', 'levanc@example.com', 'active', '2024-04-03 01:00:00'),
-(4, 'Phạm Thị D', '123', 'Số 4, Đường Lê Lợi, Sài Gòn', '0905123459', 'phamthid@example.com', 'active', '2024-04-04 01:00:00'),
-(5, 'Hoàng Văn E', '123', 'Số 5, Phố Bà Triệu, Hà Nội', '0905123460', 'hoangvane@example.com', 'active', '2024-04-05 01:00:00'),
-(6, 'Đặng Thị F', '123', 'Số 6, Đường 3/2, Sài Gòn', '0905123461', 'dangthif@example.com', 'active', '2024-04-06 01:00:00'),
-(7, 'Bùi Văn G', '123', 'Số 7, Phố Đinh Tiên Hoàng, Hà Nội', '0905123462', 'buivang@example.com', 'active', '2024-04-07 01:00:00'),
-(8, 'Ngô Thị H', '123', 'Số 8, Đường Nguyễn Du, Sài Gòn', '0905123463', 'ngothih@example.com', 'active', '2024-04-08 01:00:00'),
-(9, 'Vũ Văn I', '123', 'Số 9, Phố Lý Thái Tổ, Hà Nội', '0905123464', 'vuvani@example.com', 'active', '2024-04-09 01:00:00'),
-(10, 'Đỗ Thị J', '123', 'Số 10, Đường Phạm Ngũ Lão, Sài Gòn', '0905123465', 'dothij@example.com', 'active', '2024-04-10 01:00:00'),
-(11, 'Nguyễn Văn K', '123', 'Số 11, Phố Trần Quang Khải, Hà Nội', '0905123466', 'nguyenvank@example.com', 'active', '2024-04-11 01:00:00'),
-(12, 'Trần Thị L', '123', 'Số 12, Đường Lê Thánh Tôn, Sài Gòn', '0905123467', 'tranthil@example.com', 'active', '2024-04-12 01:00:00'),
-(13, 'Lê Văn M', '123', 'Số 13, Phố Hàng Bông, Hà Nội', '0905123468', 'levanm@example.com', 'active', '2024-04-13 01:00:00'),
-(14, 'Phạm Thị N', '123', 'Số 14, Đường Trần Hưng Đạo, Sài Gòn', '0905123469', 'phamthinn@example.com', 'active', '2024-04-14 01:00:00'),
-(15, 'Hoàng Văn O', '123', 'Số 15, Phố Hàng Gai, Hà Nội', '0905123470', 'hoangvano@example.com', 'active', '2024-04-15 01:00:00'),
-(16, 'Đặng Thị P', '123', 'Số 16, Đường Nguyễn Thái Học, Sài Gòn', '0905123471', 'dangthip@example.com', 'active', '2024-04-16 01:00:00'),
-(17, 'Bùi Văn Q', '123', 'Số 17, Phố Tràng Thi, Hà Nội', '0905123472', 'buivanq@example.com', 'active', '2024-04-17 01:00:00'),
-(18, 'Ngô Thị R', '123', 'Số 18, Đường Bùi Viện, Sài Gòn', '0905123473', 'ngothir@example.com', 'active', '2024-04-18 01:00:00'),
-(19, 'Vũ Văn S', '123', 'Số 19, Phố Hàng Đào, Hà Nội', '0905123474', 'vuvans@example.com', 'active', '2024-04-19 01:00:00'),
-(20, 'Đỗ Thị T', '123', 'Số 20, Đường Đồng Khởi, Sài Gòn', '0905123475', 'dothit@example.com', 'active', '2024-04-20 01:00:00');
+INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_address`, `user_phone`, `user_email`, `user_status`, `created_at`) 
+VALUES
+(18, 'datco123', '123123123', 'HCM city Tan Binh', '0376653241', 'thanhhung232@gmail.com', 'active', '2024-04-27 03:48:31'),
+(19, 'Thanh Hung', 'pass123', '123 Main St', '0376640875', 'thanhhung1@gmail.com', 'active', '2024-04-27 09:27:34'),
+(20, 'Nguyen Van Hoang', 'password', '456 Elm St', '0376640876', 'nguyenvana@gmail.com', 'active', '2024-04-27 04:27:57'),
+(21, 'Le Thi Bo', 'securepwd', '789 Oak St', '0376640877', 'lethib@gmail.com', 'active', '2024-04-27 04:28:04'),
+(22, 'Tran Van Cu', 'browny', '321 Pine St', '0376640878', 'tranvanc@gmail.com', 'banned', '2024-04-27 04:29:37'),
+(23, 'Pham Thi Dang', 'davies', '654 Cedar St', '0376640879', 'phamthid@gmail.com', 'banned', '2024-04-27 04:29:48'),
+(24, 'Hoang Van Thu', 'wilsonm', '987 Birch St', '0376640880', 'hoangvane@gmail.com', 'active', '2024-04-27 04:28:35'),
+(25, 'Nguyen Thi Thu', 'taylors', '234 Maple St', '0376640881', 'nguyenthif@gmail.com', 'active', '2024-04-27 04:28:47'),
+(26, 'Le Van Gia', 'marty', '567 Walnut St', '0376640882', 'levang@gmail.com', 'active', '2024-04-27 04:28:53'),
+(27, 'Man Thi Ham', 'jess123', '890 Ash St', '0376640883', 'tranthih@gmail.com', 'active', '2024-04-27 04:29:09'),
+(28, 'Hoang Van Nam', 'mattt', '432 Cherry St', '0376640884', 'hoangvani@gmail.com', 'active', '2024-04-27 04:29:19');
 
 --
 -- Indexes for dumped tables
