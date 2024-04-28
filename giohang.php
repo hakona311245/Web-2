@@ -1,6 +1,7 @@
 <?php
 // Xử lý dữ liệu gửi từ form và lấy thông tin sản phẩm từ cơ sở dữ liệu
 if(isset($_POST['product_id'])) {
+    // Lấy thông tin sản phẩm từ cơ sở dữ liệu
     $productInfo = getProductInfo($_POST['product_id']);
 } else {
     // Nếu không có product_id được gửi đi, hiển thị thông báo
