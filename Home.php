@@ -343,10 +343,17 @@ if(isLogin())
             <div>Màn: 15.6" FHD</div>
             <div>RAM: 16 GB</div>
         </div>
-      
-        <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
+        <form action="giohang.php" method="post">
+           <!-- Thêm một trường ẩn chứa product_id của sản phẩm -->
+           <input type="hidden" name="product_id" value="2">
+           <button type="submit" name="add_to_cart" class="add-to-cart-btn">Thêm vào giỏ hàng</button>
+        </form>
+
     </div>
     </div>
+
+
+    
     <div class="product-card">
     <a href="your-target-page-url.html" class="product-link">
     <div class="product-img-container">
