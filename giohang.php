@@ -1,26 +1,66 @@
 <?php
-require_once("./testadmin/databaseadmin.php");
-require_once("./testadmin/session.php");
-require_once("./testadmin/function.php");
-
-session_start();
-if(isLogin())
-{
-  $user_name = $_SESSION['user_username'];
-  $userInfo = getRaw("SELECT * FROM taikhoannguoidung WHERE user_name ='$user_name'");
+// Xử lý dữ liệu gửi từ form và lấy thông tin sản phẩm từ cơ sở dữ liệu
+if(isset($_POST['product_id'])) {
+    $productInfo = getProductInfo($_POST['product_id']);
+} else {
+    // Nếu không có product_id được gửi đi, hiển thị thông báo
+    echo "Không tìm thấy sản phẩm.";
 }
 
-// removeSession('user_username');
+// Hàm để lấy thông tin sản phẩm từ cơ sở dữ liệu
+function getProductInfo($productId)
+{
+    // Thực hiện truy vấn SQL để lấy thông tin sản phẩm từ cơ sở dữ liệu
+    // Thay đổi thông tin kết nối theo cấu hình của bạn
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "web2";
 
-// echo '<pre>';
-// print_r($userInfo);
-// echo '</pre>';
-//  if(!empty($userInfo)):
-//   foreach($userInfo as $item):  
+    // Tạo kết nối
+    $conn = new mysqli($servername, $username, $password, $database);
 
+    // Kiểm tra kết nối
+    if ($conn->connect_error) {
+        die("Kết nối đến cơ sở dữ liệu thất bại: " . $conn->connect_error);
+    }
 
+    // Chuẩn bị truy vấn SQL
+    $sql = "SELECT product_name, price FROM sanpham WHERE product_id = $productId";
 
+    // Thực hiện truy vấn
+    $result = $conn->query($sql);
+
+    // Kiểm tra và xử lý kết quả trả về
+    if ($result->num_rows > 0) {
+        // Lấy dòng dữ liệu đầu tiên
+        $row = $result->fetch_assoc();
+
+        // Tạo một mảng chứa thông tin sản phẩm
+        $productInfo = [
+            'product_name' => $row['product_name'],
+            'price' => $row['price'],
+            'quantity' => 1, // Số lượng mặc định là 1
+            'total' => $row['price'] // Tổng cộng bằng giá sản phẩm
+        ];
+
+        // Đóng kết nối đến cơ sở dữ liệu
+        $conn->close();
+
+        return $productInfo;
+    } else {
+        // Đóng kết nối đến cơ sở dữ liệu
+        $conn->close();
+
+        // Nếu không tìm thấy sản phẩm, trả về null hoặc một giá trị mặc định khác tùy thuộc vào yêu cầu của bạn
+        return null;
+    }
+}
 ?>
+
+
+<!-- Phần HTML -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +72,8 @@ if(isLogin())
     <link rel="stylesheet" href="css/homestyle.css"/>
     <link rel="stylesheet" href="css/header&footer.css"/>
 </head>
-    
+<body>
+
 <header>
         <div class="header">
             <div class="logo-container">
@@ -247,59 +288,59 @@ if(isLogin())
         </div>  
         </div> 
     
-    </header>
-    <body>
+</header>
 
 <div class="container mt-5">
-  <h1 class="text-left">Giỏ hàng</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Tên sản phẩm</th>
-        <th scope="col">Giá</th>
-        <th scope="col">Số lượng</th>
-        <th scope="col">Tổng cộng</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody id="cart-items">
-      <?php
-      // Kiểm tra giỏ hàng
-      if (empty($_SESSION['cart'])) {
-          echo "<tr><td colspan='6'>Bạn chưa cho sản phẩm gì vào giỏ hàng!</td></tr>";
-      } else {
-          // Hiển thị các sản phẩm trong giỏ hàng
-          foreach ($_SESSION['cart'] as $key => $item) {
-              echo "<tr>";
-              echo "<td>" . ($key + 1) . "</td>";
-              echo "<td>" . $item['name'] . "</td>";
-              echo "<td>" . $item['price'] . "</td>";
-              echo "<td>" . $item['quantity'] . "</td>";
-              echo "<td>" . $item['price'] * $item['quantity'] . "</td>";
-              echo "<td><button class='btn btn-danger' onclick='removeItem($key)'>Xóa</button></td>";
-              echo "</tr>";
-          }
-      }
-      ?>
-    </tbody>
-  </table>
-  <form action="chitietthanhtoan.php" method="post">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-primary" type="submit">Thanh toán</button>
-    </div>
-  </form>
+    <h1 class="text-left">Giỏ hàng</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Tổng cộng</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="cart-items">
+        <?php
+    if ($productInfo) {
+        // Hiển thị thông tin sản phẩm trong giỏ hàng
+        echo "<tr>";
+        echo "<td>1</td>"; // Số thứ tự
+        echo "<td>" . $productInfo['product_name'] . "</td>"; // Tên sản phẩm
+        echo "<td>" . $productInfo['price'] . "</td>"; // Giá
+        echo "<td>" . $productInfo['quantity'] . "</td>"; // Số lượng
+        echo "<td>" . $productInfo['total'] . "</td>"; // Tổng cộng
+        echo "<td>
+                <form method='post' action='includes/xoasanpham.php'>
+                    <input type='hidden' name='product_id' value='" . $productInfo['product_id'] . "'>
+                    <button type='submit' class='btn btn-danger'>Xóa</button>
+                </form>
+              </td>";
+        echo "</tr>";
+    } else {
+        // Hiển thị thông báo nếu sản phẩm không tồn tại
+        echo "<tr><td colspan='6'>Sản phẩm không tồn tại!</td></tr>";
+    }
+?>
 
-  
+        </tbody>
+    </table>
+    <form action="chitietthanhtoan.php" method="post">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" type="submit">Thanh toán</button>
+        </div>
+    </form>
 </div>
-</body>
 
 <footer-template></footer-template>
 <script src="js/headerandfooter.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function(){
@@ -323,7 +364,7 @@ if(isLogin())
         });
       });
     });
-  </script>
-    
-</html>
+</script>
 
+</body>
+</html>
