@@ -233,7 +233,7 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
   - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
-  - Cân nặng: 1.88 kg'), iu béeeeeeeeeeeeeee
+  - Cân nặng: 1.88 kg'),
   (5, 'Asus ZenBook Flip OLED UP3404VA KN038W', 36, 25990000, 'i5-1340P', ' Iris Xe', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
   - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
   - GPU: AMD Raedon RX Vega 8\n
@@ -241,13 +241,13 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
   - Cân nặng: 1.88 kg'),
-  (6, 'Asus ZenBook Flip OLED UP3404VA KN038W', 36, 25.990.000, 'i5-1340P', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
+  (6, 'Asus ZenBook Flip OLED UP3404VA KN038W', 36, 25990000, 'i5-1340P', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
   - CPU: Intel® Core™ i5-1340P Processor 1.9 GHz (12MB Cache, up to 4.6 GHz, 12 cores, 16 Threads), Intel® Evo™ Platform\n
   - GPU: AMD Raedon RX Vega 8\n
   - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
-  - Cân nặng: 1.88 kg'),;
+  - Cân nặng: 1.88 kg');
 
   
 
