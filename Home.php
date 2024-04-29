@@ -17,10 +17,10 @@ if(isLogin())
 // echo '</pre>';
 //  if(!empty($userInfo)):
 //   foreach($userInfo as $item):  
-
-
-
 ?>
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -345,7 +345,7 @@ if(isLogin())
         </div>
         <form action="giohang.php" method="post">
            <!-- Thêm một trường ẩn chứa product_id của sản phẩm -->
-           <input type="hidden" name="product_id" value="2">
+           <input type="hidden" name="product_id" value="1">
            <button type="submit" name="add_to_cart" class="add-to-cart-btn">Thêm vào giỏ hàng</button>
         </form>
 

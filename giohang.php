@@ -1,63 +1,47 @@
 <?php
-// Xử lý dữ liệu gửi từ form và lấy thông tin sản phẩm từ cơ sở dữ liệu
-if(isset($_POST['product_id'])) {
-    // Lấy thông tin sản phẩm từ cơ sở dữ liệu
-    $productInfo = getProductInfo($_POST['product_id']);
+// Kết nối đến cơ sở dữ liệu
+$conn = mysqli_connect("localhost", "root", "", "web2");
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+}
+
+// Lấy product_id từ form
+$product_id = $_POST['product_id'];
+
+// Truy vấn để lấy thông tin sản phẩm từ bảng products
+$sql = "SELECT * FROM sanpham WHERE product_id = '$product_id'";
+$result = mysqli_query($conn, $sql);
+
+// Kiểm tra xem có sản phẩm không
+if (mysqli_num_rows($result) > 0) {
+    // Lặp qua các hàng kết quả
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Lưu thông tin sản phẩm vào các biến
+        $product_name = $row['product_name'];
+        $product_price = $row['price'];
+
+        // Thêm dữ liệu vào bảng chitiethoadon
+        $insert_query = "INSERT INTO chitiethoadon (product_id, product_name, product_price) VALUES ('$product_id', '$product_name', '$product_price')";
+        
+        if (mysqli_query($conn, $insert_query)) {
+            echo "Sản phẩm đã được thêm vào giỏ hàng thành công!";
+        } else {
+            echo "Lỗi khi chèn sản phẩm vào bảng chitiethoadon: " . mysqli_error($conn);
+        }
+    }
 } else {
-    // Nếu không có product_id được gửi đi, hiển thị thông báo
-    echo "Không tìm thấy sản phẩm.";
+  
 }
+// Truy vấn để lấy thông tin sản phẩm từ bảng chitiethoadon
+$sql_cart = "SELECT * FROM chitiethoadon";
+$result_cart = mysqli_query($conn, $sql_cart);
 
-// Hàm để lấy thông tin sản phẩm từ cơ sở dữ liệu
-function getProductInfo($productId)
-{
-    // Thực hiện truy vấn SQL để lấy thông tin sản phẩm từ cơ sở dữ liệu
-    // Thay đổi thông tin kết nối theo cấu hình của bạn
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "web2";
-
-    // Tạo kết nối
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Kiểm tra kết nối
-    if ($conn->connect_error) {
-        die("Kết nối đến cơ sở dữ liệu thất bại: " . $conn->connect_error);
-    }
-
-    // Chuẩn bị truy vấn SQL
-    $sql = "SELECT product_name, price FROM sanpham WHERE product_id = $productId";
-
-    // Thực hiện truy vấn
-    $result = $conn->query($sql);
-
-    // Kiểm tra và xử lý kết quả trả về
-    if ($result->num_rows > 0) {
-        // Lấy dòng dữ liệu đầu tiên
-        $row = $result->fetch_assoc();
-
-        // Tạo một mảng chứa thông tin sản phẩm
-        $productInfo = [
-            'product_name' => $row['product_name'],
-            'price' => $row['price'],
-            'quantity' => 1, // Số lượng mặc định là 1
-            'total' => $row['price'] // Tổng cộng bằng giá sản phẩm
-        ];
-
-        // Đóng kết nối đến cơ sở dữ liệu
-        $conn->close();
-
-        return $productInfo;
-    } else {
-        // Đóng kết nối đến cơ sở dữ liệu
-        $conn->close();
-
-        // Nếu không tìm thấy sản phẩm, trả về null hoặc một giá trị mặc định khác tùy thuộc vào yêu cầu của bạn
-        return null;
-    }
-}
+// Đóng kết nối
+mysqli_close($conn);
 ?>
+
 
 
 <!-- Phần HTML -->
@@ -305,29 +289,31 @@ function getProductInfo($productId)
             </tr>
         </thead>
         <tbody id="cart-items">
-        <?php
-    if ($productInfo) {
-        // Hiển thị thông tin sản phẩm trong giỏ hàng
-        echo "<tr>";
-        echo "<td>1</td>"; // Số thứ tự
-        echo "<td>" . $productInfo['product_name'] . "</td>"; // Tên sản phẩm
-        echo "<td>" . $productInfo['price'] . "</td>"; // Giá
-        echo "<td>" . $productInfo['quantity'] . "</td>"; // Số lượng
-        echo "<td>" . $productInfo['total'] . "</td>"; // Tổng cộng
-        echo "<td>
-                <form method='post' action='includes/xoasanpham.php'>
-                    <input type='hidden' name='product_id' value='" . $productInfo['product_id'] . "'>
-                    <button type='submit' class='btn btn-danger'>Xóa</button>
-                </form>
-              </td>";
-        echo "</tr>";
-    } else {
-        // Hiển thị thông báo nếu sản phẩm không tồn tại
-        echo "<tr><td colspan='6'>Sản phẩm không tồn tại!</td></tr>";
-    }
-?>
+    <?php
+        if ($result_cart && mysqli_num_rows($result_cart) > 0) {
+            $count = 1;
+            while ($cart_row = mysqli_fetch_assoc($result_cart)) {
+                echo "<tr>";
+                echo "<td>" . $count++ . "</td>"; // Số thứ tự
+                echo "<td>" . $cart_row['product_name'] . "</td>"; // Tên sản phẩm
+                echo "<td>" . $cart_row['product_price'] . "</td>"; // Giá
+                echo "<td>1</td>"; // Số lượng - Ở đây mặc định là 1, bạn có thể thay đổi nếu cần
+                echo "<td>" . $cart_row['product_price'] . "</td>"; // Tổng cộng - Ở đây mặc định là giá sản phẩm, bạn có thể thay đổi nếu cần
+                echo "<td>
+                    <form method='post' action='giohang.php'>
+                        <input type='hidden' name='bill_id' value='" . $cart_row['bill_id'] . "'>
+                        <button type='submit' class='btn btn-danger'>Xóa</button>
+                    </form>
+                    </td>";
+                echo "</tr>";
+            }
+        } else {
+            // Hiển thị thông báo nếu giỏ hàng trống
+            echo "<tr><td colspan='6'>Giỏ hàng trống!</td></tr>";
+        }
+    ?>
+    </tbody>
 
-        </tbody>
     </table>
     <form action="chitietthanhtoan.php" method="post">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -367,5 +353,32 @@ function getProductInfo($productId)
     });
 </script>
 
+
 </body>
 </html>
+<?php
+// Kết nối đến cơ sở dữ liệu
+$conn = mysqli_connect("localhost", "root", "", "web2");
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+}
+
+// Xác định bill_id từ biểu mẫu POST
+$bill_id = $_POST['bill_id'];
+
+// Thực hiện truy vấn xóa từ bảng chitiethoadon
+$delete_query = "DELETE FROM chitiethoadon WHERE bill_id = '$bill_id'";
+if (mysqli_query($conn, $delete_query)) {
+    // Chuyển hướng người dùng trở lại trang giỏ hàng sau khi xóa thành công
+    header("Location: giohang.php");
+    exit(); // Đảm bảo không có mã PHP hoặc HTML nào được thực thi sau lệnh header
+} else {
+    // Trả về một phản hồi lỗi
+    echo "Có lỗi khi xóa sản phẩm khỏi giỏ hàng: " . mysqli_error($conn);
+}
+
+// Đóng kết nối
+mysqli_close($conn);
+?>
