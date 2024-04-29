@@ -23,39 +23,7 @@
             </div><!-- End .header-search -->
         </div>
         <div class="header-right">
-            <div class="dropdown compare-dropdown">
-                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                    <div class="icon">
-                        <i class="icon-random"></i>
-                    </div>
-                    <p>Compare</p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <ul class="compare-products">
-                        <li class="compare-product">
-                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                        </li>
-                        <li class="compare-product">
-                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                        </li>
-                    </ul>
-                    <div class="compare-actions">
-                        <a href="#" class="action-link">Clear All</a>
-                        <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                    </div>
-                </div><!-- End .dropdown-menu -->
-            </div><!-- End .compare-dropdown -->
-            <div class="wishlist">
-                <a href="wishlist.html" title="Wishlist">
-                    <div class="icon">
-                        <i class="icon-heart-o"></i>
-                        <span class="wishlist-count badge">3</span>
-                    </div>
-                    <p>Wishlist</p>
-                </a>
-            </div><!-- End .compare-dropdown -->
+
             <div class="dropdown cart-dropdown">
                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                     <div class="icon">
@@ -65,6 +33,7 @@
                     <p>Cart</p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
+
                     <div class="dropdown-cart-products">
                         <div class="product">
                             <div class="product-cart-details">
@@ -93,6 +62,7 @@
                                     x $76.00
                                 </span>
                             </div><!-- End .product-cart-details -->
+                            
                             <figure class="product-image-container">
                                 <a href="product.html" class="product-image">
                                     <img src="assets/images/products/cart/product-2.jpg" alt="product">
@@ -106,7 +76,7 @@
                         <span class="cart-total-price">$160.00</span>
                     </div><!-- End .dropdown-cart-total -->
                     <div class="dropdown-cart-action">
-                        <a href="cart.html" class="btn btn-primary">View Cart</a>
+                        <a href="cart.php" class="btn btn-primary">View Cart</a>
                         <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                     </div><!-- End .dropdown-cart-total -->
                 </div><!-- End .dropdown-menu -->

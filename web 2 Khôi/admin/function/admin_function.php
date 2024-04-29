@@ -8,7 +8,7 @@ class adminback
         $dbhost = "localhost";
         $dbuser = "root";
         $dbpass = "";
-        $dbname = "web2";
+        $dbname = "web";
 
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -105,4 +105,99 @@ class adminback
         
         return $category_counts;
     }
+    function fetchCartItems($obj, $user_id) {
+        $cartItems = [];
+        $sql = "SELECT op.product_id, op.product_name, op.product_price, op.product_quantity, p.pdt_img
+                FROM order_products op
+                JOIN products p ON p.pdt_id = op.product_id
+                WHERE op.user_id = ?";
+        $stmt = $obj->conn->prepare($sql); // Ensuring that we use the mysqli connection from the passed object
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $cartItems[] = array(
+                'product_id' => $row['product_id'],
+                'product_name' => $row['product_name'],
+                'price' => $row['product_price'],
+                'quantity' => $row['product_quantity'],
+                'product_img' => $row['pdt_img'] // Ensure this column name matches what's in your products table
+            );
+        }
+        $stmt->close();
+        return $cartItems;
+    }
+    public function getUserDetails($userId) {
+        // Query that joins the user table with the user_address table to fetch all necessary information
+        $query = "SELECT users.user_firstname AS first_name, users.user_lastname AS last_name, users.user_email AS email, 
+                         users.user_mobile AS phone, user_address.user_address AS address, user_address.user_ward AS ward, 
+                         user_address.user_district AS district, user_address.user_city AS city
+                  FROM users
+                  LEFT JOIN user_address ON users.user_id = user_address.user_id
+                  WHERE users.user_id = ?";
+        $stmt = $this->conn->prepare($query);
+    
+        if (!$stmt) {
+            echo "Error preparing statement: " . $this->conn->error;
+            return false;
+        }
+    
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $userDetails = $result->fetch_assoc();
+            $stmt->close();
+            return $userDetails;
+        } else {
+            $stmt->close();
+            return false;
+        }
+    }
+    function initializeCartSession($userId) {
+        if (!isset($_SESSION['cart'][$userId])) {
+            $_SESSION['cart'][$userId] = [];
+        }
+    }
+    
+    
+    public function placeOrder($userId, $cart, $totalAmount, $paymentMethod, array $shippingInfo) {
+        $order_time = time(); // Capture the timestamp at the very beginning
+    
+        $this->conn->begin_transaction();
+        try {
+            // Insert into order_details table
+            $orderStatus = 1; // Example: '1' could mean 'Pending'
+            $stmt = $this->conn->prepare("INSERT INTO order_details (user_id, order_status, payment_method, Shipping_mobile, address_name, address_ward, address_district, address_city, order_time, total_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("iissssssid", $userId, $orderStatus, $paymentMethod, $shippingInfo['phone'], $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city'], $order_time, $totalAmount);
+    
+            $stmt->execute();
+            $orderId = $this->conn->insert_id;
+            $stmt->close();
+    
+            // Insert each item from the cart into order_products
+            foreach ($cart as $item) {
+                $subtotal = $item['price'] * $item['quantity'];
+                $stmt = $this->conn->prepare("INSERT INTO order_products (order_id, product_id, product_name, product_price, product_quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iisdii", $orderId, $item['product_id'], $item['product_name'], $item['price'], $item['quantity'], $subtotal);
+                $stmt->execute();
+                $stmt->close();
+            }
+            
+            $this->conn->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            return $e;
+        }
+    }
+    
+    
+    
+    
+    
 }
+
+
+

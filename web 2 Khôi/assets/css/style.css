@@ -16298,3 +16298,23 @@ button:focus {
     content: "\f7e3";
 }
 /*# sourceMappingURL=style.css.map */
+
+.btn-go {
+    background-color: #f90; /* Orange */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Adds space above the button */
+}
+
+.btn-go:hover {
+    background-color: #e68000; /* Darker orange on hover */
+}
+
+.btn-go:active {
+    background-color: #cc7000; /* Even darker orange when pressed */
+}

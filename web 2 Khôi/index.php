@@ -3,7 +3,15 @@
 session_start();
     include_once ("admin/function/admin_function.php");
     $obj = new adminback();
+
+    // if(isset($_SESSION['user_id'])){
+    //     $obj->initializeCartSession($_SESSION['user_id']);
+    // }
+
+
 ?>
+
+
 
 <?php
 include_once("includes/header.php");

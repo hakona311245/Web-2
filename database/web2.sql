@@ -2,29 +2,29 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 10:25 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th4 29, 2024 lúc 05:17 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
+-- .
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web2`
+-- Cơ sở dữ liệu: `web2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address`
+-- Cấu trúc bảng cho bảng `address`
 --
 
 CREATE TABLE `address` (
@@ -34,7 +34,7 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `address`
+-- Đang đổ dữ liệu cho bảng `address`
 --
 
 INSERT INTO `address` (`address_id`, `user_id`, `noidung`) VALUES
@@ -62,7 +62,34 @@ INSERT INTO `address` (`address_id`, `user_id`, `noidung`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitiethoadon`
+-- Cấu trúc bảng cho bảng `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `admin_name` varchar(100) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `picture` varchar(250) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `mssv` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin`
+--
+
+INSERT INTO `admin` (`id`, `admin_name`, `birthday`, `picture`, `email`, `password`, `phone`, `address`, `mssv`) VALUES
+(1, 'Admin1', '1990-05-15', 'admin1.jpg', 'hung1@gmail.com', '123123123', '123456789', '123 Street, City', '123456'),
+(2, 'Admin2', '1988-10-20', 'admin2.jpg', 'admin2@example.com', 'password2', '987654321', '456 Avenue, Town', '654321'),
+(3, 'Admin3', '1995-03-25', 'admin3.jpg', 'admin3@example.com', 'password3', '111222333', '789 Road, Village', '987654');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitiethoadon`
 --
 
 CREATE TABLE `chitiethoadon` (
@@ -74,7 +101,7 @@ CREATE TABLE `chitiethoadon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `chitiethoadon`
+-- Đang đổ dữ liệu cho bảng `chitiethoadon`
 --
 
 INSERT INTO `chitiethoadon` (`bill_id`, `product_id`, `volume`, `price_each`, `phuongthucthanhtoan`) VALUES
@@ -102,7 +129,7 @@ INSERT INTO `chitiethoadon` (`bill_id`, `product_id`, `volume`, `price_each`, `p
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hinhanh`
+-- Cấu trúc bảng cho bảng `hinhanh`
 --
 
 CREATE TABLE `hinhanh` (
@@ -112,7 +139,7 @@ CREATE TABLE `hinhanh` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `hinhanh`
+-- Đang đổ dữ liệu cho bảng `hinhanh`
 --
 
 INSERT INTO `hinhanh` (`img_id`, `product_id`, `link`) VALUES
@@ -140,7 +167,7 @@ INSERT INTO `hinhanh` (`img_id`, `product_id`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoa_don`
+-- Cấu trúc bảng cho bảng `hoa_don`
 --
 
 CREATE TABLE `hoa_don` (
@@ -152,7 +179,7 @@ CREATE TABLE `hoa_don` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `hoa_don`
+-- Đang đổ dữ liệu cho bảng `hoa_don`
 --
 
 INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id`) VALUES
@@ -180,80 +207,142 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanpham`
+-- Cấu trúc bảng cho bảng `sanpham`
 --
 
-  CREATE TABLE `sanpham` (
-    `product_id` int(10) NOT NULL,
-    `product_name` varchar(255) NOT NULL,
-    `volume` int(11) NOT NULL,
-    `price` float NOT NULL,
-    `CPU` varchar(255) NOT NULL,
-    `VGA` varchar(255) NOT NULL,
-    `screen_size` varchar(255) NOT NULL,
-    `Memory` varchar(255) NOT NULL,
-    `RAM` varchar(255) NOT NULL,
-    `brand` varchar(50) NOT NULL,
-    `resolution` varchar(255) NOT NULL,
-    `weight` float NOT NULL,
-    `description` TEXT NOT NULL
+CREATE TABLE `sanpham` (
+  `product_id` int(10) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `hinhanh` varchar(255) NOT NULL,
+  `volume` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `CPU` varchar(255) NOT NULL,
+  `VGA` varchar(255) NOT NULL,
+  `screen_size` varchar(255) NOT NULL,
+  `Memory` varchar(255) NOT NULL,
+  `RAM` varchar(255) NOT NULL,
+  `brand` varchar(50) NOT NULL,
+  `resolution` varchar(255) NOT NULL,
+  `weight` float NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Đang đổ dữ liệu cho bảng `sanpham`
+--
 
-  --
-  -- Dumping data for table `sanpham`
-  --
-
-  INSERT INTO `sanpham` (product_id, product_name, volume, price, CPU, VGA, screen_size, Memory, RAM, brand, resolution, weight, description) 
+  INSERT INTO `sanpham` (product_id, product_name, hinh anh, volume, price, CPU, VGA, screen_size, Memory, RAM, brand, resolution, weight, description) 
   VALUES 
-  (1, 'ASUS Vivobook 14 OLED A1405VA KM257W', 100, 17490000, 'i5-13500H', 'Iris Xe', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '
+  (1, 'ASUS Vivobook 14 OLED A1405VA KM257W','img\productimg\ASUS Vivobook 14 OLED A1405VA KM257W\grandeview.webp', 100, 17490000, 'i5-13500H', 'Iris Xe', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '
   - CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\n
   - GPU:  Intel Iris Xe\n
   - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: OLED 14" 2,8K (2880 x 1800) 16:10\n
   - Cân nặng: 1.6 kg'),
-  (2, 'ASUS Vivobook 15 OLED A1505VA L1491W', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '
+  (2, 'ASUS Vivobook 15 OLED A1505VA L1491W','img\productimg\vivobook15\grandeview.webp', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '
   - CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\n
   - GPU:  Intel Iris Xe\n
   - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
   - Cân nặng: 1.7 kg'),
-  (3, 'ASUS Zenbook 14 OLED UM3402YA KM405W', 150, 19490000, 'R5-7530U', 'Vega 7', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '
+  (3, 'ASUS Zenbook 14 OLED UM3402YA KM405W','img\productimg\zenbook14\grandeview.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '
   - CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\n
   - GPU: AMD Raedon RX Vega 7\n
   - RAM: 16GB LPDDR4X on board (Không nâng cấp)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
   - Cân nặng: 1.7 kg'),
-  (4, 'ASUS Vivobook 16 M1605YA MB303W', 52, 14490000, 'R7-7730U', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
+  (4, 'ASUS Vivobook 16 M1605YA MB303W','img\productimg\vivobook16\grandeview.webp', 52, 14490000, 'R7-7730U', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
   - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
   - GPU: AMD Raedon RX Vega 8\n
   - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
   - Cân nặng: 1.88 kg'),
-  (5, 'Asus ZenBook Flip OLED UP3404VA KN038W', 36, 25990000, 'i5-1340P', ' Iris Xe', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
+  (5, 'Asus ZenBook Flip OLED UP3404VA KN038W','img\productimg\zenbookflip\grandeview.webp', 36, 25990000, 'i5-1340P', ' Iris Xe', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
   - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
   - GPU: AMD Raedon RX Vega 8\n
   - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
   - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
   - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
   - Cân nặng: 1.88 kg'),
-  (6, 'Asus ZenBook Flip OLED UP3404VA KN038W', 36, 25990000, 'i5-1340P', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
-  - CPU: Intel® Core™ i5-1340P Processor 1.9 GHz (12MB Cache, up to 4.6 GHz, 12 cores, 16 Threads), Intel® Evo™ Platform\n
-  - GPU: AMD Raedon RX Vega 8\n
-  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
-  - Cân nặng: 1.88 kg');
+
+  (6, 'Dell XPS 13','img\productimg\dellxps13\frontview.jpg', 85, 23990000, 'Intel Core i7-1185G7', 'Iris Xe Graphics', '13.4"', '1TB', '16GB', 'Dell', '3840x2400', 1.2, '
+  - CPU: Intel Core i7-1185G7 up to 4.8 GHz\n
+  - GPU: Intel Iris Xe Graphics\n
+  - RAM: 16GB LPDDR4x\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 13.4 inch UHD+ Touch\n
+  - Cân nặng: 1.2 kg'),
+  (7, 'Dell Inspiron 15', 100, 15990000, 'Intel Core i5-11320H', 'Intel Iris Xe', '15.6"', '512GB', '16GB', 'Dell', '1920x1080', 1.78, '
+  - CPU: Intel Core i5-11320H up to 4.5 GHz\n
+  - GPU: Intel Iris Xe\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 1.78 kg'),
+  (8, 'Dell G5 15', 75, 24990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '1TB', '16GB', 'Dell', '1920x1080', 2.3, '
+  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
+  - GPU: NVIDIA GTX 1660 Ti\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 2.3 kg'),
+
+  -- Lenovo Products
+  (9, 'Lenovo ThinkPad X1 Carbon', 60, 32990000, 'Intel Core i7-1165G7', 'Iris Xe Graphics', '14"', '1TB', '16GB', 'Lenovo', '3840x2160', 1.09, '
+  - CPU: Intel Core i7-1165G7 up to 4.7 GHz\n
+  - GPU: Intel Iris Xe\n
+  - RAM: 16GB LPDDR4x\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch UHD\n
+  - Cân nặng: 1.09 kg'),
+  (10, 'Lenovo Legion 5 Pro', 90, 27990000, 'AMD Ryzen 7 5800H', 'NVIDIA RTX 3070', '16"', '1TB', '32GB', 'Lenovo', '2560x1600', 2.45, '
+  - CPU: AMD Ryzen 7 5800H up to 4.4 GHz\n
+  - GPU: NVIDIA RTX 3070\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 16 inch QHD\n
+  - Cân nặng: 2.45 kg'),
+  (11, 'Lenovo IdeaPad Flex 5', 120, 16990000, 'AMD Ryzen 5 5500U', 'AMD Radeon Graphics', '14"', '512GB', '8GB', 'Lenovo', '1920x1080', 1.5, '
+  - CPU: AMD Ryzen 5 5500U up to 4.0 GHz\n
+  - GPU: AMD Radeon Graphics\n
+  - RAM: 8GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 14 inch FHD Touch\n
+  - Cân nặng: 1.5 kg'),
+
+  -- Asus Products (Additional)
+  (12, 'ASUS TUF Gaming A15', 80, 21990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 2.3, '
+  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
+  - GPU: NVIDIA GTX 1660 Ti\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 2.3 kg'),
+  (13, 'ASUS ROG Zephyrus G14', 50, 28990000, 'AMD Ryzen 9 5900HS', 'NVIDIA RTX 3060', '14"', '1TB', '32GB', 'Asus', '2560x1440', 1.7, '
+  - CPU: AMD Ryzen 9 5900HS up to 4.6 GHz\n
+  - GPU: NVIDIA RTX 3060\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch QHD\n
+  - Cân nặng: 1.7 kg'),
+  (14, 'ASUS ZenBook Duo', 40, 34990000, 'Intel Core i7-10750H', 'NVIDIA RTX 2060', '14"', '1TB', '32GB', 'Asus', '1920x1080', 2.0, '
+  - CPU: Intel Core i7-10750H up to 5.0 GHz\n
+  - GPU: NVIDIA RTX 2060\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch FHD dual screen\n
+  - Cân nặng: 2.0 kg');
 
   
 
+-- --------------------------------------------------------
 
 --
--- Table structure for table `taikhoannguoidung`
+-- Cấu trúc bảng cho bảng `taikhoannguoidung`
 --
 
 CREATE TABLE `taikhoannguoidung` (
@@ -268,7 +357,7 @@ CREATE TABLE `taikhoannguoidung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `taikhoannguoidung`
+-- Đang đổ dữ liệu cho bảng `taikhoannguoidung`
 --
 
 INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_address`, `user_phone`, `user_email`, `user_status`, `created_at`) VALUES
@@ -291,102 +380,95 @@ INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_addre
 (17, 'Bùi Văn Q', '123', 'Số 17, Phố Tràng Thi, Hà Nội', '0905123472', 'buivanq@example.com', 'active', '2024-04-17 01:00:00'),
 (18, 'Ngô Thị R', '123', 'Số 18, Đường Bùi Viện, Sài Gòn', '0905123473', 'ngothir@example.com', 'active', '2024-04-18 01:00:00'),
 (19, 'Vũ Văn S', '123', 'Số 19, Phố Hàng Đào, Hà Nội', '0905123474', 'vuvans@example.com', 'active', '2024-04-19 01:00:00'),
-(20, 'Đỗ Thị T', '123', 'Số 20, Đường Đồng Khởi, Sài Gòn', '0905123475', 'dothit@example.com', 'active', '2024-04-20 01:00:00');
+(20, 'Đỗ Thị Tê Tê', '123', 'Số 20, Đường Đồng Khởi, Sài Gòn', '0905123475', 'dothit@example.com', 'active', '2024-04-29 10:10:46');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `address`
+-- Chỉ mục cho bảng `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`address_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `chitiethoadon`
+-- Chỉ mục cho bảng `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
   ADD PRIMARY KEY (`bill_id`,`product_id`),
   ADD KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `hinhanh`
+-- Chỉ mục cho bảng `hinhanh`
 --
 ALTER TABLE `hinhanh`
   ADD PRIMARY KEY (`img_id`),
   ADD KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `hoa_don`
+-- Chỉ mục cho bảng `hoa_don`
 --
 ALTER TABLE `hoa_don`
   ADD PRIMARY KEY (`bill_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `sanpham`
+-- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `taikhoannguoidung`
+-- Chỉ mục cho bảng `taikhoannguoidung`
 --
 ALTER TABLE `taikhoannguoidung`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `address`
+-- AUTO_INCREMENT cho bảng `address`
 --
 ALTER TABLE `address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `sanpham`
+-- AUTO_INCREMENT cho bảng `admin`
 --
-ALTER TABLE `sanpham`
-  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `taikhoannguoidung`
+-- AUTO_INCREMENT cho bảng `sanpham`
+--
+ALTER TABLE `sanpham`
+  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `taikhoannguoidung`
 --
 ALTER TABLE `taikhoannguoidung`
   MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `address`
+-- Các ràng buộc cho bảng `address`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `taikhoannguoidung` (`user_id`);
-
---
--- Constraints for table `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`bill_id`) REFERENCES `hoa_don` (`bill_id`),
-  ADD CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `sanpham` (`product_id`);
-
---
--- Constraints for table `hinhanh`
---
-ALTER TABLE `hinhanh`
-  ADD CONSTRAINT `hinhanh_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `sanpham` (`product_id`);
-
---
--- Constraints for table `hoa_don`
---
-ALTER TABLE `hoa_don`
-  ADD CONSTRAINT `hoa_don_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `taikhoannguoidung` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

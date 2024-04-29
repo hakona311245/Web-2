@@ -404,7 +404,7 @@ include_once("includes/header.php");
                                                     <input class="input-number" type="number" id="pr-to" name="max_price" value="<?php echo isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : ''; ?>">
                                                 </p>
                                                 <p class="f-item">
-                                                    <button class="btn-submit" type="submit">go</button>
+                                                <button class="btn-submit btn-go" type="submit">Go</button>
                                                 </p>
                                             </form>
                                         </div>
