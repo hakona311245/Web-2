@@ -297,6 +297,55 @@ INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_addre
 -- Indexes for dumped tables
 --
 
+
+--
+-- Cấu trúc bảng cho bảng admin
+--
+
+CREATE TABLE admin (
+  id int(11) NOT NULL,
+  admin_name varchar(100) DEFAULT NULL,
+  birthday date DEFAULT NULL,
+  picture varchar(250) DEFAULT NULL,
+  email varchar(100) DEFAULT NULL,
+  password varchar(50) DEFAULT NULL,
+  phone varchar(20) DEFAULT NULL,
+  address varchar(100) DEFAULT NULL,
+  mssv varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng admin
+--
+
+INSERT INTO admin (id, admin_name, birthday, picture, email, password, phone, address, mssv) VALUES
+(1, 'Admin1', '1990-05-15', 'admin1.jpg', 'hung1@gmail.com', '123123123', '123456789', '123 Street, City', '123456'),
+(2, 'Admin2', '1988-10-20', 'admin2.jpg', 'admin2@example.com', 'password2', '987654321', '456 Avenue, Town', '654321'),
+(3, 'Admin3', '1995-03-25', 'admin3.jpg', 'admin3@example.com', 'password3', '111222333', '789 Road, Village', '987654');
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng admin
+--
+ALTER TABLE admin
+  ADD PRIMARY KEY (id);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng admin
+--
+ALTER TABLE admin
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+
+
 --
 -- Indexes for table `address`
 --
