@@ -93,3 +93,18 @@ form .text h3 a{
 form .text h3 a:hover{
   text-decoration: underline;
 }
+.btn12 {
+
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #333; /* Darken the background color on hover if desired */
+  
+  
+}

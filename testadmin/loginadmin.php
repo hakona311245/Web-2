@@ -72,7 +72,7 @@
       </div>
 
       <div class="input-box button">
-      <button type="submit" class="btn">Submit</button>     </div>
+      <button type="submit" class="btn12">Submit</button>     </div>
    
     </form>
   </div>
