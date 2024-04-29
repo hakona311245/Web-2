@@ -32,7 +32,7 @@ if (mysqli_num_rows($result) > 0) {
         }
     }
 } else {
-    echo "Không tìm thấy sản phẩm!";
+  
 }
 // Truy vấn để lấy thông tin sản phẩm từ bảng chitiethoadon
 $sql_cart = "SELECT * FROM chitiethoadon";
@@ -300,8 +300,8 @@ mysqli_close($conn);
                 echo "<td>1</td>"; // Số lượng - Ở đây mặc định là 1, bạn có thể thay đổi nếu cần
                 echo "<td>" . $cart_row['product_price'] . "</td>"; // Tổng cộng - Ở đây mặc định là giá sản phẩm, bạn có thể thay đổi nếu cần
                 echo "<td>
-                    <form method='post' action='includes/xoasanpham.php'>
-                        <input type='hidden' name='product_id' value='" . $cart_row['product_id'] . "'>
+                    <form method='post' action='giohang.php'>
+                        <input type='hidden' name='bill_id' value='" . $cart_row['bill_id'] . "'>
                         <button type='submit' class='btn btn-danger'>Xóa</button>
                     </form>
                     </td>";
@@ -353,5 +353,32 @@ mysqli_close($conn);
     });
 </script>
 
+
 </body>
 </html>
+<?php
+// Kết nối đến cơ sở dữ liệu
+$conn = mysqli_connect("localhost", "root", "", "web2");
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+}
+
+// Xác định bill_id từ biểu mẫu POST
+$bill_id = $_POST['bill_id'];
+
+// Thực hiện truy vấn xóa từ bảng chitiethoadon
+$delete_query = "DELETE FROM chitiethoadon WHERE bill_id = '$bill_id'";
+if (mysqli_query($conn, $delete_query)) {
+    // Chuyển hướng người dùng trở lại trang giỏ hàng sau khi xóa thành công
+    header("Location: giohang.php");
+    exit(); // Đảm bảo không có mã PHP hoặc HTML nào được thực thi sau lệnh header
+} else {
+    // Trả về một phản hồi lỗi
+    echo "Có lỗi khi xóa sản phẩm khỏi giỏ hàng: " . mysqli_error($conn);
+}
+
+// Đóng kết nối
+mysqli_close($conn);
+?>
