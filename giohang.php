@@ -1,63 +1,44 @@
 <?php
-// Xử lý dữ liệu gửi từ form và lấy thông tin sản phẩm từ cơ sở dữ liệu
-if(isset($_POST['product_id'])) {
-    // Lấy thông tin sản phẩm từ cơ sở dữ liệu
-    $productInfo = getProductInfo($_POST['product_id']);
+// Kết nối đến cơ sở dữ liệu
+$conn = mysqli_connect("localhost", "root", "", "web2");
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+}
+
+// Lấy product_id từ form
+$product_id = $_POST['product_id'];
+
+// Truy vấn để lấy thông tin sản phẩm từ bảng products
+$sql = "SELECT * FROM sanpham WHERE product_id = '$product_id'";
+$result = mysqli_query($conn, $sql);
+
+// Kiểm tra xem có sản phẩm không
+if (mysqli_num_rows($result) > 0) {
+    // Lặp qua các hàng kết quả
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Lưu thông tin sản phẩm vào các biến
+        $product_name = $row['product_name'];
+        $product_price = $row['price'];
+
+        // Thêm dữ liệu vào bảng chitiethoadon
+        $insert_query = "INSERT INTO chitiethoadon (product_id, product_name, product_price) VALUES ('$product_id', '$product_name', '$product_price')";
+        
+        if (mysqli_query($conn, $insert_query)) {
+            echo "Sản phẩm đã được thêm vào giỏ hàng thành công!";
+        } else {
+            echo "Lỗi khi chèn sản phẩm vào bảng chitiethoadon: " . mysqli_error($conn);
+        }
+    }
 } else {
-    // Nếu không có product_id được gửi đi, hiển thị thông báo
-    echo "Không tìm thấy sản phẩm.";
+    echo "Không tìm thấy sản phẩm!";
 }
 
-// Hàm để lấy thông tin sản phẩm từ cơ sở dữ liệu
-function getProductInfo($productId)
-{
-    // Thực hiện truy vấn SQL để lấy thông tin sản phẩm từ cơ sở dữ liệu
-    // Thay đổi thông tin kết nối theo cấu hình của bạn
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "web2";
-
-    // Tạo kết nối
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Kiểm tra kết nối
-    if ($conn->connect_error) {
-        die("Kết nối đến cơ sở dữ liệu thất bại: " . $conn->connect_error);
-    }
-
-    // Chuẩn bị truy vấn SQL
-    $sql = "SELECT product_name, price FROM sanpham WHERE product_id = $productId";
-
-    // Thực hiện truy vấn
-    $result = $conn->query($sql);
-
-    // Kiểm tra và xử lý kết quả trả về
-    if ($result->num_rows > 0) {
-        // Lấy dòng dữ liệu đầu tiên
-        $row = $result->fetch_assoc();
-
-        // Tạo một mảng chứa thông tin sản phẩm
-        $productInfo = [
-            'product_name' => $row['product_name'],
-            'price' => $row['price'],
-            'quantity' => 1, // Số lượng mặc định là 1
-            'total' => $row['price'] // Tổng cộng bằng giá sản phẩm
-        ];
-
-        // Đóng kết nối đến cơ sở dữ liệu
-        $conn->close();
-
-        return $productInfo;
-    } else {
-        // Đóng kết nối đến cơ sở dữ liệu
-        $conn->close();
-
-        // Nếu không tìm thấy sản phẩm, trả về null hoặc một giá trị mặc định khác tùy thuộc vào yêu cầu của bạn
-        return null;
-    }
-}
+// Đóng kết nối
+mysqli_close($conn);
 ?>
+
 
 
 <!-- Phần HTML -->
