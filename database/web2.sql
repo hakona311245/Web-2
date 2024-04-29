@@ -231,13 +231,113 @@ CREATE TABLE `sanpham` (
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`product_id`, `product_name`, `hinhanh`, `volume`, `price`, `CPU`, `VGA`, `screen_size`, `Memory`, `RAM`, `brand`, `resolution`, `weight`, `description`) VALUES
-(1, 'ASUS Vivobook 14 OLED A1405VA KM257W', 'img/productimg/ASUS Vivobook 14 OLED A1405VA KM257W/grandeview.webp', 100, 17490000, 'i5-13500H', 'Iris Xe', '14\"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '\r\n  - CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\n\r\n  - GPU:  Intel Iris Xe\n\r\n  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: OLED 14\" 2,8K (2880 x 1800) 16:10\n\r\n  - Cân nặng: 1.6 kg'),
-(2, 'ASUS Vivobook 15 OLED A1505VA L1491W', '', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '\r\n  - CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\n\r\n  - GPU:  Intel Iris Xe\n\r\n  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\n\r\n  - Cân nặng: 1.7 kg'),
-(3, 'ASUS Zenbook 14 OLED UM3402YA KM405W', '', 150, 19490000, 'R5-7530U', 'Vega 7', '14\"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '\r\n  - CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\n\r\n  - GPU: AMD Raedon RX Vega 7\n\r\n  - RAM: 16GB LPDDR4X on board (Không nâng cấp)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\n\r\n  - Cân nặng: 1.7 kg'),
-(4, 'ASUS Vivobook 16 M1605YA MB303W', '', 52, 14490000, 'R7-7730U', 'Vega 8', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '\r\n  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n\r\n  - GPU: AMD Raedon RX Vega 8\n\r\n  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n\r\n  - Cân nặng: 1.88 kg'),
-(5, 'Asus ZenBook Flip OLED UP3404VA KN038W', '', 36, 25990000, 'i5-1340P', ' Iris Xe', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '\r\n  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n\r\n  - GPU: AMD Raedon RX Vega 8\n\r\n  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n\r\n  - Cân nặng: 1.88 kg'),
-(6, 'Asus ZenBook Flip OLED UP3404VA KN038W', '', 36, 25990000, 'i5-1340P', 'Vega 8', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '\r\n  - CPU: Intel® Core™ i5-1340P Processor 1.9 GHz (12MB Cache, up to 4.6 GHz, 12 cores, 16 Threads), Intel® Evo™ Platform\n\r\n  - GPU: AMD Raedon RX Vega 8\n\r\n  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n\r\n  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n\r\n  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n\r\n  - Cân nặng: 1.88 kg');
+  INSERT INTO `sanpham` (product_id, product_name, hinh anh, volume, price, CPU, VGA, screen_size, Memory, RAM, brand, resolution, weight, description) 
+  VALUES 
+  (1, 'ASUS Vivobook 14 OLED A1405VA KM257W','img\productimg\ASUS Vivobook 14 OLED A1405VA KM257W\grandeview.webp', 100, 17490000, 'i5-13500H', 'Iris Xe', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '
+  - CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\n
+  - GPU:  Intel Iris Xe\n
+  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
+  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
+  - Màn hình: OLED 14" 2,8K (2880 x 1800) 16:10\n
+  - Cân nặng: 1.6 kg'),
+  (2, 'ASUS Vivobook 15 OLED A1505VA L1491W','img\productimg\vivobook15\grandeview.webp', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '
+  - CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\n
+  - GPU:  Intel Iris Xe\n
+  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
+  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
+  - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
+  - Cân nặng: 1.7 kg'),
+  (3, 'ASUS Zenbook 14 OLED UM3402YA KM405W','img\productimg\zenbook14\grandeview.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '
+  - CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\n
+  - GPU: AMD Raedon RX Vega 7\n
+  - RAM: 16GB LPDDR4X on board (Không nâng cấp)\n
+  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
+  - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
+  - Cân nặng: 1.7 kg'),
+  (4, 'ASUS Vivobook 16 M1605YA MB303W','img\productimg\vivobook16\grandeview.webp', 52, 14490000, 'R7-7730U', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
+  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
+  - GPU: AMD Raedon RX Vega 8\n
+  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
+  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
+  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
+  - Cân nặng: 1.88 kg'),
+  (5, 'Asus ZenBook Flip OLED UP3404VA KN038W','img\productimg\zenbookflip\grandeview.webp', 36, 25990000, 'i5-1340P', ' Iris Xe', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
+  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
+  - GPU: AMD Raedon RX Vega 8\n
+  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
+  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
+  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
+  - Cân nặng: 1.88 kg'),
+
+  (6, 'Dell XPS 13','img\productimg\dellxps13\frontview.jpg', 85, 23990000, 'Intel Core i7-1185G7', 'Iris Xe Graphics', '13.4"', '1TB', '16GB', 'Dell', '3840x2400', 1.2, '
+  - CPU: Intel Core i7-1185G7 up to 4.8 GHz\n
+  - GPU: Intel Iris Xe Graphics\n
+  - RAM: 16GB LPDDR4x\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 13.4 inch UHD+ Touch\n
+  - Cân nặng: 1.2 kg'),
+  (7, 'Dell Inspiron 15', 100, 15990000, 'Intel Core i5-11320H', 'Intel Iris Xe', '15.6"', '512GB', '16GB', 'Dell', '1920x1080', 1.78, '
+  - CPU: Intel Core i5-11320H up to 4.5 GHz\n
+  - GPU: Intel Iris Xe\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 1.78 kg'),
+  (8, 'Dell G5 15', 75, 24990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '1TB', '16GB', 'Dell', '1920x1080', 2.3, '
+  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
+  - GPU: NVIDIA GTX 1660 Ti\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 2.3 kg'),
+
+  -- Lenovo Products
+  (9, 'Lenovo ThinkPad X1 Carbon', 60, 32990000, 'Intel Core i7-1165G7', 'Iris Xe Graphics', '14"', '1TB', '16GB', 'Lenovo', '3840x2160', 1.09, '
+  - CPU: Intel Core i7-1165G7 up to 4.7 GHz\n
+  - GPU: Intel Iris Xe\n
+  - RAM: 16GB LPDDR4x\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch UHD\n
+  - Cân nặng: 1.09 kg'),
+  (10, 'Lenovo Legion 5 Pro', 90, 27990000, 'AMD Ryzen 7 5800H', 'NVIDIA RTX 3070', '16"', '1TB', '32GB', 'Lenovo', '2560x1600', 2.45, '
+  - CPU: AMD Ryzen 7 5800H up to 4.4 GHz\n
+  - GPU: NVIDIA RTX 3070\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 16 inch QHD\n
+  - Cân nặng: 2.45 kg'),
+  (11, 'Lenovo IdeaPad Flex 5', 120, 16990000, 'AMD Ryzen 5 5500U', 'AMD Radeon Graphics', '14"', '512GB', '8GB', 'Lenovo', '1920x1080', 1.5, '
+  - CPU: AMD Ryzen 5 5500U up to 4.0 GHz\n
+  - GPU: AMD Radeon Graphics\n
+  - RAM: 8GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 14 inch FHD Touch\n
+  - Cân nặng: 1.5 kg'),
+
+  -- Asus Products (Additional)
+  (12, 'ASUS TUF Gaming A15', 80, 21990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 2.3, '
+  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
+  - GPU: NVIDIA GTX 1660 Ti\n
+  - RAM: 16GB DDR4\n
+  - Ổ cứng: 512GB SSD\n
+  - Màn hình: 15.6 inch FHD\n
+  - Cân nặng: 2.3 kg'),
+  (13, 'ASUS ROG Zephyrus G14', 50, 28990000, 'AMD Ryzen 9 5900HS', 'NVIDIA RTX 3060', '14"', '1TB', '32GB', 'Asus', '2560x1440', 1.7, '
+  - CPU: AMD Ryzen 9 5900HS up to 4.6 GHz\n
+  - GPU: NVIDIA RTX 3060\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch QHD\n
+  - Cân nặng: 1.7 kg'),
+  (14, 'ASUS ZenBook Duo', 40, 34990000, 'Intel Core i7-10750H', 'NVIDIA RTX 2060', '14"', '1TB', '32GB', 'Asus', '1920x1080', 2.0, '
+  - CPU: Intel Core i7-10750H up to 5.0 GHz\n
+  - GPU: NVIDIA RTX 2060\n
+  - RAM: 32GB DDR4\n
+  - Ổ cứng: 1TB SSD\n
+  - Màn hình: 14 inch FHD dual screen\n
+  - Cân nặng: 2.0 kg');
+
+  
 
 -- --------------------------------------------------------
 
