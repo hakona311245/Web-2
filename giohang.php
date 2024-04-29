@@ -34,6 +34,9 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "Không tìm thấy sản phẩm!";
 }
+// Truy vấn để lấy thông tin sản phẩm từ bảng chitiethoadon
+$sql_cart = "SELECT * FROM chitiethoadon";
+$result_cart = mysqli_query($conn, $sql_cart);
 
 // Đóng kết nối
 mysqli_close($conn);
@@ -286,29 +289,31 @@ mysqli_close($conn);
             </tr>
         </thead>
         <tbody id="cart-items">
-        <?php
-    if ($productInfo) {
-        // Hiển thị thông tin sản phẩm trong giỏ hàng
-        echo "<tr>";
-        echo "<td>1</td>"; // Số thứ tự
-        echo "<td>" . $productInfo['product_name'] . "</td>"; // Tên sản phẩm
-        echo "<td>" . $productInfo['price'] . "</td>"; // Giá
-        echo "<td>" . $productInfo['quantity'] . "</td>"; // Số lượng
-        echo "<td>" . $productInfo['total'] . "</td>"; // Tổng cộng
-        echo "<td>
-                <form method='post' action='includes/xoasanpham.php'>
-                    <input type='hidden' name='product_id' value='" . $productInfo['product_id'] . "'>
-                    <button type='submit' class='btn btn-danger'>Xóa</button>
-                </form>
-              </td>";
-        echo "</tr>";
-    } else {
-        // Hiển thị thông báo nếu sản phẩm không tồn tại
-        echo "<tr><td colspan='6'>Sản phẩm không tồn tại!</td></tr>";
-    }
-?>
+    <?php
+        if ($result_cart && mysqli_num_rows($result_cart) > 0) {
+            $count = 1;
+            while ($cart_row = mysqli_fetch_assoc($result_cart)) {
+                echo "<tr>";
+                echo "<td>" . $count++ . "</td>"; // Số thứ tự
+                echo "<td>" . $cart_row['product_name'] . "</td>"; // Tên sản phẩm
+                echo "<td>" . $cart_row['product_price'] . "</td>"; // Giá
+                echo "<td>1</td>"; // Số lượng - Ở đây mặc định là 1, bạn có thể thay đổi nếu cần
+                echo "<td>" . $cart_row['product_price'] . "</td>"; // Tổng cộng - Ở đây mặc định là giá sản phẩm, bạn có thể thay đổi nếu cần
+                echo "<td>
+                    <form method='post' action='includes/xoasanpham.php'>
+                        <input type='hidden' name='product_id' value='" . $cart_row['product_id'] . "'>
+                        <button type='submit' class='btn btn-danger'>Xóa</button>
+                    </form>
+                    </td>";
+                echo "</tr>";
+            }
+        } else {
+            // Hiển thị thông báo nếu giỏ hàng trống
+            echo "<tr><td colspan='6'>Giỏ hàng trống!</td></tr>";
+        }
+    ?>
+    </tbody>
 
-        </tbody>
     </table>
     <form action="chitietthanhtoan.php" method="post">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
