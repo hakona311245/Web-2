@@ -13,27 +13,9 @@ $product_id = $_POST['product_id'];
 // Truy vấn để lấy thông tin sản phẩm từ bảng products
 $sql = "SELECT * FROM sanpham WHERE product_id = '$product_id'";
 $result = mysqli_query($conn, $sql);
-
-// Kiểm tra xem có sản phẩm không
-if (mysqli_num_rows($result) > 0) {
-    // Lặp qua các hàng kết quả
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Lưu thông tin sản phẩm vào các biến
-        $product_name = $row['product_name'];
-        $product_price = $row['price'];
-
-        // Thêm dữ liệu vào bảng chitiethoadon
-        $insert_query = "INSERT INTO chitiethoadon (product_id, product_name, product_price) VALUES ('$product_id', '$product_name', '$product_price')";
-        
-        if (mysqli_query($conn, $insert_query)) {
-            echo "Sản phẩm đã được thêm vào giỏ hàng thành công!";
-        } else {
-            echo "Lỗi khi chèn sản phẩm vào bảng chitiethoadon: " . mysqli_error($conn);
-        }
-    }
-} else {
-    echo "Không tìm thấy sản phẩm!";
-}
+// Truy vấn để lấy thông tin sản phẩm từ bảng chitiethoadon
+$sql_cart = "SELECT * FROM sanpham";
+$result_cart = mysqli_query($conn, $sql_cart);
 
 // Đóng kết nối
 mysqli_close($conn);
@@ -287,28 +269,26 @@ mysqli_close($conn);
         </thead>
         <tbody id="cart-items">
         <?php
-    if ($productInfo) {
-        // Hiển thị thông tin sản phẩm trong giỏ hàng
+if ($result_cart && mysqli_num_rows($result_cart) > 0) {
+    $count = 1;
+    while ($cart_row = mysqli_fetch_assoc($result_cart)) {
         echo "<tr>";
-        echo "<td>1</td>"; // Số thứ tự
-        echo "<td>" . $productInfo['product_name'] . "</td>"; // Tên sản phẩm
-        echo "<td>" . $productInfo['price'] . "</td>"; // Giá
-        echo "<td>" . $productInfo['quantity'] . "</td>"; // Số lượng
-        echo "<td>" . $productInfo['total'] . "</td>"; // Tổng cộng
-        echo "<td>
-                <form method='post' action='includes/xoasanpham.php'>
-                    <input type='hidden' name='product_id' value='" . $productInfo['product_id'] . "'>
-                    <button type='submit' class='btn btn-danger'>Xóa</button>
-                </form>
-              </td>";
+        echo "<td>" . $count++ . "</td>"; // Số thứ tự
+        echo "<td>" . $cart_row['product_name'] . "</td>"; // Tên sản phẩm
+        echo "<td>" . $cart_row['price'] . "</td>"; // Giá
+        echo "<td>1</td>"; // Số lượng - Ở đây mặc định là 1, bạn có thể thay đổi nếu cần
+        echo "<td>" . $cart_row['price'] . "</td>"; // Tổng cộng - Ở đây mặc định là giá sản phẩm, bạn có thể thay đổi nếu cần
+        echo "<td><button class='btn-delete btn btn-danger'>Xóa</button></td>"; // Thêm nút xóa
         echo "</tr>";
-    } else {
-        // Hiển thị thông báo nếu sản phẩm không tồn tại
-        echo "<tr><td colspan='6'>Sản phẩm không tồn tại!</td></tr>";
     }
+} else {
+    // Hiển thị thông báo nếu giỏ hàng trống
+    echo "<tr><td colspan='6'>Giỏ hàng trống!</td></tr>";
+}
 ?>
 
-        </tbody>
+    </tbody>
+
     </table>
     <form action="chitietthanhtoan.php" method="post">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -347,6 +327,25 @@ mysqli_close($conn);
       });
     });
 </script>
+
+
+<!-- Đoạn mã JavaScript để xóa hàng -->
+<script>
+    // Lấy tất cả các nút xóa trong bảng
+    var deleteButtons = document.querySelectorAll('.btn-delete');
+
+    // Lặp qua từng nút xóa và thêm sự kiện click cho mỗi nút
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Tìm hàng mà nút xóa này thuộc về
+            var row = this.closest('tr');
+
+            // Xóa hàng khỏi bảng
+            row.remove();
+        });
+    });
+</script>
+
 
 </body>
 </html>
