@@ -29,10 +29,6 @@
                 <p><strong>VGA:</strong> NVIDIA GTX 1660 Ti 6GB</p>
                 <p><strong>Cấu hình máy:</strong> 512GB SSD, 15.6" Full HD Display</p>
                 <p><strong>Giá tiền:</strong> $1200</p>
-                <div class="mt-4">
-                    <label for="quantity" class="form-label">Số lượng:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" class="form-control w-25">
-                </div>
                 <button class="btn btn-primary mt-3" action="">Thêm vào giỏ hàng</button>
             </div>
         </div>
