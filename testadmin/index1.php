@@ -64,7 +64,10 @@ $listUsers = getRaw("SELECT * FROM sanpham ");
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách sản phẩm
                             </a>
-
+                            <a class="nav-link" href="index2.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Danh sách đơn hàng
+                            </a>
 
 
                 </nav>

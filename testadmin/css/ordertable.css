@@ -1,0 +1,59 @@
+.date-filter form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.date-filter label {
+    font-weight: bold;
+}
+
+.date-filter input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.date-filter button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.date-filter button:hover {
+    background-color: #0056b3;
+}
+
+.date-filter{
+    padding-left: 10px;
+}
+
+.table {
+    width: 100%; /* Đảm bảo bảng chiếm đầy chiều rộng */
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các border */
+}
+
+.table th, .table td {
+    border: 1px solid #ddd; /* Thêm đường viền cho mỗi cell */
+    padding: 8px; /* Thêm padding cho nội dung trong cell */
+    text-align: left; /* Căn lề trái cho nội dung */
+}
+
+.table th {
+    background-color: #f8f9fa; /* Màu nền cho header */
+    color: #333; /* Màu chữ cho header */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Màu nền cho các hàng lẻ để dễ phân biệt */
+}
+
+.table tbody tr:hover {
+    background-color: #ddd; /* Màu nền khi hover chuột lên hàng */
+}
