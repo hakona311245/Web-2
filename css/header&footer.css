@@ -96,10 +96,6 @@
     padding: 12px;
 }
 
-.menu-item{
-    display: flex;
-    justify-content: space-between;
-}
 
 .menu-box a{
     text-decoration: none;
@@ -111,9 +107,10 @@
 }
 
 .navbar-nav {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 2%; /* Bỏ lề trái tự động */
+    margin-right: auto; /* Đẩy các items sang trái */
 }
+
 
 .bg-custom{
     background-color:#2B80DD;
@@ -121,8 +118,10 @@
 .navbar-toggler{
     margin-left: 15px;
 }
-.custom-nav{
-    margin-left: 2%;
+.custom-nav {
+    flex-direction: row; /* Đảm bảo các nav items nằm trên một dòng */
+    justify-content: flex-start; /* Căn chỉnh các items về phía bắt đầu (trái) của container */
+    gap: 10px; /* Khoảng cách giữa các nav item */
 }
 .search-btn{
     color: black;
@@ -139,15 +138,18 @@
     left: auto;
 }
 
-@media (min-width: 992px) { /* Adjust this breakpoint to match Bootstrap's lg size if needed */
-    .custom-nav {
-        display: flex;
-        justify-content: space-between; /* Distributes space evenly between items */
-        width: 100%; /* Ensures the navbar-nav takes up the full width */
-        padding-left: 6%;
-        padding-right: 6%;
+@media (max-width: 992px) {
+    .navbar-nav {
+        justify-content: center; /* Trung tâm các items trên màn hình nhỏ */
     }
-}   
+
+
+
+    .custom-nav {
+        flex-direction: column; /* Xếp các items dọc trên màn hình nhỏ */
+        gap: 5px; /* Giảm khoảng cách giữa các items khi ở chế độ mobile */
+    }
+}
 
 /* Ensure larger screens only to avoid affecting mobile usability */
 @media (min-width: 992px) {
@@ -160,6 +162,11 @@
         visibility: hidden; /* Ensures the menu isn't accidentally interactable when invisible */
         transform: translateY(-5px); /* Adjust the value as needed */
         transition: opacity 0.1s ease, transform 0.5s ease;
+    }
+
+    .navbar-nav {
+        margin-left: 5.5%; /* Bỏ lề trái tự động */
+        margin-right: auto; /* Đẩy các items sang trái */
     }
 
     /* State of the dropdown menu when hovering over the dropdown item */
