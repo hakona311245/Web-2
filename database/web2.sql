@@ -65,17 +65,6 @@ INSERT INTO `address` (`address_id`, `user_id`, `noidung`) VALUES
 -- Cấu trúc bảng cho bảng `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `admin_name` varchar(100) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
-  `picture` varchar(250) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `mssv` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `admin`
@@ -223,7 +212,7 @@ CREATE TABLE sanpham (
   brand varchar(50) NOT NULL,
   resolution varchar(255) NOT NULL,
   weight float NOT NULL,
-  description text NOT NULL
+  description text NOT NULL,
     PRIMARY KEY (product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
