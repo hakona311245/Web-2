@@ -566,14 +566,10 @@ if(isLogin())
     </div>
     </div>
 
-
-
     </div>
 
     </main>
   <footer-template></footer-template>
-
-
 
     <script src="js/header&footer_login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

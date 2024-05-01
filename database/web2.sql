@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 29, 2024 lúc 05:17 PM
+-- Thời gian đã tạo: Th5 01, 2024 lúc 03:54 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- .
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -129,6 +129,25 @@ INSERT INTO `chitiethoadon` (`bill_id`, `product_id`, `volume`, `price_each`, `p
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `danhmuc`
+--
+
+CREATE TABLE `danhmuc` (
+  `id` int(11) NOT NULL,
+  `ten_phanloai` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `danhmuc`
+--
+
+INSERT INTO `danhmuc` (`id`, `ten_phanloai`) VALUES
+(1, 'gaming'),
+(2, 'office');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `hinhanh`
 --
 
@@ -209,113 +228,61 @@ INSERT INTO `hoa_don` (`bill_id`, `day_order`, `day_receive`, `status`, `user_id
 --
 -- Cấu trúc bảng cho bảng `sanpham`
 --
-CREATE TABLE sanpham (
-  product_id int(10) NOT NULL AUTO_INCREMENT,
-  product_name varchar(255) NOT NULL,
-  hinhanh varchar(255) NOT NULL,
-  volume int(11) NOT NULL,
-  price float NOT NULL,
-  CPU varchar(255) NOT NULL,
-  VGA varchar(255) NOT NULL,
-  screen_size varchar(255) NOT NULL,
-  Memory varchar(255) NOT NULL,
-  RAM varchar(255) NOT NULL,
-  brand varchar(50) NOT NULL,
-  resolution varchar(255) NOT NULL,
-  weight float NOT NULL,
-  description text NOT NULL
-    PRIMARY KEY (product_id)
+
+CREATE TABLE `sanpham` (
+  `product_id` int(10) NOT NULL,
+  `id_phanloai` int(11) DEFAULT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `hinhanh` varchar(255) NOT NULL,
+  `volume` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `CPU` varchar(255) NOT NULL,
+  `VGA` varchar(255) NOT NULL,
+  `screen_size` varchar(255) NOT NULL,
+  `Memory` varchar(255) NOT NULL,
+  `RAM` varchar(255) NOT NULL,
+  `brand` varchar(50) NOT NULL,
+  `resolution` varchar(255) NOT NULL,
+  `weight` float NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng sanpham
+-- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-  INSERT INTO sanpham ( product_name, hinhanh, volume, price, CPU, VGA, screen_size, Memory, RAM, brand, resolution, weight, description) 
-  VALUES 
-  ('ASUS Vivobook 14 OLED A1405VA KM257W','img\productimg\randomimg\10.webp', 100, 17490000, 'i5-13500H', 'Iris Xe', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '
-  - CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\n
-  - GPU:  Intel Iris Xe\n
-  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: OLED 14" 2,8K (2880 x 1800) 16:10\n
-  - Cân nặng: 1.6 kg'),
-  ('ASUS Vivobook 15 OLED A1505VA L1491W','img\productimg\randomimg\2.webp', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '
-  - CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\n
-  - GPU:  Intel Iris Xe\n
-  - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
-  - Cân nặng: 1.7 kg'),
-  ('ASUS Zenbook 14 OLED UM3402YA KM405W','img\productimg\randomimg\11.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '14"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '
-  - CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\n
-  - GPU: AMD Raedon RX Vega 7\n
-  - RAM: 16GB LPDDR4X on board (Không nâng cấp)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: OLED 15,6" FHD (1920 x 1080) 16:9\n
-  - Cân nặng: 1.7 kg'),
-  ('ASUS Vivobook 16 M1605YA MB303W','img\productimg\randomimg\9.webp', 52, 14490000, 'R7-7730U', 'Vega 8', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
-  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
-  - GPU: AMD Raedon RX Vega 8\n
-  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
-  - Cân nặng: 1.88 kg'),
-  ('Asus ZenBook Flip OLED UP3404VA KN038W','img\productimg\zenbookflip\grandeview.webp', 36, 25990000, 'i5-1340P', ' Iris Xe', '16"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '
-  - CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\n
-  - GPU: AMD Raedon RX Vega 8\n
-  - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\n
-  - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 \n
-  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\n
-  - Cân nặng: 1.88 kg'),
-  -- Dell Products
-  ('Dell XPS 13','img\productimg\dellxps13\frontview.jpg', 85, 23990000, 'Intel Core i7-1185G7', 'Iris Xe Graphics', '13.4"', '1TB', '16GB', 'Dell', '3840x2400', 1.2, '
-  - CPU: Intel Core i7-1185G7 up to 4.8 GHz\n
-  - GPU: Intel Iris Xe Graphics\n
-  - RAM: 16GB LPDDR4x\n
-  - Ổ cứng: 1TB SSD\n
-  - Màn hình: 13.4 inch UHD+ Touch\n
-  - Cân nặng: 1.2 kg'),
-  ('Dell Inspiron 15','img\productimg\inspiron15\grandeview.webp', 100, 15990000, 'Intel Core i5-11320H', 'Intel Iris Xe', '15.6"', '512GB', '16GB', 'Dell', '1920x1080', 1.78, '
-  - CPU: Intel Core i5-11320H up to 4.5 GHz\n
-  - GPU: Intel Iris Xe\n
-  - RAM: 16GB DDR4\n
-  - Ổ cứng: 512GB SSD\n
-  - Màn hình: 15.6 inch FHD\n
-  - Cân nặng: 1.78 kg'),
-  ('Dell G5 15','img\productimg\dellg5\grande.webp', 75, 24990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '1TB', '16GB', 'Dell', '1920x1080', 2.3, '
-  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
-  - GPU: NVIDIA GTX 1660 Ti\n
-  - RAM: 16GB DDR4\n
-  - Ổ cứng: 1TB SSD\n
-  - Màn hình: 15.6 inch FHD\n
-  - Cân nặng: 2.3 kg'),
-
-  -- Asus Products (Additional)
-  ('ASUS TUF Gaming A15', 80, 21990000, 'AMD Ryzen 7 4800H', 'NVIDIA GTX 1660 Ti', '15.6"', '512GB', '16GB', 'Asus', '1920x1080', 2.3, '
-  - CPU: AMD Ryzen 7 4800H up to 4.2 GHz\n
-  - GPU: NVIDIA GTX 1660 Ti\n
-  - RAM: 16GB DDR4\n
-  - Ổ cứng: 512GB SSD\n
-  - Màn hình: 15.6 inch FHD\n
-  - Cân nặng: 2.3 kg'),
-  ('ASUS ROG Zephyrus G14', 50, 28990000, 'AMD Ryzen 9 5900HS', 'NVIDIA RTX 3060', '14"', '1TB', '32GB', 'Asus', '2560x1440', 1.7, '
-  - CPU: AMD Ryzen 9 5900HS up to 4.6 GHz\n
-  - GPU: NVIDIA RTX 3060\n
-  - RAM: 32GB DDR4\n
-  - Ổ cứng: 1TB SSD\n
-  - Màn hình: 14 inch QHD\n
-  - Cân nặng: 1.7 kg'),
-  ('ASUS ZenBook Duo', 40, 34990000, 'Intel Core i7-10750H', 'NVIDIA RTX 2060', '14"', '1TB', '32GB', 'Asus', '1920x1080', 2.0, '
-  - CPU: Intel Core i7-10750H up to 5.0 GHz\n
-  - GPU: NVIDIA RTX 2060\n
-  - RAM: 32GB DDR4\n
-  - Ổ cứng: 1TB SSD\n
-  - Màn hình: 14 inch FHD dual screen\n
-  - Cân nặng: 2.0 kg');
-
-
-  
+INSERT INTO `sanpham` (`product_id`, `id_phanloai`, `product_name`, `hinhanh`, `volume`, `price`, `CPU`, `VGA`, `screen_size`, `Memory`, `RAM`, `brand`, `resolution`, `weight`, `description`) VALUES
+(1, NULL, 'ASUS Vivobook 14 OLED A1405VA KM257W', 'img/productimg/ASUS Vivobook 14 OLED A1405VA KM257W/grandeview.webp', 100, 17490000, 'i5-13500H', 'Iris Xe', '14\"', '512GB', '16GB', 'Asus', '2880x1800', 1.4, '- CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\\n - GPU:  Intel Iris Xe\\n - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: OLED 14\" 2,8K (2880 x 1800) 16:10\\n - Cân nặng: 1.6 kg'),
+(2, NULL, 'ASUS Vivobook 15 OLED A1505VA L1491W', 'img/productimg/randomimg/10.webp', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, '- CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\\n - GPU:  Intel Iris Xe\\n - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\\n - Cân nặng: 1.7 kg'),
+(3, NULL, 'ASUS Zenbook 14 OLED UM3402YA KM405W', 'img/productimg/randomimg/2.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '14\"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, '- CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 7\\n - RAM: 16GB LPDDR4X on board (Không nâng cấp)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\\n - Cân nặng: 1.7 kg'),
+(4, NULL, 'ASUS Vivobook 16 M1605YA MB303W', 'img/productimg/randomimg/19.webp', 52, 14490000, 'R7-7730U', 'Vega 8', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '- CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 8\\n - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 1.88 kg'),
+(5, NULL, 'Asus ZenBook Flip OLED UP3404VA KN038W', 'img/productimg/randomimg/30.webp', 36, 25990000, 'i5-1340P', ' Iris Xe', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '- CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 8\\n - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 1.88 kg'),
+(6, NULL, 'Asus ZenBook Flip OLED UP3404VA KN038W', 'img/productimg/randomimg/21.webp', 36, 25990000, 'i5-1340P', 'Vega 8', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, '- CPU: Intel® Core™ i5-1340P Processor 1.9 GHz (12MB Cache, up to 4.6 GHz, 12 cores, 16 Threads), Intel® Evo™ Platform\\n - GPU: AMD Raedon RX Vega 8\\n - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 1.88 kg'),
+(7, 2, 'ASUS Vivobook 14 OLED A1405VA KM257W', 'img/productimg/randomimg/11.webp', 10, 17490000, 'i5-13500H', 'Iris Xe', '14', '512GB', '16GB', 'Asus', '2880x1800', 1.4, 'CPU: Intel® Core™ i5-13500H 2,6 GHz (Bộ nhớ đệm 18 MB, tối đa 4,7 GHz, 12 lõi, 16 luồng)\\n - GPU: Intel Iris Xe\\n - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0 - Màn hình: OLED 14\" 2,8K (2880 x 1800) 16:10\\n - Cân nặng: 1.6 kg'),
+(8, 2, 'ASUS Vivobook 15 OLED A1505VA L1491W', 'img/productimg/randomimg/2.webp', 150, 19490000, 'i7-13700H', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Asus', '1920x1080', 1.7, 'CPU: Intel® Core™ i7-13700H 2,4 GHz (Bộ nhớ đệm 24 MB, tối đa 5,0 GHz, 14 lõi, 20 luồng)\\n - GPU:  Intel Iris Xe\\n - RAM: 16GB DDR4 3200MHz (8GB tích hợp + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\\n - Cân nặng: 1.7 kg'),
+(9, 2, 'ASUS Zenbook 14 OLED UM3402YA KM405W', 'img/productimg/randomimg/11.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '14\"', '512GB', '16GB', 'Asus', '2880x1800', 1.39, 'CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 7\\n - RAM: 16GB LPDDR4X on board (Không nâng cấp)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: OLED 15,6\" FHD (1920 x 1080) 16:9\\n - Cân nặng: 1.7 kg'),
+(10, 2, 'ASUS Vivobook 16 M1605YA MB303W', 'img/productimg/randomimg/9.webp', 52, 14490000, 'R7-7730U', 'Vega 8', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, 'CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 8\\n - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0\\n - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 1.88 kg'),
+(11, 2, 'Asus ZenBook Flip OLED UP3404VA KN038W', 'img/productimg/randomimg/9.webp', 36, 25990000, 'i5-1340P', 'Iris Xe', '16\"', '512GB', '16GB', 'Asus', '1920x1200', 1.88, 'CPU: AMD Ryzen™ R7-7730U 2.0GHz (8-core/16-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 8\\n - RAM: 16GB DDR4 3200Mhz (8GB Onboard + 8GB Sodimm)\\n - Ổ Cứng: SSD 512GB M.2 NVMe™ PCIe® 3.0]n  - Màn hình: 16 inch WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 1.88 kg'),
+(12, 2, 'Dell XPS 13', 'img/productimg/randomimg/5.jpg', 85, 23990000, 'i7-1185G7', 'Iris Xe', '13.4\"', '1TB', '16GB', 'Dell', '3840x2400', 1.2, '- CPU: Intel Core i7-1185G7 up to 4.8 GHz\\n - GPU: Intel Iris Xe Graphics\\n - RAM: 16GB LPDDR4x\\n - Ổ cứng: 1TB SSD\\n - Màn hình: 13.4 inch UHD+ Touch\\n - Cân nặng: 1.2 kg'),
+(13, 2, 'Dell Inspiron 15', 'img/productimg/randomimg/4.webp', 100, 15990000, 'i5-11320H', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Dell', '1920x1080', 1.78, '- CPU: Intel Core i5-11320H up to 4.5 GHz\\n - GPU: Intel Iris Xe\\n - RAM: 16GB DDR4\\n - Ổ cứng: 512GB SSD\\n - Màn hình: 15.6 inch FHD\\n - Cân nặng: 1.78 kg'),
+(14, 1, 'Dell G5 15', 'img/productimg/randomimg/1.webp', 0, 0, 'i7-13650HX', 'RTX 4060', '15.6\"', '512GB', '16GB', 'Dell', '1920x1080', 2.81, '- CPU: AMD Ryzen 7 4800H up to 4.2 GHz\\n - GPU: NVIDIA GTX 1660 Ti\\n - RAM: 16GB DDR4\\n - Ổ cứng: 1TB SSD\\n - Màn hình: 15.6 inch FHD\\n - Cân nặng: 2.3 kg'),
+(15, 1, 'ASUS TUF Gaming A15', 'img/productimg/randomimg/1.webp', 80, 21990000, 'R5-7535HS', 'RTX 4050', '15.6\"', '1TB', '16GB', 'Asus', '1920x1080', 2.2, '- CPU: AMD Ryzen™ 5 7535HS Mobile Processor (6-core/12-thread, 16MB L3 cache, up to 4.5 GHz max boost)\\n - RAM: 16GB (2x8GB) DDR5 4800MHz (2x SO-DIMM socket, up to 32GB SDRAM)\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD (2230) (Còn trống 1 khe SSD M.2 PCIE)\\n - Màn hình: 15.6\" FHD (1920 x 1080) 16:9 IPS\\n - Cân nặng: 2.2 kg'),
+(16, 1, 'ASUS ROG Zephyrus G14 GA403UU QS101W', 'img/productimg/randomimg/19.webp', 50, 28990000, 'R9-8945HS', 'RTX 4060', '14\"', '512GB', '32GB', 'Asus', '2880x1800', 1.5, '- CPU: AMD Ryzen™ 9 8945HS (8 cores, 16 threads, 4.0GHz upto 5.2GHz, 16MB Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4050 6GB GDDR6\\n - RAM: 32GB (16x2) LPDDR5X 6400MHz Onboard\\n - Ổ cứng: 12GB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 14\" 2.8K (2880 x 1800) 16:10, OLED\\n - Cân nặng: 1.5 kg'),
+(17, 1, 'ASUS ROG Strix G16 G614JVR N4141W', 'img/productimg/randomimg/13.webp', 65, 43990000, 'i9-14900HX', 'RTX 4060', '16\"', '512GB', '32GB', 'Asus', '2880x1800', 2.5, '- CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4060 8GB GDDR6]n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 512GB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 16\" 2.5K (2560 x 1600) 16:10 IPS\\n - Cân nặng: 2.5 kg'),
+(18, 1, 'ASUS ROG Strix SCAR 16 G634JZR NM009W', 'img/productimg/randomimg/22.webp', 32, 98990000, 'i9-14900HX', 'RTX 4080', '16\"', '1TB', '32GB', 'Asus', '2880x1800', 2.65, '- CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4080 12GB GDDR6\\n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 16\" 2.5K (2560 x 1600) 16:10 IPS\\n  - Cân nặng: 2.65 kg'),
+(19, 1, 'ASUS TUF Gaming A16 FA617NS N3486W Advantage Edition', 'img/productimg/randomimg/15.webp', 32, 26490000, 'R7-7735HS', 'RX 7600S', '16\"', '512GB', '8GB', 'Asus', '1920 x 1200', 2.2, '- CPU: AMD Ryzen™ 7 7735HS Mobile Processor (8-core/16-thread, 16MB L3 cache, up to 4.7 GHz max boost)\\n - GPU: AMD Radeon™ RX 7600S 8GB GDDR6\\n - RAM: 8GB DDR5 4800MHz\\n - Ổ cứng: 512GB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 16\" WUXGA (1920 x 1200) 16:10\\n - Cân nặng: 2.2 kg'),
+(20, 1, 'Alienware X17 R2 A780BLK-PUS', 'img/productimg/randomimg/25.webp', 25, 44990000, 'i9-14900HX', 'RTX 4080', '17.3\"', '1TB', '32GB', 'Asus', '2880x1800', 2.65, '- CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4080 12GB GDDR6\\n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 17.3\" 2.5K (2560 x 1600) 16:10 IPS\\n - Cân nặng: 2.65 kg'),
+(21, 2, 'Dell Vostro 3530 V5I3465W1', 'img/productimg/randomimg/32.webp', 68, 13990000, 'i3-1305U', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Dell', '1920x1080', 1.66, '- CPU: Intel Core i3-1305U (3.3GHz~ 4.5GHz) 5 Cores 6 Threads\\n - GPU: Intel Iris Xe\\n  - RAM: 16GB DDR4\\n - Ổ cứng: 512GB SSD\\n - Màn hình: 15.6 inch FHD (1920 x 1080)\\n - Cân nặng: 1.66 kg'),
+(22, 2, 'Dell Vostro 3530 V5I3465W1', 'img/productimg/randomimg/28.webp', 14, 19990000, 'i7-1165G7', 'Iris Xe', '15.6\"', '512GB', '8GB', 'Dell', '1920x1080', 1.79, '- CPU: Intel Core i7-1165G7 (2.58GHz~4.7GHz) 4 Cores 8 Threads\\n - GPU: Intel Iris Xe\\n - RAM: 8GB (1x8) DDR4 3200MHz\\n - Ổ cứng: 512GB SSD\\n - Màn hình: 15.6 inch FHD (1920 x 1080)\\n - Cân nặng: 1.79 kg'),
+(23, 1, 'Alienware X16 R2 A680BLK-PUS', 'img/productimg/randomimg/24.webp', 25, 38990000, 'i9-14900HX', 'RTX 4080', '16\"', '1TB', '32GB', 'Dell', '2880x1800', 2.65, '- CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4080 12GB GDDR6\\n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 16\" 2.5K (2560 x 1600) 16:10 IPS\\n - Cân nặng: 2.5 kg'),
+(24, 1, 'ASUS ROG Strix SCAR 18 G634JZR NM009W', 'img/productimg/randomimg/22.webp', 32, 98990000, 'i9-14900HX', 'RTX 4080', '18\"', '1TB', '32GB', 'Asus', '2880x1800', 2.65, 'CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4080 12GB GDDR6\\n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 18\" 2.5K (2560 x 1600) 16:10 IPS\\n - Cân nặng: 3.2 kg'),
+(25, 2, 'Dell XPS 16', 'img/productimg/randomimg/5.jpg', 85, 23990000, 'i7-1185G7', 'Iris Xe', '16\"', '1TB', '16GB', 'Dell', '3840x2400', 1.2, '- CPU: Intel Core i7-1185G7 up to 4.8 GHz\\n - GPU: Intel Iris Xe Graphics\\n - RAM: 16GB LPDDR4x - Ổ cứng: 1TB SSD\\n - Màn hình: 16 inch UHD+ Touch\\n - Cân nặng: 1.7 kg'),
+(26, 2, 'ASUS Zenbook 16 OLED UM3402YA KM405W', 'img/productimg/randomimg/11.webp', 150, 19490000, 'R5-7530U', 'Vega 7', '16\"', '1TB', '16GB', 'Asus', '2880x1800', 1.39, '- CPU: AMD Ryzen™ R5-7530U 2.0GHz (6-core/12-thread, 16MB cache, up to 4.5 GHz max boost)\\n - GPU: AMD Raedon RX Vega 7\\n - RAM: 16GB LPDDR4X on board (Không nâng cấp)\\n - Ổ Cứng: SSD 1TB M.2 NVMe™ PCIe® 3.0\\n  - Màn hình: OLED 16\" FHD (1920 x 1080) 16:9\\n  - Cân nặng: 1.9 kg'),
+(28, 2, 'Dell Inspiron T7430', 'img\\productimg\\randomimg\\29.webp', 150, 19490000, 'i5-1335U', 'Iris Xe', '14\"', '512GB', '8GB', 'Dell', '1920 x 1200', 1.58, 'CPU: Intel® Core™ i5-1355U upto 4.60GHz, 10 cores 12 threads, 12Mb Cache\\n - GPU: Intel Iris Xe Graphics\\n - RAM: 8GB (1 x 8GB) LPDDR5 4800MHz\\n - Ổ Cứng: 512GB M.2 PCIe NVMe SSD\\n - Màn hình: 14.0 inch FHD+(1920 x 1200)\\n - Cân nặng: 1.58 kg'),
+(29, 2, 'Dell Vostro 3560 V5I3465W9', 'img\\productimg\\randomimg\\28.webp', 14, 19990000, 'i7-1165G7', 'MX550', '15.6\"', '512GB', '16GB', 'Dell', '1920x1080', 1.79, 'CPU: Intel Core i7-1165G7 (2.58GHz~4.7GHz) 4 Cores 8 Threads\\n - GPU: Nvidia Geforce MX550 2GB GDDR6\\n - RAM: 16GB (2x8) DDR4 3200MHz\\n - Ổ cứng: 512GB SSD\\n - Màn hình: 15.6 inch FHD (1920 x 1080)\\n - Cân nặng: 1.79 kg\\n'),
+(30, 2, 'Dell Vostro 3530 V5I3465W1', 'img\\productimg\\randomimg\\32.webp', 68, 13990000, 'i3-1305U', 'Iris Xe', '15.6\"', '512GB', '16GB', 'Dell', '1920x1080', 1.66, '- CPU: Intel Core i3-1305U (3.3GHz~ 4.5GHz) 5 Cores 6 Threads\\n - GPU: Intel Iris Xe\\n - RAM: 16GB DDR4\\n - Ổ cứng: 512GB SSD\\n - Màn hình: 15.6 inch FHD (1920 x 1080)\\n - Cân nặng: 1.66 kg'),
+(31, 1, 'ASUS TUF Gaming A15 FA506NC', 'img/productimg/randomimg/12.webp', 75, 18990000, 'R5-7535HS', 'RTX 3050', '15.6\"', '512GB', '8GB', 'Asus', '1920x1080', 2.2, '- CPU: AMD Ryzen™ 5 7535HS Mobile Processor (6-core/12-thread, 16MB L3 cache, up to 4.5 GHz max boost)\\n - GPU: NVIDIA® GeForce RTX 3050 4GB GDDR6\\n- RAM: 8GB DDR5 4800MHz\\n- Ổ cứng: 512GB PCIe® 4.0 NVMe™ M.2 SSD (2230) (Còn trống 1 khe SSD M.2 PCIE)\\n - Màn hình: 15.6\" FHD (1920 x 1080) 16:9 IPS\\n - Cân nặng: 2.2 kg'),
+(32, 1, 'ASUS ROG Strix G18 G814JVR N4141W', 'img/productimg/\nrandomimg/13.webp', 32, 63990000, 'i9-14900HX', 'RTX 4070', '18\"', '1TB', '32GB', 'Asus', '2880x1800', 2.85, '- CPU: Intel® Core™ i9 14900HX (2.2 GHz up to 5.8 GHz, 24 cores 32 threads, 4M Cache)\\n - GPU: NVIDIA® GeForce RTX™ 4070 10GB GDDR6\\n - RAM: 32GB (2x16GB) DDR5 5600MHz\\n - Ổ cứng: 1TB PCIe® 4.0 NVMe™ M.2 SSD\\n - Màn hình: 18\" 2.5K (2560 x 1600) 16:10 IPS\\n - Cân nặng: 2.85 kg');
 
 -- --------------------------------------------------------
 
@@ -358,7 +325,9 @@ INSERT INTO `taikhoannguoidung` (`user_id`, `user_name`, `user_pwd`, `user_addre
 (17, 'Bùi Văn Q', '123', 'Số 17, Phố Tràng Thi, Hà Nội', '0905123472', 'buivanq@example.com', 'active', '2024-04-17 01:00:00'),
 (18, 'Ngô Thị R', '123', 'Số 18, Đường Bùi Viện, Sài Gòn', '0905123473', 'ngothir@example.com', 'active', '2024-04-18 01:00:00'),
 (19, 'Vũ Văn S', '123', 'Số 19, Phố Hàng Đào, Hà Nội', '0905123474', 'vuvans@example.com', 'active', '2024-04-19 01:00:00'),
-(20, 'Đỗ Thị Tê Tê', '123', 'Số 20, Đường Đồng Khởi, Sài Gòn', '0905123475', 'dothit@example.com', 'active', '2024-04-29 10:10:46');
+(20, 'Đỗ Thị T', '123', 'Số 20, Đường Đồng Khởi, Sài Gòn', '0905123475', 'dothit@example.com', 'active', '2024-04-20 01:00:00'),
+(21, 'mc', '$2y$12$zhA/LLqfvv/3i7NLYGg37uxyFnshlNJXYZUxbhDjZUCHLlkv9LHbq', NULL, '0567301252', 'vvitthao@gmail.com', 'active', '2024-04-28 16:03:09'),
+(22, 'datco123', '123123123', 'HCM city123', '0376653241', 'thanhhung@gmail.com', 'active', '2024-04-30 04:35:19');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -372,17 +341,17 @@ ALTER TABLE `address`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
   ADD PRIMARY KEY (`bill_id`,`product_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Chỉ mục cho bảng `danhmuc`
+--
+ALTER TABLE `danhmuc`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `hinhanh`
@@ -402,7 +371,8 @@ ALTER TABLE `hoa_don`
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`product_id`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `fk_sanpham_danhmuc` (`id_phanloai`);
 
 --
 -- Chỉ mục cho bảng `taikhoannguoidung`
@@ -421,22 +391,22 @@ ALTER TABLE `address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT cho bảng `admin`
+-- AUTO_INCREMENT cho bảng `danhmuc`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `danhmuc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `taikhoannguoidung`
 --
 ALTER TABLE `taikhoannguoidung`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -447,6 +417,12 @@ ALTER TABLE `taikhoannguoidung`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `taikhoannguoidung` (`user_id`);
+
+--
+-- Các ràng buộc cho bảng `sanpham`
+--
+ALTER TABLE `sanpham`
+  ADD CONSTRAINT `fk_sanpham_danhmuc` FOREIGN KEY (`id_phanloai`) REFERENCES `danhmuc` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
