@@ -119,118 +119,22 @@ if(isLogin())
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             >
-                                Laptop Văn Phòng
+                                Sản phẩm
                             </a>
                             <ul class="dropdown-menu"
                             aria-labelledby="navbarDropdown">
                                 <li>
                                   <a href="#"
-                                    class="dropdown-item">Asus</a>
+                                    class="dropdown-item">Laptop Gaming</a>
                                 
                                 </li>
                                 <li>
                                   <a href="#"
-                                    class="dropdown-item">Acer</a>
-                                  
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Dell</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">HP</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Lenovo</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">MSI</a>
-                                </li>
+                                    class="dropdown-item">Laptop Văn Phòng</a>
                             </ul>
                         </li>
     
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle"
-                            id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            >
-                                Laptop Gaming
-                            </a>
-                            <ul class="dropdown-menu"
-                            aria-labelledby="navbarDropdown">
-                            <li>
-                                  <a href="Laptopgaming.php"
-                                    class="dropdown-item">Tất cả các hãng</a>
-                                
-                                </li>
-                            <li>
-                                  <a href="#"
-                                    class="dropdown-item">Asus</a>
-                                
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Acer</a>
-                                  
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Dell</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">HP</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Lenovo</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">MSI</a>
-                                </li>
-                            </ul>
-                        </li>
-    
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle"
-                               id="navbarDropdownGraphics" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Laptop Đồ Hoạ
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                            <li>
-                                  <a href="#"
-                                    class="dropdown-item">Asus</a>
-                                
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Acer</a>
-                                  
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Dell</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">HP</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">Lenovo</a>
-                                </li>
-                                <li>
-                                  <a href="#"
-                                    class="dropdown-item">MSI</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                     </ul>
                 </div>
     
@@ -244,7 +148,7 @@ if(isLogin())
     </header>
     <main>
 
-      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">   
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -662,14 +566,10 @@ if(isLogin())
     </div>
     </div>
 
-
-
     </div>
 
     </main>
   <footer-template></footer-template>
-
-
 
     <script src="js/header&footer_login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

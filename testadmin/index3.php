@@ -4,8 +4,6 @@ require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
 
-$listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
-
 ?>
 
 <html lang="en">
@@ -18,10 +16,13 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
         <title>Danh sách khách hàng-SG Tech admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/ordertable.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -41,10 +42,10 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!"></a></li>
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logoutadmin.php">Logout</a></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,10 +64,12 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách sản phẩm
                             </a>
+
                             <a class="nav-link" href="index2.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách đơn hàng
                             </a>
+
 
 
                 </nav>
@@ -74,56 +77,42 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Danh sách khách hàng</h1>
+                        <h1 class="mt-4">Thống kê mức chi tiêu của khách hàng</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Bảng dữ liệu
                             </div>
-                            <div class="card-body">
-                            <div class="nutthem_user"><a href="add_user.php"><i style="color: black;" class="fa-solid fa-user-plus"></i></a></div>
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>User Name</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ email</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Password</th>
-                                            <th>Trạng thái</th>
-                                            <th>Ngày tạo tài khoản</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                    <?php
-                                            if(!empty($listUsers)):
-                                            $count = 0;
-                                            foreach($listUsers as $item):
-                                                $count++;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $count; ?></td>
-                                            <td><?php echo $item['user_name']; ?></td>
-                                            <td><?php echo $item['user_phone']; ?></td>
-                                            <td><?php echo $item['user_email']; ?></td>
-                                            <td><?php echo $item['user_address']; ?></td>
-                                            <td><?php echo $item['user_pwd']; ?></td>
-                                            <td><?php echo $item['user_status']; ?></td>
-                                            <td><?php echo $item['created_at']; ?></td>
-                                            <td><a href="update_user.php?user_id=<?php echo $item['user_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="delete_user.php?user_id=<?php echo $item['user_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
-                                        </tr>
-                                        <?php 
-                                            endforeach;
-                                        endif;    
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div class="date-filter">
+                            <form>
+                                <label for="start-date">Từ ngày:</label>
+                                <input type="date" id="start-date" name="start-date">
+
+                                <label for="end-date">Đến ngày:</label>
+                                <input type="date" id="end-date" name="end-date">
+
+                                <button type="submit">Lọc</button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></a></div>
+                <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên khách hàng</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Địa chỉ</th>
+                                <th>Các đơn hàng</th>
+                                <th>Tổng chi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Dữ liệu bảng ở đây -->
+                        </tbody>
+                        </table>
+                        </div>
                         </div>
                     </div>
                 </main>
@@ -148,5 +137,7 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
     </body>
 </html>
