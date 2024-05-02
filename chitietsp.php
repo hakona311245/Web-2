@@ -17,22 +17,52 @@
   <header-template></header-template>
     <main>
         
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="img/productcard/zephyrusg15.png" alt="Laptop Image" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-                <h2 class="mb-3">Laptop Model XYZ</h2>
-                <p><strong>CPU:</strong> Intel Core i7-10750H</p>
-                <p><strong>RAM:</strong> 16GB DDR4</p>
-                <p><strong>VGA:</strong> NVIDIA GTX 1660 Ti 6GB</p>
-                <p><strong>Cấu hình máy:</strong> 512GB SSD, 15.6" Full HD Display</p>
-                <p><strong>Giá tiền:</strong> $1200</p>
-                <button class="btn btn-primary mt-3" action="">Thêm vào giỏ hàng</button>
-            </div>
+    <?php
+// Kết nối đến cơ sở dữ liệu
+$pdo = new PDO('mysql:host=localhost;dbname=web2', 'root', '');
+
+// Kiểm tra xem id sản phẩm được truyền qua URL hay không
+if(isset($_GET['id'])) {
+    // Lấy id sản phẩm từ URL
+    $product_id = $_GET['id'];
+
+    // Truy vấn cơ sở dữ liệu để lấy thông tin sản phẩm dựa trên id
+    $sql = "SELECT * FROM sanpham WHERE product_id = :product_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Kiểm tra xem sản phẩm có tồn tại hay không
+    if($product) {
+        // Hiển thị thông tin sản phẩm
+?>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="<?php echo $product['hinhanh']; ?>" alt="Product Image" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3"><?php echo $product['product_name']; ?></h2>
+            <p><strong>CPU:</strong> <?php echo $product['CPU']; ?></p>
+            <p><strong>RAM:</strong> <?php echo $product['RAM']; ?></p>
+            <p><strong>VGA:</strong> <?php echo $product['VGA']; ?></p>
+            <p><strong>Cấu hình máy:</strong> <?php echo $product['Memory']; ?> SSD, <?php echo $product['resolution']; ?>" Full HD Display</p>
+            <p><strong>Giá tiền:</strong> <?php echo number_format($product['price'], 0,",",".");?>đ</p>
+            <button class="btn btn-primary mt-3" action="">Thêm vào giỏ hàng</button>
         </div>
     </div>
+</div>
+<?php
+    } else {
+        // Hiển thị thông báo nếu sản phẩm không tồn tại
+        echo '<div class="container">';
+        echo '<p>Sản phẩm không tồn tại.</p>';
+        echo '</div>';
+    }
+}
+?>
+
 
 
 

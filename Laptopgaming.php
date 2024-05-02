@@ -126,26 +126,51 @@ require_once ('includes/product_view.php');
 
     <div class="container product-container">
     
-<?php
-  $sort_option ="";
+  <!-- $sort_option = "";
   if(isset($_GET['sort'])){
     if($_GET['sort'] == "sort_price_asc"){
       $sort_option = "ASC";
     }
     elseif($_GET['sort'] == "sort_price_desc"){
-
+      $sort_option = "DESC";
     }
-  }
+  } -->
+    <?php
 
-  show_product(1, $pdo);
-  show_product(7, $pdo);
-  show_product(8, $pdo);
-  show_product(9, $pdo);
+  // Kết nối đến cơ sở dữ liệu
+  $pdo = new PDO('mysql:host=localhost;dbname=web2', 'root', '');
 
-
-
-
+  // Query lấy dữ liệu sản phẩm với sắp xếp theo giá
+  $sql = "SELECT * FROM sanpham";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?> 
+
+<?php foreach($products as $product): ?>
+  <div class="product-card">
+    <a href="chitietsp.php?id=<?php echo htmlspecialchars($product['product_id']);?>" class="product-link">
+      <div class="product-img-container">
+        <img src="<?php echo $product['hinhanh']; ?>" alt="Product Image" class="product-img">
+      </div>
+    </a>
+    <div class="product-info">
+      <a href="chitietsp.php?id=<?php echo htmlspecialchars($product['product_id']);?>" class="product-link">
+        <div class="product-name"><?php echo htmlspecialchars($product['product_name']); ?></div>
+      </a>
+      <div class="product-specs">
+        <div>CPU: <?php echo htmlspecialchars($product['CPU']); ?></div>
+        <div>GPU: <?php echo htmlspecialchars($product['VGA']); ?></div>
+        <div>RAM: <?php echo htmlspecialchars($product['RAM']); ?></div>
+        <div>SSD: <?php echo htmlspecialchars($product['Memory']); ?></div>
+        <div>Màn: <?php echo htmlspecialchars($product['resolution']); ?></div>
+        <div>Cân nặng: <?php echo htmlspecialchars($product['weight']); ?></div>
+      </div>
+      <button class="add-to-cart-btn">Thêm Vào Giỏ Hàng </button>
+    </div>
+  </div>
+<?php endforeach; ?>
+
 
     </div>
   
