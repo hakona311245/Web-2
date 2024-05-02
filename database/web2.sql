@@ -61,19 +61,7 @@ INSERT INTO `address` (`address_id`, `user_id`, `noidung`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Cấu trúc bảng cho bảng `admin`
---
 
-
---
--- Đang đổ dữ liệu cho bảng `admin`
---
-
-INSERT INTO `admin` (`id`, `admin_name`, `birthday`, `picture`, `email`, `password`, `phone`, `address`, `mssv`) VALUES
-(1, 'Admin1', '1990-05-15', 'admin1.jpg', 'hung1@gmail.com', '123123123', '123456789', '123 Street, City', '123456'),
-(2, 'Admin2', '1988-10-20', 'admin2.jpg', 'admin2@example.com', 'password2', '987654321', '456 Avenue, Town', '654321'),
-(3, 'Admin3', '1995-03-25', 'admin3.jpg', 'admin3@example.com', 'password3', '111222333', '789 Road, Village', '987654');
 
 -- --------------------------------------------------------
 
