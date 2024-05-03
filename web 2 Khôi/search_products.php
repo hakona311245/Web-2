@@ -60,7 +60,7 @@ include_once("includes/header.php");
                 				<div class="toolbox-left">
                                 <div class="toolbox-info">
                                     Showing <?php echo ($search_results && mysqli_num_rows($search_results) > 0) ? mysqli_num_rows($search_results) : 0; ?> of <?php echo $total_results; ?> Products
-                                </div><!-- End .toolbox-info -->
+                                </div><!-- End .toolbox+--info -->
                 				</div><!-- End .toolbox-left -->
 
                 				<div class="toolbox-right">

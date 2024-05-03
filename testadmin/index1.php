@@ -3,7 +3,7 @@
 require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
-$listUsers = getRaw("SELECT * FROM products ");
+$listUsers = getRaw("SELECT * FROM products ORDER BY pdt_id DESC");
         // echo '<pre>';
         // print_r($listUsers);
         // echo '</pre>';
@@ -82,7 +82,7 @@ $listUsers = getRaw("SELECT * FROM products ");
                                 Bảng dữ liệu
                             </div>
                             <div class="card-body">
-                            <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></i></a></div>
+                            <div class="nutthem_user"><a href="add_product.php"><i style="color:black" class="fa-solid fa-plus"></i></i></a></div>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -107,7 +107,7 @@ $listUsers = getRaw("SELECT * FROM products ");
                                                 $count++;
                                     ?>
                                         <tr>
-                                        <td><?php echo $item['pdt_id']; ?></td>
+                                            <td><?php echo $count; ?></td>
                                             <td><?php echo $item['pdt_name']; ?></td>
                                             <td><?php echo $item['pdt_stock']; ?></td>
                                             <td><?php echo $item['pdt_price']; ?></td>
@@ -116,7 +116,7 @@ $listUsers = getRaw("SELECT * FROM products ");
                                             <td><?php echo $item['pdt_des']; ?></td>
                                             <td><?php echo $item['pdt_status']; ?></td>
                                             <td><a href="update_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
+                                            <td><a href="delete_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                         <?php 
                                             endforeach;

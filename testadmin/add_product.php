@@ -132,6 +132,7 @@ require_once("function.php");
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input name="pdt_img" class="form-control" id="inputFirstName" type="file" name="fileUpload" onchange="previewImage(event)">
                                                     <label for="inputFirstName">Image</label>
+                                                    <?php echo (!empty($errors['pdt_img']['required'])) ? '<span class="error-message">' . $errors['pdt_img']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
