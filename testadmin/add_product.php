@@ -7,94 +7,67 @@ require_once("function.php");
         $filterAll = filter();
         $errors = [];
         
-        if(empty($filterAll['product_name'])){
-            $errors ['product_name']['required'] = 'Tên sản phẩm bắt buộc phải nhập'; 
+        if(empty($filterAll['pdt_name'])){
+            $errors ['pdt_name']['required'] = 'Tên sản phẩm bắt buộc phải nhập'; 
         }
-    
-        if(empty($filterAll['hinhanh'])){
-            $errors ['hinhanh']['required'] = 'Hình ảnh bắt buộc phải nhập'; 
+        
+        if(empty($filterAll['pdt_img'])){
+            $errors ['pdt_img']['required'] = 'Hình ảnh bắt buộc phải nhập'; 
         }
-
-        if(empty($filterAll['volume'])){
-            $errors ['volume']['required'] = 'Vui lòng nhập số lượng'; 
+        
+        if(empty($filterAll['pdt_stock'])){
+            $errors ['pdt_stock']['required'] = 'Vui lòng nhập số lượng'; 
         }
-
-        if(empty($filterAll['price'])){
-            $errors ['price']['required'] = 'Vui lòng nhập giá bán'; 
+        
+        if(empty($filterAll['pdt_price'])){
+            $errors ['pdt_price']['required'] = 'Vui lòng nhập giá bán'; 
         }
-
-        if(empty($filterAll['CPU'])){
-            $errors ['CPU']['required'] = 'Vui lòng nhập CPU'; 
+        
+        if(empty($filterAll['pdt_ctg'])){
+            $errors ['pdt_ctg']['required'] = 'Vui lòng nhập phân loại'; 
         }
-
-        if(empty($filterAll['VGA'])){
-            $errors ['VGA']['required'] = 'Vui lòng nhập VGA'; 
+        
+        if(empty($filterAll['pdt_des'])){
+            $errors ['pdt_des']['required'] = 'Vui lòng nhập mô tả sản phẩm'; 
         }
-
-        if(empty($filterAll['screen_size'])){
-            $errors ['screen_size']['required'] = 'Vui lòng nhập kích thước màn'; 
-        }
-
-        if(empty($filterAll['Memory'])){
-            $errors ['Memory']['required'] = 'Vui lòng nhập kích thước bộ nhớ'; 
-        }
-
-        if(empty($filterAll['RAM'])){
-            $errors ['RAM']['required'] = 'Vui lòng nhập RAM'; 
-        }
-
-        if(empty($filterAll['brand'])){
-            $errors ['brand']['required'] = 'Vui lòng nhập RAM'; 
-        }
-
-        if(empty($filterAll['resolution'])){
-            $errors ['resolution']['required'] = 'Vui lòng nhập kích thước bộ nhớ'; 
-        }
-
-        if(empty($filterAll['weight'])){
-            $errors ['weight']['required'] = 'Vui lòng nhập RAM'; 
-        }
-
-        if(empty($filterAll['description'])){
-            $errors ['description']['required'] = 'Vui lòng nhập RAM'; 
+        
+        if(empty($filterAll['pdt_status'])){
+            $errors ['pdt_status']['required'] = 'Vui lòng nhập mô tả sản phẩm'; 
         }
 
         // echo '<pre>';
         // print_r($errors);
         // echo '</pre>';
-        
+            
         if(empty($errors)){
             
            
             $dataInsert = [
-                'product_id' => $filterAll['product_id'],
-                'product_name' => $filterAll['product_name'],
-                'hinhanh' => 'img/productimg/randomimg/'.$filterAll['hinhanh'],
-                'volume' => $filterAll['volume'],
-                'price' => $filterAll['price'],
-                'CPU' => $filterAll['CPU'],
-                'VGA' => $filterAll['VGA'],
-                'screen_size' => $filterAll['screen_size'],
-                'Memory' => $filterAll['Memory'],
-                'RAM' => $filterAll['RAM'],
-                'brand' => $filterAll['brand'],
-                'resolution' => $filterAll['resolution'],
-                'weight' => $filterAll['weight'],
-                'description' => $filterAll['description'],
+                'pdt_name' => $filterAll['pdt_name'],
+                'pdt_img' => $filterAll['pdt_img'], //'img/productimg/randomimg/'.
+                'pdt_stock' => $filterAll['pdt_stock'],
+                'pdt_price' => $filterAll['pdt_price'],
+                'pdt_ctg' => $filterAll['pdt_ctg'],
+                'pdt_des' => $filterAll['pdt_des'],
+                'pdt_status' => $filterAll['pdt_status'],
+
+
             ];
+        }
+        
             
-            $insertStatus = insert('sanpham', $dataInsert);
+            $insertStatus = insert('products', $dataInsert);
             if($insertStatus){
                 setFlashData('smg', 'Thêm sản phẩm thành công!!');
                 setFlashData('smg_type', 'success');
                 // redirect('?module=user&action=list_user');
             }
         }else{
-            setFlashData('errors', $errors);
-            setFlashData('old', $filterAll);
+            // setFlashData('errors', $errors);
+            // setFlashData('old', $filterAll);
             // redirect('?module=user&action=list_user');
         }
-    }
+
     $smg = getFlashData('smg');
     $smg_type = getFlashData('smg_type');
     $errors = getFlashData('errors');
@@ -157,8 +130,9 @@ require_once("function.php");
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="hinhanh" class="form-control" id="inputFirstName" type="file" name="fileUpload" onchange="previewImage(event)">
+                                                    <input name="pdt_img" class="form-control" id="inputFirstName" type="file" name="fileUpload" onchange="previewImage(event)">
                                                     <label for="inputFirstName">Image</label>
+                                                    <?php echo (!empty($errors['pdt_img']['required'])) ? '<span class="error-message">' . $errors['pdt_img']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,9 +141,9 @@ require_once("function.php");
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="product_id" class="form-control" id="inputFirstName" type="text" placeholder="Enter product ID" />
-                                                    <label for="inputFirstName">Product ID</label>
-                                                    <?php echo (!empty($errors['product_id']['required'])) ? '<span class="error-message">' . $errors['product_id']['required'] . '</span>' : null;?>
+                                                    <input name="pdt_name" class="form-control" id="inputProductName" type="text" placeholder="Enter product name" />
+                                                    <label for="inputProductName">Product Name</label>
+                                                    <?php echo (!empty($errors['pdt_name']['required'])) ? '<span class="error-message">' . $errors['pdt_name']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,9 +151,42 @@ require_once("function.php");
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="id_phanloai" class="form-control" id="inputFirstName" type="text" placeholder="Enter category ID" />
-                                                    <label for="inputFirstName">Category ID</label>
-                                                    <?php echo (!empty($errors['id_phanloai']['required'])) ? '<span class="error-message">' . $errors['id_phanloai']['required'] . '</span>' : null;?>
+                                                    <input name="pdt_price" class="form-control" id="inputProductPrice" type="text" placeholder="Enter product price" />
+                                                    <label for="inputProductPrice">Product Price</label>
+                                                    <?php echo (!empty($errors['pdt_price']['required'])) ? '<span class="error-message">' . $errors['pdt_price']['required'] . '</span>' : null;?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input name="pdt_des" class="form-control" id="inputProductDescription" type="text" placeholder="Enter product description" />
+                                                    <label for="inputProductDescription">Product Description</label>
+                                                    <?php echo (!empty($errors['pdt_des']['required'])) ? '<span class="error-message">' . $errors['pdt_des']['required'] . '</span>' : null;?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input name="pdt_ctg" class="form-control" id="inputProductCategory" type="text" placeholder="Enter product category" />
+                                                    <label for="inputProductCategory">Product Category</label>
+                                                    <?php echo (!empty($errors['pdt_ctg']['required'])) ? '<span class="error-message">' . $errors['pdt_ctg']['required'] . '</span>' : null;?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input name="pdt_stock" class="form-control" id="inputProductStock" type="text" placeholder="Enter product stock" />
+                                                    <label for="inputProductStock">Product Stock</label>
+                                                    <?php echo (!empty($errors['pdt_stock']['required'])) ? '<span class="error-message">' . $errors['pdt_stock']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,129 +194,20 @@ require_once("function.php");
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="product_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter product name" />
-                                                    <label for="inputFirstName">Product name</label>
-                                                    <?php echo (!empty($errors['product_name']['required'])) ? '<span class="error-message">' . $errors['product_name']['required'] . '</span>' : null;?>
+                                                    <input name="pdt_status" class="form-control" id="inputProductStatus" type="text" placeholder="Enter product status" />
+                                                    <label for="inputProductStatus">Product Status</label>
+                                                    <?php echo (!empty($errors['pdt_status']['required'])) ? '<span class="error-message">' . $errors['pdt_status']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="volume" class="form-control" id="inputFirstName" type="text" placeholder="Enter volume" />
-                                                    <label for="inputFirstName">Volume</label>
-                                                    <?php echo (!empty($errors['volume']['required'])) ? '<span class="error-message">' . $errors['volume']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="price" class="form-control" id="inputFirstName" type="text" placeholder="Enter price" />
-                                                    <label for="inputFirstName">Price</label>
-                                                    <?php echo (!empty($errors['price']['required'])) ? '<span class="error-message">' . $errors['price']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="CPU" class="form-control" id="inputFirstName" type="text" placeholder="Enter CPU model" />
-                                                    <label for="inputFirstName">CPU</label>
-                                                    <?php echo (!empty($errors['CPU']['required'])) ? '<span class="error-message">' . $errors['CPU']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="VGA" class="form-control" id="inputFirstName" type="text" placeholder="Enter VGA model" />
-                                                    <label for="inputFirstName">VGA</label>
-                                                    <?php echo (!empty($errors['VGA']['required'])) ? '<span class="error-message">' . $errors['VGA']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="screen_size" class="form-control" id="inputFirstName" type="text" placeholder="Enter screen size" />
-                                                    <label for="inputFirstName">Screen size</label>
-                                                    <?php echo (!empty($errors['screen_size']['required'])) ? '<span class="error-message">' . $errors['screen_size']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="Memory" class="form-control" id="inputFirstName" type="text" placeholder="Enter memory size" />
-                                                    <label for="inputFirstName">Memory</label>
-                                                    <?php echo (!empty($errors['Memory']['required'])) ? '<span class="error-message">' . $errors['Memory']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="RAM" class="form-control" id="inputFirstName" type="text" placeholder="Enter RAM size" />
-                                                    <label for="inputFirstName">RAM</label>
-                                                    <?php echo (!empty($errors['RAM']['required'])) ? '<span class="error-message">' . $errors['RAM']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="brand" class="form-control" id="inputFirstName" type="text" placeholder="Enter brand" />
-                                                    <label for="inputFirstName">Brand</label>
-                                                    <?php echo (!empty($errors['brand']['required'])) ? '<span class="error-message">' . $errors['brand']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="resolution" class="form-control" id="inputFirstName" type="text" placeholder="Enter resolution" />
-                                                    <label for="inputFirstName">Resolution</label>
-                                                    <?php echo (!empty($errors['resolution']['required'])) ? '<span class="error-message">' . $errors['resolution']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="weight" class="form-control" id="inputFirstName" type="text" placeholder="Enter weight" />
-                                                    <label for="inputFirstName">Weight</label>
-                                                    <?php echo (!empty($errors['weight']['required'])) ? '<span class="error-message">' . $errors['weight']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input name="description" class="form-control" id="inputFirstName" type="text" placeholder="Enter description" />
-                                                    <label for="inputFirstName">Description</label>
-                                                    <?php echo (!empty($errors['description']['required'])) ? '<span class="error-message">' . $errors['description']['required'] . '</span>' : null;?>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Add Product</button></div>
                                             </div>                                          
                                         </form>
                                         <br>
-                                        <a style="text-align : center;" class="nutdidetrove"  href="index.php"><button class="trovenao" style="border-radius :8px; color :black;">Trở về</button></a>
+                                        <a style="text-align : center;" class="nutdidetrove"  href="index1.php"><button class="trovenao" style="border-radius :8px; color :black;">Trở về</button></a>
                                         <br>
                                     </div>
                         

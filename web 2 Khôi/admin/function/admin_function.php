@@ -129,7 +129,7 @@ class adminback
     }
     public function getUserDetails($userId) {
         // Query that joins the user table with the user_address table to fetch all necessary information
-        $query = "SELECT users.user_firstname AS first_name, users.user_lastname AS last_name, users.user_email AS email, 
+        $query = "SELECT users.user_name, users.user_firstname AS first_name, users.user_lastname AS last_name, users.user_email AS email, 
                          users.user_mobile AS phone, user_address.user_address AS address, user_address.user_ward AS ward, 
                          user_address.user_district AS district, user_address.user_city AS city
                   FROM users
@@ -161,35 +161,66 @@ class adminback
         }
     }
     
-    
     public function placeOrder($userId, $cart, $totalAmount, $paymentMethod, array $shippingInfo) {
-        $order_time = time(); // Capture the timestamp at the very beginning
+        $orderTime = new DateTime(); // Get the current time from PHP
+        $formattedOrderTime = $orderTime->format('Y-m-d H:i:s'); // Format it for MySQL TIMESTAMP
     
         $this->conn->begin_transaction();
         try {
-            // Insert into order_details table
-            $orderStatus = 1; // Example: '1' could mean 'Pending'
-            $stmt = $this->conn->prepare("INSERT INTO order_details (user_id, order_status, payment_method, Shipping_mobile, address_name, address_ward, address_district, address_city, order_time, total_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("iissssssid", $userId, $orderStatus, $paymentMethod, $shippingInfo['phone'], $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city'], $order_time, $totalAmount);
-    
-            $stmt->execute();
-            $orderId = $this->conn->insert_id;
-            $stmt->close();
-    
-            // Insert each item from the cart into order_products
+            // Insert each item from the cart into order_products, including address details
             foreach ($cart as $item) {
                 $subtotal = $item['price'] * $item['quantity'];
-                $stmt = $this->conn->prepare("INSERT INTO order_products (order_id, product_id, product_name, product_price, product_quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iisdii", $orderId, $item['product_id'], $item['product_name'], $item['price'], $item['quantity'], $subtotal);
+                $stmt = $this->conn->prepare("INSERT INTO order_products (user_id, product_id, product_name, product_price, product_quantity, subtotal, address_name, address_ward, address_district, address_city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iisdiiisss", $userId, $item['product_id'], $item['product_name'], $item['price'], $item['quantity'], $subtotal, $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city']);
                 $stmt->execute();
                 $stmt->close();
             }
+            
+            // Insert into order_details table
+            $orderStatus = 1; // Example: '1' could mean 'Pending'
+            $stmt = $this->conn->prepare("INSERT INTO order_details (user_id, order_status, payment_method, Shipping_mobile, order_time, total_amount) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("iisssd", $userId, $orderStatus, $paymentMethod, $shippingInfo['phone'], $formattedOrderTime, $totalAmount);
+    
+            $stmt->execute();
+            $stmt->close();
             
             $this->conn->commit();
             return true;
         } catch (Exception $e) {
             $this->conn->rollback();
             return $e;
+        }
+    }
+    
+    
+    public function updateUserDetails($userId, $firstName, $lastName, $userName, $email, $address, $ward, $district, $city, $phone, $currentPwd, $newPwd) {
+        $this->conn->begin_transaction();
+        try {
+            if (!empty($newPwd)) {
+                $options = ['cost' => 12];
+                $newPwd = password_hash($newPwd, PASSWORD_BCRYPT, $options);
+                $stmt = $this->conn->prepare("UPDATE users SET user_password = ? WHERE user_id = ? AND user_password = ?");
+                $stmt->bind_param("sis", $newPwd, $userId, $currentPwd);
+                $stmt->execute();
+                $stmt->close();
+            }
+    
+            $stmt = $this->conn->prepare("UPDATE users SET user_firstname = ?, user_lastname = ?, user_name = ?, user_email = ?, user_mobile = ? WHERE user_id = ?");
+            $stmt->bind_param("sssssi", $firstName, $lastName, $userName, $email, $phone, $userId);
+            $stmt->execute();
+            $stmt->close();
+    
+            $stmt = $this->conn->prepare("UPDATE user_address SET user_address = ?, user_ward = ?, user_district = ?, user_city = ? WHERE user_id = ?");
+            $stmt->bind_param("ssssi", $address, $ward, $district, $city, $userId);
+            $stmt->execute();
+            $stmt->close();
+    
+            $this->conn->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            echo 'Error: ' . $e->getMessage();
+            return false;
         }
     }
     

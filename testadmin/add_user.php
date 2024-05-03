@@ -4,42 +4,52 @@ require_once("session.php");
 require_once("function.php");
     if(isPost()){
         $filterAll = filter();
+
         $errors = [];
  
         if(empty($filterAll['user_name'])){
-            $errors ['user_name']['required'] = 'Họ bắt buộc phải nhập'; 
-        }
-    
-        if(empty($filterAll['user_phone'])){
-            $errors ['user_phone']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
+            $errors ['user_name']['required'] = 'Vui lòng nhập Username'; 
         }
 
-        if(empty($filterAll['user_address'])){
-            $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        if(empty($filterAll['user_firstname'])){
+            $errors ['user_firstname']['required'] = 'Vui lòng nhập Họ'; 
         }
+
+        if(empty($filterAll['user_lastname'])){
+            $errors ['user_lastname']['required'] = 'Vui lòng nhập Tên'; 
+        }
+
+        if(empty($filterAll['user_mobile'])){
+            $errors ['user_mobile']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
+        }
+
+        // if(empty($filterAll['user_address'])){
+        //     $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        // }
 
         if(empty($filterAll['user_email'])){
             $errors ['user_email']['required'] = 'Email bắt buộc phải nhập'; 
         }else{
             $email = $filterAll['user_email'];
-            $sql = "SELECT user_id FROM taikhoannguoidung WHERE user_email = '$email'" ;//AND id <> $userID"
+            $sql = "SELECT user_id FROM users WHERE user_email = '$email'" ;//AND id <> $userID"
             if(getRows($sql) > 0){
                 $errors['user_email']['unique'] = 'Email đã được đăng kí';
             }
         }
         
-        if(empty($filterAll['user_pwd'])){
-            $errors ['user_pwd']['required'] = 'Pass bắt buộc phải nhập'; 
-        }else{
-            if(strlen($filterAll['user_pwd']) < 8){
-                $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
-            }
+        if(empty($filterAll['user_password'])){
+            $errors ['user_password']['required'] = 'Pass bắt buộc phải nhập'; 
         }
+        // else{
+        //     if(strlen($filterAll['user_password']) < 8){
+        //         $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
+        //     }
+        // }
     
         if(empty($filterAll['user_cfpwd'])){
             $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
         }else{
-            if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
+            if($filterAll['user_password'] != $filterAll['user_cfpwd']){
                 $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
             }
         }
@@ -52,15 +62,16 @@ require_once("function.php");
            
             $dataInsert = [
                 'user_name' => $filterAll['user_name'],
-   
+                'user_firstname' => $filterAll['user_firstname'],
+                'user_lastname' => $filterAll['user_lastname'],
                 'user_email' => $filterAll['user_email'],
-                'user_phone' => $filterAll['user_phone'],
-                'user_pwd' => $filterAll['user_pwd'],
-                'user_address' => $filterAll['user_address'],
+                'user_mobile' => $filterAll['user_mobile'],
+                'user_password' => $filterAll['user_password'],
+                // 'user_address' => $filterAll['user_address'],
+                'is_locked' => $filterAll['is_locked'],
                 'created_at' => date('Y-m-d H:i:s'),
-                'user_status' => $filterAll['user_status'],
             ];
-            $insertStatus = insert('taikhoannguoidung', $dataInsert);
+            $insertStatus = insert('users', $dataInsert);
             if($insertStatus){
                 setFlashData('smg', 'Đăng ký thành công!!');
                 setFlashData('smg_type', 'success');
@@ -134,18 +145,38 @@ require_once("function.php");
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input name="user_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" />
-                                                        <label for="inputFirstName">Full name</label>
+                                                        <label for="inputFirstName">Username</label>
                                                         <?php echo (!empty($errors['user_name']['required'])) ? '<span class="error-message">' . $errors['user_name']['required'] . '</span>' : null;?>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input name="user_firstname" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" />
+                                                        <label for="inputFirstName">Họ</label>
+                                                        <?php echo (!empty($errors['user_firstname']['required'])) ? '<span class="error-message">' . $errors['user_firstname']['required'] . '</span>' : null;?>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input name="user_lastname" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" />
+                                                        <label for="inputFirstName">Tên</label>
+                                                        <?php echo (!empty($errors['user_lastname']['required'])) ? '<span class="error-message">' . $errors['user_lastname']['required'] . '</span>' : null;?>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                            <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input name="user_phone" class="form-control" id="inputFirstName" type="text" placeholder="Enter your phonenumber" />
+                                                        <input name="user_mobile" class="form-control" id="inputFirstName" type="text" placeholder="Enter your phonenumber" />
                                                         <label for="inputFirstName">Số điện thoại</label>
-                                                        <?php echo (!empty($errors['user_phone']['required'])) ? '<span class="error-message">' . $errors['user_phone']['required'] . '</span>' : null;?>
-
+                                                        <?php echo (!empty($errors['user_mobile']['required'])) ? '<span class="error-message">' . $errors['user_mobile']['required'] . '</span>' : null;?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -166,7 +197,7 @@ require_once("function.php");
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                            <!-- <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input name="user_address" class="form-control" id="inputFirstName" type="text" placeholder="Enter your address" />
@@ -178,13 +209,13 @@ require_once("function.php");
                                                         ?>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input name="user_pwd" class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
+                                                        <input name="user_password" class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
                                                         <label for="inputPassword">Password</label>
-                                                        <?php echo (!empty($errors['user_pwd']['required'])) ? '<span class="error-message">' . $errors['user_pwd']['required'] . '</span>' : null;?>
+                                                        <?php echo (!empty($errors['user_password']['required'])) ? '<span class="error-message">' . $errors['user_password']['required'] . '</span>' : null;?>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -206,9 +237,9 @@ require_once("function.php");
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <div class="Status_go">Status:</div>
-                                                        <select class="activebox" name="user_status" id="">
-                                                            <option value="active">Active</option>
-                                                            <option value="banned">Banned</option>
+                                                        <select class="activebox" name="is_locked" id="">
+                                                            <option value="active">0</option>
+                                                            <option value="banned">1</option>
                                                         </select>
                                                     </div>
                                                     </div>

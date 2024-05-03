@@ -33,7 +33,7 @@ if (isset($_POST['placeOrder'])) {
     ];
 
     // Gọi hàm để lưu đơn hàng vào cơ sở dữ liệu
-    if ($obj->placeOrder($_SESSION['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo)) {
+    if ($obj->placeOrder($userDetails['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo)) {
                             // Xoá các sản phẩm trong giỏ hàng sau khi đặt hàng thành công
                             unset($_SESSION['cart']);
                             $_SESSION['cart'] = [];
@@ -42,8 +42,9 @@ if (isset($_POST['placeOrder'])) {
     } else {
         echo "<script>alert('Failed to place order. Please try again.');</script>";
     }
-    echo $obj->placeOrder($_SESSION['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo);
 }
+
+// echo $obj->placeOrder($_SESSION['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo);
 
 ?>
 <html lang="en">
@@ -67,7 +68,7 @@ if (isset($_POST['placeOrder'])) {
 <div class="page-content">
     <div class="checkout">
         <div class="container">
-        <form action="checkout.php" method="post">
+        <form action="" method="post">
     <div class="row">
         <div class="col-lg-9">
             <h2 class="checkout-title">Billing Details</h2>
@@ -82,8 +83,12 @@ if (isset($_POST['placeOrder'])) {
                 </div>
             </div>
 
-            <label>Country *</label>
+            <label>City *</label>
             <input type="text" class="form-control" name="city" value="<?php echo htmlspecialchars($userDetails['city']); ?>" required> <!-- Assuming 'city' gives an indication of the country contextually -->
+
+            <label style="font-weight: bold;">Fix your address for wanted destination in the bill</label>
+
+            <br>
 
             <label>Street address *</label>
             <input type="text" class="form-control" name="address" value="<?php echo htmlspecialchars($userDetails['address']); ?>" placeholder="House number and Street name" required>
@@ -109,16 +114,10 @@ if (isset($_POST['placeOrder'])) {
             <label>Email address *</label>
             <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($userDetails['email']); ?>">
 
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="checkout-diff-address">
-                <label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
-            </div>
-
             <label>Order notes (optional)</label>
             <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
         </div>
-
-<aside class="col-lg-3">
+        <aside class="col-lg-3">
     <div class="summary">
         <h3 class="summary-title">Your Order</h3>
         <table class="table table-summary">
@@ -158,76 +157,72 @@ if (isset($_POST['placeOrder'])) {
                 </tr>
             </tbody>
         </table>
-
-        <!-- Payment methods accordion with radio inputs -->
-    <div class="accordion-summary" id="accordion-payment">
-    <div class="card">
-        <div class="card-header" id="heading-1">
-            <h2 class="card-title">
-                <label>
-                    <input type="radio" name="paymentMethod" value="Direct Bank Transfer" checked>
-                    Direct Bank Transfer
-                </label>
-            </h2>
-        </div>
-    </div>
-    <!-- Repeat for other payment methods -->
-    <div class="card">
-        <div class="card-header" id="heading-2">
-            <h2 class="card-title">
-                <label>
-                    <input type="radio" name="paymentMethod" value="Check Payments">
-                    Check Payments
-                </label>
-            </h2>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="heading-3">
-            <h2 class="card-title">
-                <label>
-                    <input type="radio" name="paymentMethod" value="Cash on delivery">
-                    Cash on delivery
-                </label>
-            </h2>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="heading-4">
-            <h2 class="card-title">
-                <label>
-                    <input type="radio" name="paymentMethod" value="PayPal">
-                    PayPal
-                </label>
-            </h2>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="heading-5">
-            <h2 class="card-title">
-                <label>
-                    <input type="radio" name="paymentMethod" value="Check Payments">
-                    Credit Card (Stripe)
-                </label>
-                <img src="assets/images/payments-summary.png" alt="payments cards">
-            </h2>
-        </div>
-    </div>
-
-    <!-- Additional methods... -->
-        </div>
+            <div class="accordion-summary" id="accordion-payment">
+                <div class="card">
+                    <div class="card-header" id="heading-1">
+                        <h2 class="card-title">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="Direct Bank Transfer" checked>
+                                Direct Bank Transfer
+                            </label>
+                        </h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="heading-2">
+                        <h2 class="card-title">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="Check Payments">
+                                Check Payments
+                            </label>
+                        </h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="heading-3">
+                        <h2 class="card-title">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="Cash on delivery">
+                                Cash on delivery
+                            </label>
+                        </h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="heading-4">
+                        <h2 class="card-title">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="PayPal">
+                                PayPal
+                            </label>
+                        </h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="heading-5">
+                        <h2 class="card-title">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="Credit Card (Stripe)">
+                                Credit Card (Stripe)
+                            </label>
+                            <img src="assets/images/payments-summary.png" alt="payments cards">
+                        </h2>
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" name="placeOrder">
                 <span class="btn-text">Place Order</span>
                 <span class="btn-hover-text">Place Order</span>
             </button>
-        </div>
-
+        
     </div>
 </aside>
+    </div>
+        
+</form>
 
     </div>
     <!-- Additional content here -->
-</form>
         </div>
     </div>
 </div>
