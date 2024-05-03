@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['cart'] = [];
         }
 
-        header("Location: ../index.php?=success");
+        header("Location: ../dashboard.php?=success");
         $pdo = null;
         $stmt = null;
         die();

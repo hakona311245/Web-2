@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-function is_input_empty(string $pwd, string $email){
+function is_input_empty(string $pwd, string $email, string $username, string $phone){
     
-    if(empty($pwd)||empty($email)){
+    if(empty($pwd)||empty($email)||empty($username)||empty($phone)){
         return true;
     }
     else{
@@ -30,14 +30,14 @@ function is_phone_num_invalid(string $phone) {
     }
 }
 
-// function is_username_taken(object $pdo , string $username){
-//     if (get_username($pdo, $username)) {
-//         return true;
-//     }
-//     else{
-//         return false;
-//     }
-// }
+function is_username_taken(object $pdo , string $username){
+    if (get_username($pdo, $username)) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 function is_email_registered(object $pdo , string $email){
     if(get_email($pdo, $email)){
@@ -48,6 +48,6 @@ function is_email_registered(object $pdo , string $email){
     }
 }
 
-function create_user(object $pdo , string $pwd, string $email, string $phone){
-    set_user($pdo , $pwd, $email, $phone);
+function create_user(object $pdo , string $username, string $pwd, string $email, string $phone){
+    set_user($pdo, $username, $pwd, $email, $phone);
 }

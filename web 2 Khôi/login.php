@@ -29,16 +29,6 @@
 
     <html lang="en">
         <main class="main">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
-
             <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
             	<div class="container">
             		<div class="form-box">
@@ -82,7 +72,12 @@
 							    </div><!-- .End .tab-pane -->
 							    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
 							    	<form action="includes/formhandler.inc.php" method="post">
-							    		<div class="form-group">
+                                        <div class="form-group">
+							    			<label for="register-email-2">Your username *</label>
+							    			<input type="text" class="form-control" id="register-username-2" name="register-username">
+							    		</div><!-- End .form-group -->
+                                    
+                                        <div class="form-group">
 							    			<label for="register-email-2">Your email address *</label>
 							    			<input type="email" class="form-control" id="register-email-2" name="register-email">
 							    		</div><!-- End .form-group -->

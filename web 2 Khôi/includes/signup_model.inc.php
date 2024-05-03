@@ -22,14 +22,14 @@ function get_email(object $pdo, string $email){
     return $result;
 }
  
-function set_user(object $pdo , string $pwd, string $email, string $phone){
-    $query = "INSERT INTO users(user_email, user_mobile, user_password) VALUE (:email, :phone, :pwd);";
+function set_user(object $pdo, string $username, string $pwd, string $email, string $phone){
+    $query = "INSERT INTO users (user_name, user_email, user_mobile, user_password) VALUE (:username, :email, :phone, :pwd);";
     $stmt = $pdo -> prepare($query);
     $options = ['cost' => 12];
     $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+    $stmt -> bindParam(":username", $username);
     $stmt -> bindParam(":email", $email);
     $stmt -> bindParam(":phone", $phone);
-    // $stmt -> bindParam(":pwd", $pwd);
     $stmt -> bindParam(":pwd", $hashedPwd);
     $stmt -> execute();
 

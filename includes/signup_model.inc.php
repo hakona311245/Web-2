@@ -23,7 +23,7 @@ function get_email(object $pdo, string $email){
 }
  
 function set_user(object $pdo , string $pwd, string $username, string $email, string $phone){
-    $query = "INSERT INTO taikhoannguoidung(user_name, user_email, user_phone, user_pwd) VALUE (:username, :email, :phone, :pwd);";
+    $query = "INSERT INTO users (user_name, user_email, user_phone, user_pwd) VALUE (:username, :email, :phone, :pwd);";
     $stmt = $pdo -> prepare($query);
     $options = ['cost' => 12];
     $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);

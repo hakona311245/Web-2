@@ -1,5 +1,6 @@
 <?php
     if($_SERVER["REQUEST_METHOD"]== "POST"){
+        $username = $_POST["register-username"];
         $password = $_POST["register-password"];
         $email = $_POST["register-email"];
         $phone = $_POST["register-mobile"];
@@ -11,7 +12,10 @@
             
             //error handlers
             $errors = [];
-            if(is_input_empty($password, $email)){
+            if(is_username_taken($pdo, $username)){
+                $errors["username_taken"] = "Tên tài khoản đã được dùng";
+            }
+            if(is_input_empty($password, $email, $username, $phone)){
                 $errors["empty_input"] = "Yêu cầu điền đầy đủ thông tin!";
             }
             if(is_email_invalid($email)){
@@ -32,9 +36,9 @@
                 die();
             }
 
-            create_user($pdo , $password, $email, $phone);
+            create_user($pdo, $username, $password, $email, $phone);
 
-            header("Location: ../login.php?signup=success");
+            header("Location: ../dashboard.php?signup=success");
             $pdo = null;
             $stmt = null;
             die();  
@@ -48,12 +52,3 @@
         header("Location:../login.php");
         die();
     }
-
-if(isset($_POST['add'])){
-    $useraddressofficial = $_POST['user_address_official'];
-    if($conn-> query("INSERT INTO hoa_don(user_address_official) VALUE(N'$useraddressofficial')")){
-        echo"Đặt hàng thành công!";
-    }else{
-        echo"Đặt hàng không thành công!";
-    }
- }
