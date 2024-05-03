@@ -14,7 +14,7 @@ if(!empty($filterAll['user_id'])){
     //neu ton tai thi => lay ra thong tin nguoi dung
     //neu khong ton tai thi => chuyen huong ve trang list
 
-    $userDetail=oneRaw("SELECT * FROM taikhoannguoidung WHERE user_id = $userID");
+    $userDetail=oneRaw("SELECT * FROM users WHERE user_id = $userID");
     if(!empty($userDetail)){
         //ton tai
         setFlashData('user_detail',$userDetail);
@@ -28,51 +28,47 @@ if(!empty($filterAll['user_id'])){
         $errors = [];
  
         if(empty($filterAll['user_name'])){
-            $errors ['user_name']['required'] = 'Họ bắt buộc phải nhập'; 
+            $errors ['user_name']['required'] = 'Username bắt buộc phải nhập'; 
         }
-    
-        if(empty($filterAll['user_phone'])){
-            $errors ['user_phone']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
+     
+        if(empty($filterAll['user_firstname'])){
+            $errors ['user_firstname']['required'] = 'Họ bắt buộc phải nhập'; 
         }
 
-        if(empty($filterAll['user_address'])){
-            $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        if(empty($filterAll['user_lastname'])){
+            $errors ['user_firstname']['required'] = 'Tên bắt buộc phải nhập'; 
         }
+        
+        if(empty($filterAll['user_mobile'])){
+            $errors ['user_mobile']['required'] = 'SĐT bắt buộc phải nhập'; 
+        }
+
+
+        // if(empty($filterAll['user_address'])){
+        //     $errors ['user_address']['required'] = 'Địa chỉ bắt buộc phải nhập'; 
+        // }
 
         if(empty($filterAll['user_email'])){
             $errors ['user_email']['required'] = 'Email bắt buộc phải nhập'; 
         }else{
             $email = $filterAll['user_email'];
-            $sql = "SELECT user_id FROM taikhoannguoidung WHERE user_email = '$email' AND user_id <> $userID" ;//AND id <> $userID"
+            $sql = "SELECT user_id FROM users WHERE user_email = '$email' AND user_id <> $userID" ;//AND id <> $userID"
             if(getRows($sql) > 0){
                 $errors['user_email']['unique'] = 'Email đã được đăng kí';
             }
         }
 
-        // if(!empty($filterAll['user_pwd'])){
-        //     if(empty($filterAll['user_cfpwd'])){
-        //         $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
-        //     }else{
-        //         if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
-        //             $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
-        //         }
-        //     }
-        // }
-        // if(empty($filterAll['user_pwd'])){
-        //     $errors ['user_pwd']['required'] = 'Pass bắt buộc phải nhập'; 
-        // }else{
-        //     if(strlen($filterAll['user_pwd']) < 8){
-        //         $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
-        //     }
-        // }
+        if(empty($filterAll['user_password'])){
+            $errors ['user_password']['required'] = 'Pass bắt buộc phải nhập'; 
+        }
     
-        // if(empty($filterAll['user_cfpwd'])){
-        //     $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
-        // }else{
-        //     if($filterAll['user_pwd'] != $filterAll['user_cfpwd']){
-        //         $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
-        //     }
-        // }
+        if(empty($filterAll['user_cfpwd'])){
+            $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
+        }else{
+            if($filterAll['user_password'] != $filterAll['user_cfpwd']){
+                $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
+            }
+        }
 
         // echo '<pre>';
         // print_r($errors);
@@ -80,28 +76,30 @@ if(!empty($filterAll['user_id'])){
         if(empty($errors)){
             $dataUpdate = [
                 'user_name' => $filterAll['user_name'],
+                'user_firstname' => $filterAll['user_firstname'],
+                'user_lastname' => $filterAll['user_lastname'],
+                'user_mobile' => $filterAll['user_mobile'],
                 'user_email' => $filterAll['user_email'],
-                'user_phone' => $filterAll['user_phone'],
-                'user_address' => $filterAll['user_address'],
                 'created_at' => date('Y-m-d H:i:s'),
-                'user_status' => $filterAll['user_status'],
+                'is_locked' => $filterAll['is_locked'],
             ];
 
-            if(!empty($filterAll['user_pwd'])){
+            if(!empty($filterAll['user_password'])){
                 $dataUpdate = [
                     'user_name' => $filterAll['user_name'],
+                    'user_firstname' => $filterAll['user_firstname'],
+                    'user_lastname' => $filterAll['user_lastname'],
                     'user_email' => $filterAll['user_email'],
-                    'user_phone' => $filterAll['user_phone'],
-                    'user_address' => $filterAll['user_address'],
+                    'user_mobile' => $filterAll['user_mobile'],
+                    'user_password' => $filterAll['user_password'],
                     'created_at' => date('Y-m-d H:i:s'),
-                    'user_status' => $filterAll['user_status'],
-                    'user_pwd' => $filterAll['user_pwd']
+                    'is_locked' => $filterAll['is_locked'],
                 ];
                 // $dataUpdate['password'] = password_hash($filterAll['user_pwd'],PASSWORD_DEFAULT);
             }
 
             $contition ="user_id=$userID";
-            $insertStatus = update('taikhoannguoidung', $dataUpdate,$contition);
+            $insertStatus = update('users', $dataUpdate,$contition);
             if($insertStatus){
                 setFlashData('smg','Sửa người dùng thành công!!');
                 setFlashData('smg_type', 'success');
@@ -133,7 +131,7 @@ if(!empty($filterAll['user_id'])){
     // echo '<pre>';
     // print_r($userDatail);
     // echo '</pre>';
-    //     // echo $filterAll['id'];
+        // echo $filterAll['id'];
     
 ?>
 <html lang="en">
@@ -193,8 +191,31 @@ if(!empty($filterAll['user_id'])){
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input style="text-align: left;" name="user_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" 
                                                         value="<?php echo old('user_name',$old);?>"/>
-                                                         <label for="inputFirstName">Full name</label>
+                                                         <label for="inputFirstName">Username</label>
                                                          <?php echo (!empty($errors['user_name']['required'])) ? '<span class="error-message">' . $errors['user_name']['required'] . '</span>' : null;
+                                                        ?>                                               
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input style="text-align: left;" name="user_firstname" class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" 
+                                                        value="<?php echo old('user_firstname',$old);?>"/>
+                                                         <label for="inputFirstName">Họ</label>
+                                                         <?php echo (!empty($errors['user_firstname']['required'])) ? '<span class="error-message">' . $errors['user_firstname']['required'] . '</span>' : null;
+                                                        ?>                                               
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input style="text-align: left;" name="user_lastname" class="form-control" id="inputFirstName" type="text" placeholder="Enter your full name" 
+                                                        value="<?php echo old('user_lastname',$old);?>"/>
+                                                         <label for="inputFirstName">Tên</label>
+                                                         <?php echo (!empty($errors['user_lastname']['required'])) ? '<span class="error-message">' . $errors['user_lastname']['required'] . '</span>' : null;
                                                         ?>                                               
                                                     </div>
                                                 </div>
@@ -202,10 +223,10 @@ if(!empty($filterAll['user_id'])){
                                            <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input style="text-align: left;" name="user_phone" class="form-control" id="inputFirstName" type="text" placeholder="Enter your phonenumber" 
-                                                        value="<?php echo old('user_phone',$old);?>" />
+                                                        <input style="text-align: left;" name="user_mobile" class="form-control" id="inputFirstName" type="text" placeholder="Enter your phonenumber" 
+                                                        value="<?php echo old('user_mobile',$old);?>" />
                                                         <label for="inputFirstName">Số điện thoại</label>
-                                                        <?php echo (!empty($errors['user_phone']['required'])) ? '<span class="error-message">' . $errors['user_phone']['required'] . '</span>' : null;?>
+                                                        <?php echo (!empty($errors['user_mobile']['required'])) ? '<span class="error-message">' . $errors['user_mobile']['required'] . '</span>' : null;?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,26 +250,13 @@ if(!empty($filterAll['user_id'])){
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input style="text-align: left;" name="user_address" class="form-control" id="inputFirstName" type="text" placeholder="Enter your address" 
-                                                        value="<?php echo old('user_address',$old);?>"/>
-                                                        <label for="inputFirstName">Địa chỉ</label>
-                                                        <?php
-                                                        if (!empty($errors['user_address'])) {
-                                                            echo '<span class="error-message">' . reset($errors['user_address']) . '</span>';
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input style="text-align: left;" name="user_pwd" class="form-control" id="inputPassword" type="password" placeholder="Password(Không nhập nếu không thay đổi)"/>
+                                                        <input style="text-align: left;" name="user_password" class="form-control" id="inputPassword" type="password" placeholder="Password(Không nhập nếu không thay đổi)"/>
                                                         <label for="inputPassword">Mật khẩu (Không nhập nếu không thay đổi)</label>
-                                                        <?php echo (!empty($errors['user_pwd']['required'])) ? '<span class="error-message">' . $errors['user_pwd']['required'] . '</span>' : null;?>
+                                                        <?php echo (!empty($errors['user_password']['required'])) ? '<span class="error-message">' . $errors['user_password']['required'] . '</span>' : null;?>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -270,9 +278,9 @@ if(!empty($filterAll['user_id'])){
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <div class="Status_go">Status:</div>
-                                                        <select class="activebox" name="user_status" id="">
-                                                            <option value="active">Active</option>
-                                                            <option value="banned">Banned</option>
+                                                        <select class="activebox" name="is_locked" id="">
+                                                            <option value="active">0</option>
+                                                            <option value="banned">1</option>
                                                         </select>
                                                     </div>
                                                     </div>
