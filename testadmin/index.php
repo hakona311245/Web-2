@@ -4,7 +4,7 @@ require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
 
-$listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
+$listUsers = getRaw("SELECT * FROM users ORDER BY created_at DESC");
 
 ?>
 
@@ -87,9 +87,10 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                         <tr>
                                             <th>Id</th>
                                             <th>User Name</th>
+                                            <th>Họ</th>
+                                            <th>Tên</th>
                                             <th>Số điện thoại</th>
                                             <th>Địa chỉ email</th>
-                                            <th>Địa chỉ</th>
                                             <th>Password</th>
                                             <th>Trạng thái</th>
                                             <th>Ngày tạo tài khoản</th>
@@ -108,11 +109,12 @@ $listUsers = getRaw("SELECT * FROM taikhoannguoidung ORDER BY created_at DESC");
                                         <tr>
                                             <td><?php echo $count; ?></td>
                                             <td><?php echo $item['user_name']; ?></td>
-                                            <td><?php echo $item['user_phone']; ?></td>
+                                            <td><?php echo $item['user_firstname']; ?></td>
+                                            <td><?php echo $item['user_lastname']; ?></td>
+                                            <td><?php echo $item['user_mobile']; ?></td>
                                             <td><?php echo $item['user_email']; ?></td>
-                                            <td><?php echo $item['user_address']; ?></td>
-                                            <td><?php echo $item['user_pwd']; ?></td>
-                                            <td><?php echo $item['user_status']; ?></td>
+                                            <td><?php echo $item['user_password']; ?></td>
+                                            <td><?php echo $item['is_locked']; ?></td>
                                             <td><?php echo $item['created_at']; ?></td>
                                             <td><a href="update_user.php?user_id=<?php echo $item['user_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a href="delete_user.php?user_id=<?php echo $item['user_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>

@@ -1,7 +1,7 @@
 <?php
 
 const _HOST = 'localhost';
-const _DB = 'web2';
+const _DB = 'web';
 const _USER = 'root';
 const _PASS = '';
 

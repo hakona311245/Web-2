@@ -3,7 +3,7 @@
 require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
-$listUsers = getRaw("SELECT * FROM sanpham ");
+$listUsers = getRaw("SELECT * FROM products ");
         // echo '<pre>';
         // print_r($listUsers);
         // echo '</pre>';
@@ -86,18 +86,14 @@ $listUsers = getRaw("SELECT * FROM sanpham ");
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>ID</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Số lượng</th>
-                                            <th>Giá</th>
-                                            <th>CPU</th>
-                                            <th>VGA</th>
-                                            <th>Bộ nhớ</th>
-                                            <th>RAM</th>
-                                            <th>Hãng</th>
-                                            <th>Kích thước màn</th>
-                                            <th>Cân nặng</th>
+                                            <th>Giá bán</th>
+                                            <th>Phân loại</th>
                                             <th>Hình ảnh</th>
+                                            <th>Mô tả sản phẩm</th>
+                                            <th>Trạng thái</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -111,18 +107,14 @@ $listUsers = getRaw("SELECT * FROM sanpham ");
                                                 $count++;
                                     ?>
                                         <tr>
-                                            <td><?php echo $count; ?></td>
-                                            <td><?php echo $item['product_name']; ?></td>
-                                            <td><?php echo $item['volume']; ?></td>
-                                            <td><?php echo $item['price']; ?></td>
-                                            <td><?php echo $item['CPU']; ?></td>
-                                            <td><?php echo $item['VGA']; ?></td>
-                                            <td><?php echo $item['Memory']; ?></td>
-                                            <td><?php echo $item['RAM']; ?></td>
-                                            <td><?php echo $item['brand']; ?></td>
-                                            <td><?php echo $item['resolution']; ?></td>
-                                            <td><?php echo $item['weight']; ?></td>
-                                            <td><?php echo $item['hinhanh']; ?></td>
+                                        <td><?php echo $item['pdt_id']; ?></td>
+                                            <td><?php echo $item['pdt_name']; ?></td>
+                                            <td><?php echo $item['pdt_stock']; ?></td>
+                                            <td><?php echo $item['pdt_price']; ?></td>
+                                            <td><?php echo $item['pdt_ctg']; ?></td>
+                                            <td><?php echo $item['pdt_img']; ?></td>
+                                            <td><?php echo $item['pdt_des']; ?></td>
+                                            <td><?php echo $item['pdt_status']; ?></td>
                                             <td><a><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
