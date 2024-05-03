@@ -12,15 +12,15 @@ require_once("function.php");
         }
 
         if(empty($filterAll['user_firstname'])){
-            $errors ['user_name']['required'] = 'Vui lòng nhập Họ'; 
+            $errors ['user_firstname']['required'] = 'Vui lòng nhập Họ'; 
         }
 
         if(empty($filterAll['user_lastname'])){
-            $errors ['user_name']['required'] = 'Vui lòng nhập Tên'; 
+            $errors ['user_lastname']['required'] = 'Vui lòng nhập Tên'; 
         }
 
         if(empty($filterAll['user_mobile'])){
-            $errors ['user_phone']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
+            $errors ['user_mobile']['required'] = 'Số điện thoại bắt buộc phải nhập'; 
         }
 
         // if(empty($filterAll['user_address'])){
@@ -39,11 +39,12 @@ require_once("function.php");
         
         if(empty($filterAll['user_password'])){
             $errors ['user_password']['required'] = 'Pass bắt buộc phải nhập'; 
-        }else{
-            if(strlen($filterAll['user_password']) < 8){
-                $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
-            }
         }
+        // else{
+        //     if(strlen($filterAll['user_password']) < 8){
+        //         $errors['user_pwd']['min'] = 'pass phải lớn hơn 8 kí tự';
+        //     }
+        // }
     
         if(empty($filterAll['user_cfpwd'])){
             $errors ['user_cfpwd']['required'] = 'Pass bắt buộc phải nhập'; 
@@ -52,9 +53,9 @@ require_once("function.php");
                 $errors ['user_cfpwd']['match'] = 'Mật khẩu không đúng';
             }
         }
-        echo '<pre>';
-        print_r($errors);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($errors);
+        // echo '</pre>';
         
         if(empty($errors)){
     

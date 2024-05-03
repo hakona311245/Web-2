@@ -115,7 +115,7 @@ $listUsers = getRaw("SELECT * FROM products ");
                                             <td><?php echo $item['pdt_img']; ?></td>
                                             <td><?php echo $item['pdt_des']; ?></td>
                                             <td><?php echo $item['pdt_status']; ?></td>
-                                            <td><a><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="update_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                         <?php 
