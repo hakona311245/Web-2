@@ -117,8 +117,6 @@ if (isset($_POST['placeOrder'])) {
             <label>Order notes (optional)</label>
             <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
         </div>
-    </div>
-        </form>
         <aside class="col-lg-3">
     <div class="summary">
         <h3 class="summary-title">Your Order</h3>
@@ -159,7 +157,6 @@ if (isset($_POST['placeOrder'])) {
                 </tr>
             </tbody>
         </table>
-        <form action="" method="post">
             <div class="accordion-summary" id="accordion-payment">
                 <div class="card">
                     <div class="card-header" id="heading-1">
@@ -217,10 +214,12 @@ if (isset($_POST['placeOrder'])) {
                 <span class="btn-text">Place Order</span>
                 <span class="btn-hover-text">Place Order</span>
             </button>
-        </form>
+        
     </div>
 </aside>
-
+    </div>
+        
+</form>
 
     </div>
     <!-- Additional content here -->

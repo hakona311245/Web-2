@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2024 at 12:57 PM
+-- Generation Time: May 03, 2024 at 06:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,13 +81,12 @@ INSERT INTO `category` (`ctg_id`, `ctg_name`, `ctg_des`, `ctg_status`) VALUES
 
 CREATE TABLE `order_details` (
   `order_id` int(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `order_status` int(3) NOT NULL,
   `payment_method` varchar(20) NOT NULL,
   `Shipping_mobile` varchar(20) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `day_delivered` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -105,7 +104,8 @@ CREATE TABLE `order_products` (
   `address_district` varchar(50) NOT NULL,
   `address_city` varchar(50) NOT NULL,
   `order_time` datetime NOT NULL,
-  `total_bill` decimal(10,2) NOT NULL
+  `total_bill` decimal(10,2) NOT NULL,
+  `order_status` enum('pending','delivered','order_set','canceled') NOT NULL DEFAULT 'order_set'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -130,7 +130,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`pdt_id`, `pdt_name`, `pdt_price`, `pdt_des`, `pdt_ctg`, `pdt_img`, `pdt_stock`, `pdt_status`) VALUES
-(1, 'Apple iPhone 13 Pro', 999, 'The latest iPhone with advanced camera features', 1, 'product-3.jpg', 50, 1),
+(1, 'Apple iPhone 13 Pro', 999, 'The latest iPhone with advanced camera features', 1, 'iPhone13pro.webp', 50, 1),
 (2, 'Samsung Galaxy S21', 799, 'Flagship Android smartphone with 5G capabilities', 1, 'product-3.jpg', 30, 1),
 (3, 'Apple iPad Air', 599, 'Powerful and slim tablet for productivity and entertainment', 2, 'product-3.jpg', 25, 1),
 (4, 'Microsoft Surface Pro', 999, 'Versatile 2-in-1 laptop and tablet combo', 3, 'product-3.jpg', 15, 1),
@@ -171,7 +171,7 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `pdt_id`, `image_url`) VALUES
-(1, 1, '1.jpg'),
+(1, 1, '1.webp'),
 (2, 1, '2.jpg'),
 (3, 1, '3.jpg'),
 (4, 2, '4.jpg'),
@@ -209,19 +209,19 @@ CREATE TABLE `users` (
   `user_email` varchar(60) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `user_mobile` varchar(11) NOT NULL,
-  `is_locked` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_locked` enum('active','banned') NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_mobile`, `is_locked`, `created_at`) VALUES
-(3, '', '', '', '123', '$2y$12$EYZxPxnI4spA8SgLIetwBOmjTsHgbwsB6B.ZS4Pvu1Bl/n5i4.GMO', 'lqkk@gmail.', 0, '2024-05-03 09:34:11'),
-(4, 'koki', '', '', 'lqk@gmail.com', '$2y$12$TNLsuDyMWKjTNu8e1uqhme7bL3sHdJA7YxBHBYK9XXDIwg3fF4ONa', '0909090900', 0, '2024-05-03 09:37:48'),
-(5, 'kohi', '', '', 'Lam@gmail.com', '$2y$12$IVtvvQu4DjcK26VB0tpVEuCeVqcM1oZDNrTnYxFfpi6sDtK5GVXP6', '0909090900', 0, '2024-05-03 09:43:26'),
-(6, 'hohi', 'la', 'ki', 'lk@gmail.com', '$2y$12$7FybxqSd8kD2mP8l9KnuJuZzl23J5Da9FGgeTlGFgIQuhhmemN/46', '0909797540', 0, '2024-05-03 09:52:26');
+INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_mobile`, `created_at`, `is_locked`) VALUES
+(3, '', '', '', '123', '$2y$12$EYZxPxnI4spA8SgLIetwBOmjTsHgbwsB6B.ZS4Pvu1Bl/n5i4.GMO', 'lqkk@gmail.', '2024-05-03 09:34:11', 'active'),
+(4, 'koki', '', '', 'lqk@gmail.com', '$2y$12$TNLsuDyMWKjTNu8e1uqhme7bL3sHdJA7YxBHBYK9XXDIwg3fF4ONa', '0909090900', '2024-05-03 09:37:48', 'active'),
+(5, 'kohi', '', '', 'Lam@gmail.com', '$2y$12$IVtvvQu4DjcK26VB0tpVEuCeVqcM1oZDNrTnYxFfpi6sDtK5GVXP6', '0909090900', '2024-05-03 09:43:26', 'active'),
+(6, 'hohi', 'la', 'ki', 'lk@gmail.com', '$2y$12$7FybxqSd8kD2mP8l9KnuJuZzl23J5Da9FGgeTlGFgIQuhhmemN/46', '0909797540', '2024-05-03 09:52:26', 'active');
 
 -- --------------------------------------------------------
 
@@ -280,7 +280,6 @@ ALTER TABLE `category`
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD KEY `fk_user_id` (`user_id`),
   ADD KEY `fk_order_details_product_id` (`product_id`),
   ADD KEY `fk_order_details_order_id` (`order_id`);
 
@@ -369,8 +368,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `fk_order_details_order_id` FOREIGN KEY (`order_id`) REFERENCES `order_products` (`id`),
-  ADD CONSTRAINT `fk_order_details_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`pdt_id`),
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `fk_order_details_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`pdt_id`);
 
 --
 -- Constraints for table `order_products`
