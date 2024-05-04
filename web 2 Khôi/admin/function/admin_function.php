@@ -167,31 +167,37 @@ class adminback
     
         $this->conn->begin_transaction();
         try {
-            // Insert each item from the cart into order_products, including address details
+            // Calculate total quantity of items in the cart
+            $totalQuantity = 0;
+            foreach ($cart as $item) {
+                $totalQuantity += $item['quantity'];
+            }
+    
+            // Insert the order into order_products
+            $stmt = $this->conn->prepare("INSERT INTO order_products (user_id, amount, address, address_ward, address_district, address_city, order_time, total_bill, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $orderStatus = 'order_set'; // Assuming 'pending' is the initial status
+            $stmt->bind_param("iisssssds", $userId, $totalQuantity, $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city'], $formattedOrderTime, $totalAmount, $orderStatus);
+            $stmt->execute();
+            $orderId = $stmt->insert_id; // Get the last insert id for order_products, to be used as foreign key in order_details
+            $stmt->close();
+    
+            // Insert each item from the cart into order_details using the order_id foreign key
             foreach ($cart as $item) {
                 $subtotal = $item['price'] * $item['quantity'];
-                $stmt = $this->conn->prepare("INSERT INTO order_products (user_id, product_id, product_name, product_price, product_quantity, subtotal, address_name, address_ward, address_district, address_city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iisdiiisss", $userId, $item['product_id'], $item['product_name'], $item['price'], $item['quantity'], $subtotal, $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city']);
+                $stmt = $this->conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, total, payment_method, Shipping_mobile, day_delivered) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiidsds", $orderId, $item['product_id'], $item['quantity'], $subtotal, $paymentMethod, $shippingInfo['phone'], $formattedOrderTime);
                 $stmt->execute();
                 $stmt->close();
             }
-            
-            // Insert into order_details table
-            $orderStatus = 1; // Example: '1' could mean 'Pending'
-            $stmt = $this->conn->prepare("INSERT INTO order_details (user_id, order_status, payment_method, Shipping_mobile, order_time, total_amount) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("iisssd", $userId, $orderStatus, $paymentMethod, $shippingInfo['phone'], $formattedOrderTime, $totalAmount);
     
-            $stmt->execute();
-            $stmt->close();
-            
             $this->conn->commit();
+            header("Location: dashboard.php?order=success");
             return true;
         } catch (Exception $e) {
             $this->conn->rollback();
             return $e;
         }
-    }
-    
+    }    
     
     public function updateUserDetails($userId, $firstName, $lastName, $userName, $email, $address, $ward, $district, $city, $phone, $currentPwd, $newPwd) {
         $this->conn->begin_transaction();

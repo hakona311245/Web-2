@@ -29,7 +29,7 @@
                                                 <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
                                                 <ul>
                                                     <li><a href="cart.php">Cart</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
+                                                    <li><a href="checkout.php">Checkout</a></li>
                                                     <li><a href="dashboard.php">My Account</a></li>
                                                 </ul>
                                             </div><!-- End .col-md-6 -->

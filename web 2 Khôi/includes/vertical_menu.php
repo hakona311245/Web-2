@@ -1,6 +1,6 @@
 <div class="header-left">
             <div class="dropdown category-dropdown">
-                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                <a href="product-category-boxed copy.php" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                     Browse Categories <i class="icon-angle-down"></i>
                 </a>
                 <div class="dropdown-menu">
