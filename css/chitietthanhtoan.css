@@ -83,7 +83,10 @@
     font-size: 20px;
 }
 .sidebar{
-    width: 40%;
+    width: 50%;
+}
+.order-section{
+    width: 50%;
 }
 .page{
     display: flex;

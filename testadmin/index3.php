@@ -1,11 +1,3 @@
-<?php
-
-require_once("databaseadmin.php");
-require_once("session.php");
-require_once("function.php");
-
-?>
-
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -110,27 +102,56 @@ require_once("function.php");
                         </thead>
                         <tbody>
                         <?php
-                                            if(!empty($listUsers)):
-                                            $count = 0;
-                                            foreach($listUsers as $item):
-                                                $count++;
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $count; ?></td>
-                                            <td><?php echo $item['user_id']; ?></td>
-                                            <td><?php echo $item['user_name']; ?></td>
-                                            <td><?php echo $item['user_mobile']; ?></td>
-                                            <td><?php echo $item['user_email']; ?></td>
-                                            <td><?php echo $item['pdt_img']; ?></td>
-                                            <td><?php echo $item['pdt_des']; ?></td>
-                                            <td><?php echo $item['pdt_status']; ?></td>
-                                            <td><a href="update_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="delete_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
-                                        </tr>
-                                        <?php 
-                                            endforeach;
-                                        endif;    
-                                    ?>
+    // Kết nối đến cơ sở dữ liệu
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "web";
+
+    $conn = mysqli_connect($servername, $username, $password, $database);
+
+    // Kiểm tra kết nối
+    if (!$conn) {
+        die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+    }
+
+    // Truy vấn để lấy thông tin của khách hàng
+    $query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address 
+              FROM users
+              INNER JOIN user_address ON users.user_id = user_address.user_id
+              GROUP BY users.user_id";
+
+    $result = mysqli_query($conn, $query);
+
+    // Kiểm tra kết quả của truy vấn
+    if ($result && mysqli_num_rows($result) > 0) {
+       
+
+        // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . $row['user_id'] . "</td>";
+            echo "<td>" . $row['user_name'] . "</td>";
+            echo "<td>" . $row['user_mobile'] . "</td>";
+            echo "<td>" . $row['user_email'] . "</td>";
+            echo "<td>" . $row['user_address'] . "</td>";
+            // Nếu không có thông tin về đơn hàng và tổng chi, bạn có thể để trống các cột này
+            echo "<td></td>";
+            echo "<td></td>";
+            echo "</tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        // Hiển thị thông báo nếu không có dữ liệu
+        echo "Không có dữ liệu";
+    }
+
+    // Đóng kết nối
+    mysqli_close($conn);
+?>
+
                         </tbody>
                         </table>
                         </div>

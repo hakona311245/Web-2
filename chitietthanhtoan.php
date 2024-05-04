@@ -136,49 +136,23 @@ if (isset($_SESSION["user_id"])) {
         </div>
     
     </div>
-    <aside class="sidebar">
-        <div class="header">
-            <h2 class="title">Đơn hàng</h2>
-        </div>
-        <div class="product">
-            <div class="hinhanh">
-                <img src="" alt=""><!--hình ảnh (đã css chỉ cần chèn link)-->
-            </div>
-            <div class="product-description">
-                <span>..........</span><!--tên sản phẩm-->
-                <br>
-                <span class="product-property">........</span><!--thông số sản phẩm-->
-                <br>
-                <span class="product-property">........</span><!--số lượng sản phẩm-->
-            </div>
-            <div class="price">
-                <span class="price1">.........</span><!--giá tiền-->
-            </div>
-        </div>
-        <div class="khunggiamgia">
-            <div class="magiamgia">
-                <input type="text" placeholder="nhập mã giảm giá" class="magiamgia1">
-            </div>
-            <div class="apdung">
-                <button type="button" class="apdung1">Áp dụng</button>
-            </div>
-        </div>
-        <div class="tamtinh">
-            <span>Tạm tính</span>
-            <span class="tamtinh1"></span><!--giá tiền (tạm tính)-->
-        </div>
-        <div class="phivanchuyen">
-            <span class="phivanchuyen1">Phí vận chuyển</span>
-        </div>
-        <div class="gachngang"></div>
-        <div class="tong cong">
-            <span class="tongcong1">Tổng cộng</span>
-            <span class="tongcong2">.........</span> <!--chỗ để giá tiền tổng cộng-->
-        </div>
-        <div class="dathang">
-            <div class="dathang1"><a href="">Quay về giỏ hàng</a></div>
-        </div>
-    </aside>
+    <aside class="order-section" class="sidebar">
+    <h2 class="title">Đơn hàng</h2>
+    <table class="order-details">
+        <thead>
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Thêm các dòng cho chi tiết sản phẩm -->
+        </tbody>
+    </table>
+</aside>
+
 </div>
 </body>
 </html>
