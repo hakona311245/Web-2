@@ -117,10 +117,10 @@ require_once("function.php");
                                     ?>
                                         <tr>
                                             <td><?php echo $count; ?></td>
-                                            <td><?php echo $item['pdt_name']; ?></td>
-                                            <td><?php echo $item['pdt_stock']; ?></td>
-                                            <td><?php echo $item['pdt_price']; ?></td>
-                                            <td><?php echo $item['pdt_ctg']; ?></td>
+                                            <td><?php echo $item['user_id']; ?></td>
+                                            <td><?php echo $item['user_name']; ?></td>
+                                            <td><?php echo $item['user_mobile']; ?></td>
+                                            <td><?php echo $item['user_email']; ?></td>
                                             <td><?php echo $item['pdt_img']; ?></td>
                                             <td><?php echo $item['pdt_des']; ?></td>
                                             <td><?php echo $item['pdt_status']; ?></td>
