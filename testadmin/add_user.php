@@ -238,12 +238,13 @@ require_once("function.php");
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <div class="Status_go">Status:</div>
                                                         <select class="activebox" name="is_locked" id="">
-                                                            <option value="active">0</option>
-                                                            <option value="banned">1</option>
+                                                            <option value="active">Active</option>
+                                                            <option value="banned">Banned</option>
                                                         </select>
                                                     </div>
                                                     </div>
                                                 </div>
+
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Add Account</button></div>
                                             </div>                                          

@@ -279,8 +279,8 @@ if(!empty($filterAll['user_id'])){
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <div class="Status_go">Status:</div>
                                                         <select class="activebox" name="is_locked" id="">
-                                                            <option value="active">0</option>
-                                                            <option value="banned">1</option>
+                                                            <option value="active">Active</option>
+                                                            <option value="banned">Banned</option>
                                                         </select>
                                                     </div>
                                                     </div>
