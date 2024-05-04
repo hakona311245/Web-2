@@ -191,6 +191,7 @@ class adminback
             }
     
             $this->conn->commit();
+            header("Location: dashboard.php?order=success");
             return true;
         } catch (Exception $e) {
             $this->conn->rollback();
