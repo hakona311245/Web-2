@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if(!isset($_SESSION['cart'])){
+    header("Location: cart.php");
+}
+
 include_once("admin/function/admin_function.php");
 $obj = new adminback();
 
@@ -33,15 +37,11 @@ if (isset($_POST['placeOrder'])) {
     ];
 
     // Gọi hàm để lưu đơn hàng vào cơ sở dữ liệu
-    if ($obj->placeOrder($userDetails['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo)) {
+    if ($obj->placeOrder($_SESSION['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo)) {
                             // Xoá các sản phẩm trong giỏ hàng sau khi đặt hàng thành công
                             unset($_SESSION['cart']);
                             $_SESSION['cart'] = [];
-        // Redirect và thông báo cho người dùng
-        echo "<script> window.location.href = 'checkout.php';  alert('Order placed successfully.');</script>";
-    } else {
-        echo "<script>alert('Failed to place order. Please try again.');</script>";
-    }
+    } 
 }
 
 // echo $obj->placeOrder($_SESSION['user_id'], $_SESSION['cart'], $_SESSION['total_with_shipping'], $paymentMethod, $shippingInfo);
@@ -66,61 +66,48 @@ if (isset($_POST['placeOrder'])) {
            <!-- Checkout Form HTML with Pre-filled User and Address Information -->
 <br>
 <div class="page-content">
-    <div class="checkout">
-        <div class="container">
+    <div class="container">
         <form action="" method="post">
-    <div class="row">
-        <div class="col-lg-9">
-            <h2 class="checkout-title">Billing Details</h2>
             <div class="row">
-                <div class="col-sm-6">
-                    <label>First Name *</label>
-                    <input type="text" class="form-control" name="first_name" value="<?php echo htmlspecialchars($userDetails['first_name']); ?>" required>
-                </div>
-                <div class="col-sm-6">
-                    <label>Last Name *</label>
-                    <input type="text" class="form-control" name="last_name" value="<?php echo htmlspecialchars($userDetails['last_name']); ?>" required>
-                </div>
-            </div>
+                <div class="col-lg-9">
+                    <h2 class="checkout-title">Billing Details</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>First Name *</label>
+                            <input type="text" class="form-control" name="first_name" value="<?php echo htmlspecialchars($userDetails['first_name']); ?>" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Last Name *</label>
+                            <input type="text" class="form-control" name="last_name" value="<?php echo htmlspecialchars($userDetails['last_name']); ?>" required>
+                        </div>
+                    </div>
 
-            <label>City *</label>
-            <input type="text" class="form-control" name="city" value="<?php echo htmlspecialchars($userDetails['city']); ?>" required> <!-- Assuming 'city' gives an indication of the country contextually -->
-
-            <label style="font-weight: bold;">Fix your address for wanted destination in the bill</label>
-
-            <br>
-
-            <label>Street address *</label>
-            <input type="text" class="form-control" name="address" value="<?php echo htmlspecialchars($userDetails['address']); ?>" placeholder="House number and Street name" required>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <label>Ward *</label>
-                    <input type="text" class="form-control" name="ward" value="<?php echo htmlspecialchars($userDetails['ward']); ?>" required>
-                </div>
-                <div class="col-sm-6">
-                    <label>District *</label>
-                    <input type="text" class="form-control" name="district" value="<?php echo htmlspecialchars($userDetails['district']); ?>" required> <!-- Assuming 'district' for 'state', modify if incorrect -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
                     <label>Phone *</label>
                     <input type="tel" class="form-control" name="phone" value="<?php echo htmlspecialchars($userDetails['phone']); ?>" required>
+
+                    <h2 class="checkout-title">Change address destination</address></h2>
+
+                    <label>Street address *</label>
+                    <input type="text" class="form-control" name="address" value="<?php echo htmlspecialchars($userDetails['address']); ?>" placeholder="House number and Street name" required>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Ward *</label>
+                            <input type="text" class="form-control" name="ward" value="<?php echo htmlspecialchars($userDetails['ward']); ?>" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>District *</label>
+                            <input type="text" class="form-control" name="district" value="<?php echo htmlspecialchars($userDetails['district']); ?>" required>
+                        </div>
+                    </div>
+
+                    <label>City *</label>
+                    <input type="text" class="form-control" name="city" value="<?php echo htmlspecialchars($userDetails['city']); ?>" required>
                 </div>
-            </div>
-
-            <label>Email address *</label>
-            <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($userDetails['email']); ?>">
-
-            <label>Order notes (optional)</label>
-            <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
-        </div>
-        <aside class="col-lg-3">
-    <div class="summary">
-        <h3 class="summary-title">Your Order</h3>
-        <table class="table table-summary">
+                <aside class="col-lg-3" style="background-color: #f8f9fa;"> <!-- Assuming #f8f9fa is the color of the aside -->
+                    <div class="summary">
+                        <h3 class="summary-title">Your Order</h3>
+                        <table class="table table-summary">
             <thead>
                 <tr>
                     <th>Product</th>
@@ -157,79 +144,53 @@ if (isset($_POST['placeOrder'])) {
                 </tr>
             </tbody>
         </table>
-            <div class="accordion-summary" id="accordion-payment">
-                <div class="card">
-                    <div class="card-header" id="heading-1">
-                        <h2 class="card-title">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="Direct Bank Transfer" checked>
-                                Direct Bank Transfer
-                            </label>
-                        </h2>
+                        <div class="accordion" id="accordion-payment">
+                            <div class="card">
+                                <div class="card-header" style="background-color: #f8f9fa;"> <!-- Applied same color here -->
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="Direct Bank Transfer" checked> Direct Bank Transfer
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" style="background-color: #f8f9fa;">
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="Check Payments"> Check Payments
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" style="background-color: #f8f9fa;">
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="Cash on Delivery"> Cash on Delivery
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" style="background-color: #f8f9fa;">
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="PayPal"> PayPal
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" style="background-color: #f8f9fa;">
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="Credit Card (Stripe)"> Credit Card (Stripe)
+                                        <img src="assets/images/payments-summary.png" alt="payments cards">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-order btn-block" name="placeOrder">Place Order</button>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="heading-2">
-                        <h2 class="card-title">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="Check Payments">
-                                Check Payments
-                            </label>
-                        </h2>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="heading-3">
-                        <h2 class="card-title">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="Cash on delivery">
-                                Cash on delivery
-                            </label>
-                        </h2>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="heading-4">
-                        <h2 class="card-title">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="PayPal">
-                                PayPal
-                            </label>
-                        </h2>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="heading-5">
-                        <h2 class="card-title">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="Credit Card (Stripe)">
-                                Credit Card (Stripe)
-                            </label>
-                            <img src="assets/images/payments-summary.png" alt="payments cards">
-                        </h2>
-                    </div>
-                </div>
+                </aside>
             </div>
-            <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" name="placeOrder">
-                <span class="btn-text">Place Order</span>
-                <span class="btn-hover-text">Place Order</span>
-            </button>
-        
-    </div>
-</aside>
-    </div>
-        
-</form>
-
-    </div>
-    <!-- Additional content here -->
-        </div>
+        </form>
     </div>
 </div>
 
-                </div><!-- End .checkout -->
-            </div><!-- End .page-content -->
-        </main><!-- End .main -->
-    </div><!-- End .page-wrapper -->
+</main><!-- End .main -->
+</div><!-- End .page-wrapper -->
 </body>
 </html>
