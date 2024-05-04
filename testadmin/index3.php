@@ -109,7 +109,28 @@ require_once("function.php");
                             </tr>
                         </thead>
                         <tbody>
-                        <!-- Dữ liệu bảng ở đây -->
+                        <?php
+                                            if(!empty($listUsers)):
+                                            $count = 0;
+                                            foreach($listUsers as $item):
+                                                $count++;
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $count; ?></td>
+                                            <td><?php echo $item['pdt_name']; ?></td>
+                                            <td><?php echo $item['pdt_stock']; ?></td>
+                                            <td><?php echo $item['pdt_price']; ?></td>
+                                            <td><?php echo $item['pdt_ctg']; ?></td>
+                                            <td><?php echo $item['pdt_img']; ?></td>
+                                            <td><?php echo $item['pdt_des']; ?></td>
+                                            <td><?php echo $item['pdt_status']; ?></td>
+                                            <td><a href="update_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" id="edit" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="delete_product.php?pdt_id=<?php echo $item['pdt_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')"><i class="fa-solid fa-trash"></i></a></td>
+                                        </tr>
+                                        <?php 
+                                            endforeach;
+                                        endif;    
+                                    ?>
                         </tbody>
                         </table>
                         </div>
