@@ -116,11 +116,14 @@
     }
 
     // Truy vấn để lấy thông tin của khách hàng
-    $query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address 
-              FROM users
-              INNER JOIN user_address ON users.user_id = user_address.user_id
-              GROUP BY users.user_id";
-
+    $query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address,
+    GROUP_CONCAT(DISTINCT order_products.id) AS order_ids,
+    SUM(order_products.total_bill) AS total_cost
+    FROM users
+    INNER JOIN user_address ON users.user_id = user_address.user_id
+    LEFT JOIN order_products ON users.user_id = order_products.user_id
+    WHERE order_products.user_id IS NULL OR users.user_id = order_products.user_id
+    GROUP BY users.user_id";
     $result = mysqli_query($conn, $query);
 
     // Kiểm tra kết quả của truy vấn
@@ -128,18 +131,31 @@
        
 
         // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['user_id'] . "</td>";
-            echo "<td>" . $row['user_name'] . "</td>";
-            echo "<td>" . $row['user_mobile'] . "</td>";
-            echo "<td>" . $row['user_email'] . "</td>";
-            echo "<td>" . $row['user_address'] . "</td>";
-            // Nếu không có thông tin về đơn hàng và tổng chi, bạn có thể để trống các cột này
-            echo "<td></td>";
-            echo "<td></td>";
-            echo "</tr>";
-        }
+// Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['user_id'] . "</td>";
+    echo "<td>" . $row['user_name'] . "</td>";
+    echo "<td>" . $row['user_mobile'] . "</td>";
+    echo "<td>" . $row['user_email'] . "</td>";
+    echo "<td>" . $row['user_address'] . "</td>";
+
+    // Hiển thị nút xem duy nhất nếu có ID đơn hàng
+    if (!empty($row['order_ids'])) {
+        // Tách chuỗi ID thành mảng các ID
+        $order_ids_array = explode(",", $row['order_ids']);
+        // Chỉ hiển thị nút xem cho ID đầu tiên
+        $first_order_id = $order_ids_array[0];
+        echo "<td>";
+        echo "<button class='view-btn' data-order-ids='$first_order_id' style='background-color: white; color: black;'>Xem</button>";
+        echo "</td>";
+    } else {
+        // Nếu không có ID đơn hàng, hiển thị thông báo
+        echo "<td>Không có đơn hàng</td>";
+    }
+    echo "<td>" . ($row['total_cost'] ? $row['total_cost'] : 0) . "</td>";
+    echo "</tr>";
+}
 
         echo "</tbody>";
         echo "</table>";
@@ -151,6 +167,16 @@
     // Đóng kết nối
     mysqli_close($conn);
 ?>
+<script>
+    document.querySelector('.view-btn').addEventListener('click', (event) => {
+        const orderIds = event.target.dataset.orderIds;
+        // Tạo một URL cho trang danh sách đơn hàng và truyền ID đơn hàng qua URL
+        const url = 'index2.php?orderIds=' + orderIds;
+        // Chuyển hướng người dùng đến trang danh sách đơn hàng
+        window.location.href = url;
+    });
+</script>
+
 
                         </tbody>
                         </table>
