@@ -27,6 +27,7 @@ session_start();
     
         <style>
     /* CSS cho overlay */
+    
     .overlay {
         position: fixed;
         top: 0;
@@ -97,6 +98,10 @@ session_start();
                             <a class="nav-link" href="index2.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách đơn hàng
+                            </a>
+                            <a class="nav-link" href="index3.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Thống kê
                             </a>
 
 

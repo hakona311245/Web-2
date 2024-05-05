@@ -4,11 +4,17 @@ require_once("session.php");
 require_once("function.php");
 
 $filterAll = filter();
+
 if(!empty($filterAll['user_id'])){
     $userID = $filterAll['user_id'];
 
+
+    // // Xóa user trong đơn hàng trước
+    // $userAddressDeleted = delete('order_products', "user_id = $userID");
     // Xóa user_address trước
     $userAddressDeleted = delete('user_address', "user_id = $userID");
+
+
 
     if($userAddressDeleted > 0){
         // Nếu có bản ghi user_address được xóa, tiếp tục xóa user trong bảng users

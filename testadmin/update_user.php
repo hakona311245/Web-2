@@ -255,7 +255,7 @@ if(!empty($filterAll['user_id'])){
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input style="text-align: left;" name="user_password" class="form-control" id="inputPassword" type="password" placeholder="Password(Không nhập nếu không thay đổi)"/>
-                                                        <label for="inputPassword">Mật khẩu (Không nhập nếu không thay đổi)</label>
+                                                        <label for="inputPassword">Mật khẩu</label>
                                                         <?php echo (!empty($errors['user_password']['required'])) ? '<span class="error-message">' . $errors['user_password']['required'] . '</span>' : null;?>
                                                     </div>
                                                     </div>

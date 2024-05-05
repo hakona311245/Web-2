@@ -62,7 +62,6 @@ if(isPost()){
         
 
     if(empty($errors)){
-        
         $dataUpdate = [
             'pdt_name' => $filterAll['pdt_name'],
             'pdt_img' => $filterAll['pdt_img'], //'img/productimg/randomimg/'.
@@ -72,24 +71,23 @@ if(isPost()){
             'pdt_des' => $filterAll['pdt_des'],
             'pdt_status' => $filterAll['pdt_status'],
         ];
+    
+        try {
+            $condition = "pdt_id = $userID";
+            $updateStatus = update('products', $dataUpdate, $condition);
+            if($updateStatus){
+                setFlashData('smg','Sửa sản phẩm thành công!!');
+                setFlashData('smg_type', 'success');
+            }
+            else{
+                throw new Exception('Hệ thống đang lỗi vui lòng thử lại sau');
+            }
+        } catch (Exception $e) {
+            setFlashData('smg', $e->getMessage());
+            setFlashData('smg_type', 'danger');
+        }
     }
     
-        
-
-    try {
-        $condition = "pdt_id = $userID";
-        $updateStatus = update('products', $dataUpdate, $condition);
-        if($updateStatus){
-            setFlashData('smg','Sửa sản phẩm thành công!!');
-            setFlashData('smg_type', 'success');
-        }
-        else{
-            throw new Exception('Hệ thống đang lỗi vui lòng thử lại sau');
-        }
-    } catch (Exception $e) {
-        setFlashData('smg', $e->getMessage());
-        setFlashData('smg_type', 'danger');
-    }
 }
 // else{
 //     setFlashData('smg', 'Vui lòng kiểm tra lại dữ liệu!');
@@ -248,7 +246,8 @@ if(isPost()){
                                         </div>
 
                                             <div class="mt-4 mb-0">
-                                            <input type="hidden" name="ptd_id" value="<?php echo $userID ?>">
+                                            <input type="hidden" name="pdt_id" value="<?php echo $userID ?>">
+
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" href="">Update Product</button>
                                             </div>
                                             </div>

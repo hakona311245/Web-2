@@ -61,6 +61,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Danh sách đơn hàng
                             </a>
+                            <a class="nav-link" href="index3.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Thống kê
+                            </a>
 
 
 
