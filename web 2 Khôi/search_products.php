@@ -18,6 +18,7 @@ $offset = ($page - 1) * $limit;
 $search_results = $obj->search_product($keyword, $offset, $limit, $category, $min_price, $max_price);
 $total_results = $obj->get_search_results_count($keyword, $category, $min_price, $max_price);
 $total_pages = ceil($total_results / $limit);
+
 ?>
 
 <?php
@@ -112,33 +113,18 @@ include_once("includes/header.php");
                                 </div>
                             </div><!-- End .products -->
                                 
-                                
-
-                			<nav aria-label="Page navigation">
+                            <nav>
                                 <ul class="pagination justify-content-center">
-                                    <?php if ($page > 1) { ?>
-                                        <li class="page-item">
-                                            <button class="page-link page-link-prev" href="?keyword=<?php echo $keyword; ?>&category=<?php echo $category; ?>&min_price=<?php echo $min_price; ?>&max_price=<?php echo $max_price; ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
-                                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-                                        </button>
+                                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                        <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                                            <a class="page-link" href="search_products.php?page=<?php echo $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
                                         </li>
-                                    <?php }
-                                    for ($i = 1; $i <= $total_pages; $i++) {
-                                        if ($i == $page) { ?>
-                                            <li class="page-item active" aria-current="page"><button class="page-link" href="#"><?php echo $i; ?></button></li>
-                                        <?php } else { ?>
-                                            <li class="page-item"><button class="page-link" href="?keyword=<?php echo $keyword; ?>&category=<?php echo $category; ?>&min_price=<?php echo $min_price; ?>&max_price=<?php echo $max_price; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></button></li>
-                                        <?php }
-                                    }
-                                    if ($page < $total_pages) { ?>
-                                        <li class="page-item">
-                                            <button class="page-link page-link-next" href="?keyword=<?php echo $keyword; ?>&category=<?php echo $category; ?>&min_price=<?php echo $min_price; ?>&max_price=<?php echo $max_price; ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
-                                                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-                                            </button>
-                                        </li>
-                                    <?php } ?>
+                                    <?php endfor; ?>
                                 </ul>
                             </nav>
+
                 		</div><!-- End .col-lg-9 -->
                 		<aside class="col-lg-3 order-lg-first">
                 			<div class="sidebar sidebar-shop">

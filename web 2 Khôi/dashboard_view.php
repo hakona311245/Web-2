@@ -65,10 +65,10 @@ $orders = $obj->getUserOrders($_SESSION['user_id']);
 	                		<aside class="col-md-4 col-lg-3">
 	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
 								    <li class="nav-item">
-								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+								        <a class="nav-link" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
 								    </li>
 								    <li class="nav-item">
-								        <a class="nav-link " id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+								        <a class="nav-link active" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
 								    </li>
 								    <li class="nav-item">
 								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
@@ -86,7 +86,7 @@ $orders = $obj->getUserOrders($_SESSION['user_id']);
 
 	                		<div class="col-md-8 col-lg-9">
 	                			<div class="tab-content">
-								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+								    <div class="tab-pane fade" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
 									<form action="Log_out.php" method="post">
     									<p>Hello <span class="font-weight-normal text-dark"><?php echo $userDetails['user_name']; ?></span> (not <?php echo $userDetails['user_name']; ?>? 
     										<button type="submit" style="background:none!important; border:none; padding:0!important; color: orange; text-decoration:underline; cursor:pointer;">Log out</button>)
@@ -95,41 +95,41 @@ $orders = $obj->getUserOrders($_SESSION['user_id']);
 								    	From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
 								    </div><!-- .End .tab-pane -->
 
-								    <div class="tab-pane fade " id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-									<div class="table-responsive">
-										<h4>Order history</h4>
-											<table class="table table-striped table-hover table-bordered">
-											<thead class="thead-light">
-												<tr>
-													<th scope="col" class="text-center">Order ID</th>
-													<th scope="col" class="text-center">Product Amount</th>
-													<th scope="col" class="text-center">Date</th>
-													<th scope="col" class="text-center">Status</th>
-													<th scope="col" class="text-center">Total</th>
-												</tr>
-											</thead>
-											<tbody>
-									<?php if (!empty($orders)): ?>
-										<?php foreach ($orders as $order): ?>
-										<tr>
-											<td class="text-center"><?php echo htmlspecialchars($order['id']); ?></td>
-											<td class="text-center"><?php echo htmlspecialchars($order['amount']); ?></td>
-											<td class="text-center"><?php echo htmlspecialchars($order['order_time']); ?></td>
-											<td class="text-center"><?php echo htmlspecialchars($order['order_status']); ?></td>
-											<td class="text-center"><?php echo htmlspecialchars($order['total_bill'])."$"; ?></td>
-										</tr>
-										<?php endforeach; ?>
-									<?php else: ?>
-										<tr>
-											<td colspan="5" class="text-center">You didn't buy anything.</td>
-										</tr>
-									<?php endif; ?>
-								</tbody>
-										</table>
-										<a href="dashboard_view.php#tab-orders" class="btn btn-primary btn-sm">View Details</a>
+								    <div class="tab-pane fade show active" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+    <div class="table-responsive">
+        <h4>Order Details</h4>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="text-center">Order ID</th>
+                    <th scope="col" class="text-center">Product Name</th>
+                    <th scope="col" class="text-center">Payment Method</th>
+                    <th scope="col" class="text-center">Quantity</th>
+                    <th scope="col" class="text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($orders as $order) {
+                    $orderDetails = $obj->getOrderDetails($order['id']); // Assuming this returns all details for each order
+                    foreach ($orderDetails as $detail) {
+                        $productDetails = $obj->getProductDetailsById($detail['product_id']); // Fetch product details by product ID
+                        echo "<tr>";
+                        echo "<td class='text-center'>" . htmlspecialchars($order['id']) . "</td>";
+                        echo "<td class='text-center'>" . htmlspecialchars($productDetails['pdt_name']) . "</td>"; // Display product name
+                        echo "<td class='text-center'>" . htmlspecialchars($detail['payment_method']) . "</td>"; // Display payment method
+                        echo "<td class='text-center'>" . htmlspecialchars($detail['quantity']) . "</td>"; // Display quantity
+                        echo "<td class='text-center'>" . htmlspecialchars($detail['total']) . "</td>"; // Display total cost
+                        echo "</tr>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
-								    	<a href="category.php" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
-								    </div><!-- .End .tab-pane -->
+    <a href="category.php" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+</div><!-- .End .tab-pane -->
+
 
 								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
 								    	<p>The following addresses will be used on the checkout page by default.</p>

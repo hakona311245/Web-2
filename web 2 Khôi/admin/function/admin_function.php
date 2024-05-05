@@ -30,6 +30,12 @@ class adminback
         return $result;
     }
 
+    function getAllProducts() {
+        $query = "SELECT * FROM products";
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+    
     function getProductsByCategory($ctg_id) {
         $query = "SELECT * FROM products WHERE pdt_ctg = $ctg_id";
         $result = mysqli_query($this->conn, $query);
@@ -155,11 +161,6 @@ class adminback
             return false;
         }
     }
-    function initializeCartSession($userId) {
-        if (!isset($_SESSION['cart'][$userId])) {
-            $_SESSION['cart'][$userId] = [];
-        }
-    }
     
     public function placeOrder($userId, $cart, $totalAmount, $paymentMethod, array $shippingInfo) {
         $orderTime = new DateTime(); // Get the current time from PHP
@@ -191,7 +192,7 @@ class adminback
             }
     
             $this->conn->commit();
-            header("Location: dashboard.php?order=success");
+            header("Location: dashboard.php#tab-orders?order=success");
             return true;
         } catch (Exception $e) {
             $this->conn->rollback();
@@ -199,18 +200,9 @@ class adminback
         }
     }    
     
-    public function updateUserDetails($userId, $firstName, $lastName, $userName, $email, $address, $ward, $district, $city, $phone, $currentPwd, $newPwd) {
+    public function updateUserDetails($userId, $firstName, $lastName, $userName, $email, $address, $ward, $district, $city, $phone) {
         $this->conn->begin_transaction();
         try {
-            if (!empty($newPwd)) {
-                $options = ['cost' => 12];
-                $newPwd = password_hash($newPwd, PASSWORD_BCRYPT, $options);
-                $stmt = $this->conn->prepare("UPDATE users SET user_password = ? WHERE user_id = ? AND user_password = ?");
-                $stmt->bind_param("sis", $newPwd, $userId, $currentPwd);
-                $stmt->execute();
-                $stmt->close();
-            }
-    
             $stmt = $this->conn->prepare("UPDATE users SET user_firstname = ?, user_lastname = ?, user_name = ?, user_email = ?, user_mobile = ? WHERE user_id = ?");
             $stmt->bind_param("sssssi", $firstName, $lastName, $userName, $email, $phone, $userId);
             $stmt->execute();
@@ -230,8 +222,58 @@ class adminback
         }
     }
     
+    public function getUserOrders($userId) {
+        $sql = "SELECT * FROM order_products WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            die("SQL error: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $orders = [];
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
+        $stmt->close();
+
+        return $orders;
+    }
+    public function getOrderDetails($orderId) {
+        $query = "SELECT * FROM order_details WHERE order_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $details = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $details;
+    }
+    public function getProductDetailsById($productId) {
+        // SQL query to fetch all product details by product ID
+        $query = "SELECT * FROM products WHERE pdt_id = ?";
+        $stmt = $this->conn->prepare($query);
+        
+        if (!$stmt) {
+            echo "Error preparing statement: " . $this->conn->error;
+            return false;
+        }
     
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
     
+        if ($result->num_rows > 0) {
+            $productDetails = $result->fetch_assoc();
+            $stmt->close();
+            return $productDetails;
+        } else {
+            $stmt->close();
+            return false;
+        }
+    }
     
     
 }

@@ -21,8 +21,7 @@
                                                 </ul>
                                                 <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
                                                 <ul>
-                                                    <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                                    <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                                                    <li><a href="category_all_products.php"><span>Shop Boxed No Sidebar</span></a></li>
                                                 </ul>
                                             </div><!-- End .col-md-6 -->
                                             <div class="col-md-6">
