@@ -202,10 +202,6 @@ $_SESSION['total_with_shipping'] = $totalAmountIncludingShipping;
                         </td>
                         <td>$20.00</td>
                     </tr>
-                    <tr class="summary-shipping-estimate">
-                        <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
-                        <td>&nbsp;</td>
-                    </tr><!-- End .summary-shipping-estimate -->
                     <tr class="summary-total">
                         <td>Total:</td>
                         <td>$<?= number_format($totalAmountIncludingShipping, 2) ?></td>
