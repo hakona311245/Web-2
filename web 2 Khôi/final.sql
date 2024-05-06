@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 05, 2024 lúc 07:32 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: May 06, 2024 at 02:40 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `web`
+-- Database: `web`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `admin_name`, `birthday`, `picture`, `email`, `password`, `phone`, `address`, `mssv`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `admin` (`id`, `admin_name`, `birthday`, `picture`, `email`, `passwo
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -62,7 +62,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`ctg_id`, `ctg_name`, `ctg_des`, `ctg_status`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `category` (`ctg_id`, `ctg_name`, `ctg_des`, `ctg_status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_details`
+-- Table structure for table `order_details`
 --
 
 CREATE TABLE `order_details` (
@@ -86,13 +86,31 @@ CREATE TABLE `order_details` (
   `total` decimal(10,2) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `day_delivered` date DEFAULT NULL
+  `day_delivered` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_id`, `payment_method`, `Shipping_mobile`, `total`, `product_id`, `quantity`, `day_delivered`) VALUES
+(6, 'Direct Bank Transfer', '909090900', 3996.00, 1, 4, '2024-05-04 11:33:23'),
+(6, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-05-04 11:33:23'),
+(7, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-05-04 11:39:39'),
+(8, 'Check Payments', '909090900', 4396.00, 11, 4, '2024-05-04 11:46:58'),
+(9, 'PayPal', '909090900', 1998.00, 1, 2, '2024-05-05 18:08:17'),
+(10, 'Direct Bank Transfer', '909090900', 799.00, 2, 1, '2024-05-05 21:04:03'),
+(11, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05 21:05:17'),
+(12, 'PayPal', '909090900', 599.00, 3, 1, '2024-05-05 21:07:14'),
+(13, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05 22:08:54'),
+(13, 'Direct Bank Transfer', '909090900', 999.00, 1, 1, '2024-05-05 22:08:54'),
+(14, 'Credit Card (Stripe)', '909797540', 1099.00, 11, 1, '2024-05-06 14:17:24'),
+(14, 'Credit Card (Stripe)', '909797540', 699.00, 12, 1, '2024-05-06 14:17:24');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_products`
+-- Table structure for table `order_products`
 --
 
 CREATE TABLE `order_products` (
@@ -105,13 +123,31 @@ CREATE TABLE `order_products` (
   `address_city` varchar(50) NOT NULL,
   `order_time` datetime NOT NULL,
   `total_bill` decimal(10,2) NOT NULL,
-  `order_status` enum('Chưa xử lý','Đang xử lý','Đã giao','Hủy đơn') NOT NULL DEFAULT 'Chưa xử lý'
+  `order_status` enum('pending','delivered','order_set','canceled') NOT NULL DEFAULT 'order_set'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_products`
+--
+
+INSERT INTO `order_products` (`id`, `user_id`, `amount`, `address`, `address_ward`, `address_district`, `address_city`, `order_time`, `total_bill`, `order_status`) VALUES
+(3, 5, 0, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:32:12', 0.00, 'pending'),
+(4, 5, 0, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:32:12', 0.00, 'pending'),
+(5, 5, 0, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:32:21', 0.00, 'pending'),
+(6, 5, 7, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:33:23', 11213.00, ''),
+(7, 5, 3, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:39:39', 7217.00, 'pending'),
+(8, 5, 4, '90 Nguyen Hue', 'Ward 5', '1 District', 'Ho Chi Minh City', '2024-05-04 11:46:58', 4396.00, ''),
+(9, 7, 2, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 18:08:17', 1998.00, 'order_set'),
+(10, 7, 1, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 21:04:03', 799.00, 'order_set'),
+(11, 7, 1, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 21:05:17', 1099.00, 'order_set'),
+(12, 7, 1, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 21:07:14', 619.00, 'order_set'),
+(13, 7, 2, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 22:08:54', 2118.00, 'order_set'),
+(14, 8, 2, '3213kgdfsl', '1', '1', 'hcm', '2024-05-06 14:17:24', 1798.00, 'order_set');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -126,7 +162,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`pdt_id`, `pdt_name`, `pdt_price`, `pdt_des`, `pdt_ctg`, `pdt_img`, `pdt_stock`, `pdt_status`) VALUES
@@ -157,7 +193,7 @@ INSERT INTO `products` (`pdt_id`, `pdt_name`, `pdt_price`, `pdt_des`, `pdt_ctg`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_images`
+-- Table structure for table `product_images`
 --
 
 CREATE TABLE `product_images` (
@@ -167,20 +203,20 @@ CREATE TABLE `product_images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_images`
+-- Dumping data for table `product_images`
 --
 
 INSERT INTO `product_images` (`id`, `pdt_id`, `image_url`) VALUES
-(1, 1, '1.webp'),
-(2, 1, '2.jpg'),
-(3, 1, '3.jpg'),
+(1, 1, 'iphone13_detail3.jpg'),
+(2, 1, 'iphone13_detail2.jpg'),
+(3, 1, 'iphone13_detail1.jpg'),
 (4, 2, '4.jpg'),
 (5, 2, '1.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc đóng vai cho view `product_info_ctg`
+-- Stand-in structure for view `product_info_ctg`
 -- (See below for the actual view)
 --
 CREATE TABLE `product_info_ctg` (
@@ -198,7 +234,7 @@ CREATE TABLE `product_info_ctg` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -214,19 +250,20 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_mobile`, `created_at`, `is_locked`) VALUES
-(3, '', '', '', '123', '$2y$12$EYZxPxnI4spA8SgLIetwBOmjTsHgbwsB6B.ZS4Pvu1Bl/n5i4.GMO', 'lqkk@gmail.', '2024-05-03 09:34:11', 'active'),
 (4, 'koki', '', '', 'lqk@gmail.com', '$2y$12$TNLsuDyMWKjTNu8e1uqhme7bL3sHdJA7YxBHBYK9XXDIwg3fF4ONa', '0909090900', '2024-05-03 09:37:48', 'active'),
-(5, 'kohi', '', '', 'Lam@gmail.com', '$2y$12$IVtvvQu4DjcK26VB0tpVEuCeVqcM1oZDNrTnYxFfpi6sDtK5GVXP6', '0909090900', '2024-05-03 09:43:26', 'active'),
-(6, 'hohi', 'la', 'ki', 'lk@gmail.com', '$2y$12$7FybxqSd8kD2mP8l9KnuJuZzl23J5Da9FGgeTlGFgIQuhhmemN/46', '0909797540', '2024-05-03 09:52:26', 'active');
+(5, 'kohi', 'khoi', 'lam', 'Lam@gmail.com', '$2y$12$IVtvvQu4DjcK26VB0tpVEuCeVqcM1oZDNrTnYxFfpi6sDtK5GVXP6', '0909090900', '2024-05-03 09:43:26', 'active'),
+(6, 'hohi', 'la', 'ki', 'lk@gmail.com', '$2y$12$7FybxqSd8kD2mP8l9KnuJuZzl23J5Da9FGgeTlGFgIQuhhmemN/46', '0909797540', '2024-05-03 09:52:26', 'active'),
+(7, 'hoai', 'hung', 'tran', 'lkl@gmail.com', '$2y$12$9a8cpuMc3YGFYUP9d387c.FQOxqYtB4TFE90S5KwH/ICL9HYQ3Aay', '0909090900', '2024-05-05 13:19:05', 'active'),
+(8, 'lamquangkhoi', '', '', 'lqk2004@gmail.com', '$2y$12$4unbxNuQTczJQp3rw3cnTeTmfI6kpMW8ATxEZdABdQFf/XrXmJ10q', '0909797540', '2024-05-06 12:15:54', 'active');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user_address`
+-- Table structure for table `user_address`
 --
 
 CREATE TABLE `user_address` (
@@ -239,7 +276,7 @@ CREATE TABLE `user_address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user_address`
+-- Dumping data for table `user_address`
 --
 
 INSERT INTO `user_address` (`id`, `user_id`, `user_address`, `user_ward`, `user_district`, `user_city`) VALUES
@@ -254,58 +291,58 @@ INSERT INTO `user_address` (`id`, `user_id`, `user_address`, `user_ward`, `user_
 -- --------------------------------------------------------
 
 --
--- Cấu trúc cho view `product_info_ctg`
+-- Structure for view `product_info_ctg`
 --
 DROP TABLE IF EXISTS `product_info_ctg`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_info_ctg`  AS SELECT `products`.`pdt_id` AS `pdt_id`, `products`.`pdt_name` AS `pdt_name`, `products`.`pdt_price` AS `pdt_price`, `products`.`pdt_des` AS `pdt_des`, `products`.`pdt_img` AS `pdt_img`, `products`.`pdt_stock` AS `product_stock`, `products`.`pdt_status` AS `pdt_status`, `category`.`ctg_id` AS `ctg_id`, `category`.`ctg_name` AS `ctg_name` FROM (`products` join `category`) WHERE `products`.`pdt_ctg` = `category`.`ctg_id` ;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`ctg_id`);
 
 --
--- Chỉ mục cho bảng `order_details`
+-- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD KEY `fk_order_details_product_id` (`product_id`),
   ADD KEY `fk_order_details_order_id` (`order_id`);
 
 --
--- Chỉ mục cho bảng `order_products`
+-- Indexes for table `order_products`
 --
 ALTER TABLE `order_products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_order_products_user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`pdt_id`),
   ADD KEY `fk_products_category` (`pdt_ctg`);
 
 --
--- Chỉ mục cho bảng `product_images`
+-- Indexes for table `product_images`
 --
 ALTER TABLE `product_images`
   ADD PRIMARY KEY (`id`),
   ADD KEY `pdt_id` (`pdt_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
@@ -313,83 +350,83 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `user_email` (`user_email`);
 
 --
--- Chỉ mục cho bảng `user_address`
+-- Indexes for table `user_address`
 --
 ALTER TABLE `user_address`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_userid` (`user_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `ctg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `order_products`
+-- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `pdt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT cho bảng `product_images`
+-- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `order_details`
+-- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `fk_order_details_order_id` FOREIGN KEY (`order_id`) REFERENCES `order_products` (`id`),
   ADD CONSTRAINT `fk_order_details_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`pdt_id`);
 
 --
--- Các ràng buộc cho bảng `order_products`
+-- Constraints for table `order_products`
 --
 ALTER TABLE `order_products`
   ADD CONSTRAINT `fk_order_products_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
--- Các ràng buộc cho bảng `products`
+-- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `fk_products_category` FOREIGN KEY (`pdt_ctg`) REFERENCES `category` (`ctg_id`);
 
 --
--- Các ràng buộc cho bảng `product_images`
+-- Constraints for table `product_images`
 --
 ALTER TABLE `product_images`
   ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`pdt_id`) REFERENCES `products` (`pdt_id`);
 
 --
--- Các ràng buộc cho bảng `user_address`
+-- Constraints for table `user_address`
 --
 ALTER TABLE `user_address`
   ADD CONSTRAINT `FK_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);

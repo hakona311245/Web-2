@@ -91,7 +91,7 @@ function getRaw($sql){
 function oneRaw($sql){
     $status = query($sql, '', true);
     if(is_object($status)){
-        $dataFetch = $status -> fetch(PDO::FETCH_ASSOC);
+        $dataFetch = $status -> fetch();
     }
     return $dataFetch;
 }

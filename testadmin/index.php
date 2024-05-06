@@ -4,7 +4,7 @@ require_once("databaseadmin.php");
 require_once("session.php");
 require_once("function.php");
 
-$listUsers = getRaw("SELECT * FROM users ORDER BY created_at DESC");
+$listUsers = getRaw("SELECT * FROM users ORDER BY created_at DESC;");
 
 ?>
 
