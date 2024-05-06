@@ -176,7 +176,7 @@ class adminback
     
             // Insert the order into order_products
             $stmt = $this->conn->prepare("INSERT INTO order_products (user_id, amount, address, address_ward, address_district, address_city, order_time, total_bill, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $orderStatus = 'order_set'; // Assuming 'pending' is the initial status
+            $orderStatus = 'Chưa xử lý'; // Assuming 'pending' is the initial status
             $stmt->bind_param("iisssssds", $userId, $totalQuantity, $shippingInfo['address'], $shippingInfo['ward'], $shippingInfo['district'], $shippingInfo['city'], $formattedOrderTime, $totalAmount, $orderStatus);
             $stmt->execute();
             $orderId = $stmt->insert_id; // Get the last insert id for order_products, to be used as foreign key in order_details
