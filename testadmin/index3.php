@@ -85,18 +85,6 @@ require_once("function.php");
                                 <i class="fas fa-table me-1"></i>
                                 Bảng dữ liệu
                             </div>
-                            <div class="date-filter">
-    <form method="GET">
-        <label for="start-date">Từ ngày:</label>
-        <input type="date" id="start-date" name="start-date">
-
-        <label for="end-date">Đến ngày:</label>
-        <input type="date" id="end-date" name="end-date">
-
-        <button type="submit">Lọc</button>
-    </form>
-</div>
-
                         <div class="card-body">
                 <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></a></div>
                 <table class="table">
@@ -187,6 +175,117 @@ mysqli_close($conn);
 
                         </tbody>
                         </table>
+                        <div class="date-filter">
+    <form method="GET">
+        <label for="start-date">Từ ngày:</label>
+        <input type="date" id="start-date" name="start-date">
+
+        <label for="end-date">Đến ngày:</label>
+        <input type="date" id="end-date" name="end-date">
+
+        <button type="submit">Lọc</button>
+    </form>
+</div>
+<table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên khách hàng</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Địa chỉ</th>
+                                <th>Các đơn hàng</th>
+                                <th>Tổng chi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+// Kết nối đến cơ sở dữ liệu của bạn
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "web";
+
+// Tạo kết nối
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . $conn->connect_error);
+}
+
+// Kiểm tra xem người dùng đã gửi dữ liệu từ form chưa
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Lấy giá trị từ form
+    $start_date = $_GET['start-date'];
+    $end_date = $_GET['end-date'];
+
+    // Truy vấn SQL để tìm 5 user_id có tổng chi cao nhất trong khoảng thời gian đã chọn
+    $sql = "SELECT user_id, SUM(total_bill) AS total_spent
+            FROM order_products
+            WHERE order_time BETWEEN '$start_date' AND '$end_date'
+            GROUP BY user_id
+            ORDER BY total_spent DESC
+            LIMIT 5";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Duyệt qua từng hàng kết quả
+        while ($row = $result->fetch_assoc()) {
+            // Lấy thông tin từ bảng users dựa trên user_id từ kết quả truy vấn đã có
+            $user_id = $row['user_id'];
+            $user_info_query = "SELECT user_firstname, user_lastname, user_mobile, user_email
+                                FROM users
+                                WHERE user_id = $user_id";
+            $user_info_result = $conn->query($user_info_query);
+            $user_info_row = $user_info_result->fetch_assoc();
+
+            // Lấy thông tin địa chỉ từ bảng user_address dựa trên user_id
+            $user_address_query = "SELECT user_address
+                                   FROM user_address
+                                   WHERE user_id = $user_id";
+            $user_address_result = $conn->query($user_address_query);
+            $user_address_row = $user_address_result->fetch_assoc();
+            // lấy chuỗi
+            $order_id_query = "SELECT GROUP_CONCAT(id) AS order_ids
+            FROM order_products
+            WHERE user_id = $user_id
+            AND order_time BETWEEN '$start_date' AND '$end_date'";
+$order_id_result = $conn->query($order_id_query);
+$order_id_row = $order_id_result->fetch_assoc();
+$order_ids_array[$user_id] = $order_id_row['order_ids'];
+
+            // In ra thông tin của từng user_id
+            echo "<tr>";
+            echo "<td>" . $row["user_id"] . "</td>";
+            echo "<td>" . $user_info_row["user_firstname"] . " " . $user_info_row["user_lastname"] . "</td>";
+            echo "<td>" . $user_info_row["user_mobile"] . "</td>";
+            echo "<td>" . $user_info_row["user_email"] . "</td>";
+
+            // In địa chỉ nếu tồn tại
+            if ($user_address_row) {
+                echo "<td>" . $user_address_row["user_address"] . "</td>";
+            } else {
+                echo "<td>Chưa thêm địa chỉ</td>";
+            }
+
+            // Hiển thị nút xem duy nhất nếu có ID đơn hàng
+            echo "<td>";
+            echo "<button class='view-btn' data-user-id='{$row['user_id']}' data-order-ids='" . $order_ids_array[$row['user_id']] . "' style='background-color: white; color: black;'>Xem</button>";
+            echo "</td>";
+            echo "<td>" . $row["total_spent"] . "</td>";
+            echo "</tr>";
+        }
+    } 
+    $conn->close();
+}
+?>
+
+
+                        </tbody>
+                        </table>
+
                         </div>
                         </div>
                     </div>
