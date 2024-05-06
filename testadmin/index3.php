@@ -1,3 +1,9 @@
+<?php
+
+require_once("databaseadmin.php");
+require_once("session.php");
+require_once("function.php");
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -9,7 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/ordertable.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <scrip src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -106,21 +112,21 @@
                         </thead>
                         <tbody>
                         <?php
-    // Kết nối đến cơ sở dữ liệu
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "web";
+// Kết nối đến cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "web";
 
-    $conn = mysqli_connect($servername, $username, $password, $database);
+$conn = mysqli_connect($servername, $username, $password, $database);
 
-    // Kiểm tra kết nối
-    if (!$conn) {
-        die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
-    }
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+}
 
-    // Truy vấn để lấy thông tin của khách hàng
-    $query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address,
+// Truy vấn để lấy thông tin của khách hàng
+$query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address,
     GROUP_CONCAT(DISTINCT order_products.id) AS order_ids,
     SUM(order_products.total_bill) AS total_cost
     FROM users
@@ -128,58 +134,45 @@
     LEFT JOIN order_products ON users.user_id = order_products.user_id
     WHERE order_products.user_id IS NULL OR users.user_id = order_products.user_id
     GROUP BY users.user_id";
-    $result = mysqli_query($conn, $query);
+$result = mysqli_query($conn, $query);
 
-    // Kiểm tra kết quả của truy vấn
-    if ($result && mysqli_num_rows($result) > 0) {
-       
+// Kiểm tra kết quả của truy vấn
+if ($result && mysqli_num_rows($result) > 0) {
+    
+            // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['user_id'] . "</td>";
+                echo "<td>" . $row['user_name'] . "</td>";
+                echo "<td>" . $row['user_mobile'] . "</td>";
+                echo "<td>" . $row['user_email'] . "</td>";
+                echo "<td>" . $row['user_address'] . "</td>";
 
-        // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
-// Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
-while ($row = mysqli_fetch_assoc($result)) {
-    echo "<tr>";
-    echo "<td>" . $row['user_id'] . "</td>";
-    echo "<td>" . $row['user_name'] . "</td>";
-    echo "<td>" . $row['user_mobile'] . "</td>";
-    echo "<td>" . $row['user_email'] . "</td>";
-    echo "<td>" . $row['user_address'] . "</td>";
-
-    // Hiển thị nút xem duy nhất nếu có ID đơn hàng
-    if (!empty($row['order_ids'])) {
-        // Tách chuỗi ID thành mảng các ID
-        $order_ids_array = explode(",", $row['order_ids']);
-        // Chỉ hiển thị nút xem cho ID đầu tiên
-        $first_order_id = $order_ids_array[0];
-        echo "<td>";
-        echo "<button class='view-btn' data-order-ids='$first_order_id' style='background-color: white; color: black;'>Xem</button>";
-        echo "</td>";
-    } else {
-        // Nếu không có ID đơn hàng, hiển thị thông báo
-        echo "<td>Không có đơn hàng</td>";
-    }
-    echo "<td>" . ($row['total_cost'] ? $row['total_cost'] : 0) . "</td>";
-    echo "</tr>";
+                // Hiển thị nút xem duy nhất nếu có ID đơn hàng
+                if (!empty($row['order_ids'])) {
+                    // Tách chuỗi ID thành mảng các ID
+                    $order_ids_array = explode(",", $row['order_ids']);
+                    // Chỉ hiển thị nút xem cho ID đầu tiên
+                    $first_order_id = $order_ids_array[0];
+                    echo "<td>";
+                    echo "<button class='view-btn' data-user-id='{$row['user_id']}' data-order-ids='$first_order_id' style='background-color: white; color: black;'>Xem</button>";
+                    echo "</td>";
+                } else {
+                    // Nếu không có ID đơn hàng, hiển thị thông báo
+                    echo "<td>Không có đơn hàng</td>";
+                }
+                echo "<td>" . ($row['total_cost'] ? $row['total_cost'] : 0) . "</td>";
+                echo "</tr>";
+            }
+        
+} else {
+    // Hiển thị thông báo nếu không có dữ liệu
+    echo "Không có dữ liệu";
 }
 
-        echo "</tbody>";
-        echo "</table>";
-    } else {
-        // Hiển thị thông báo nếu không có dữ liệu
-        echo "Không có dữ liệu";
-    }
-
-    // Đóng kết nối
-    mysqli_close($conn);
+// Đóng kết nối
+mysqli_close($conn);
 ?>
-<script>
-    document.querySelector('.view-btn').addEventListener('click', (event) => {
-        const orderIds = event.target.dataset.orderIds;
-        // Tạo một URL cho trang danh sách đơn hàng và truyền ID đơn hàng qua URL
-        const url = 'index2.php?orderIds=' + orderIds;
-        // Chuyển hướng người dùng đến trang danh sách đơn hàng
-        window.location.href = url;
-    });
-</script>
 
 
                         </tbody>
@@ -213,3 +206,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     </body>
 </html>
+<script>
+    // Bắt sự kiện click trên nút "Xem"
+    document.addEventListener('click', function(event) {
+        // Kiểm tra xem phần tử được click có class là 'view-btn' hay không
+        if (event.target.classList.contains('view-btn')) {
+            // Lấy chuỗi ID của đơn hàng từ thuộc tính data-order-ids của nút
+            var orderIdsString = event.target.getAttribute('data-order-ids');
+            // Lấy user_id từ thuộc tính data-user-id của nút
+            var userId = event.target.getAttribute('data-user-id');
+
+            // Chuyển hướng sang trang index4.php với các ID đơn hàng và user_id như là tham số trong URL
+            window.location.href = "index4.php?order_ids=" + orderIdsString + "&user_id=" + userId;
+        }
+    });
+</script>
