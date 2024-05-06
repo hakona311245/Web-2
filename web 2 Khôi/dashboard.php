@@ -128,7 +128,7 @@ $orders = $obj->getUserOrders($_SESSION['user_id']);
 										</table>
 										<a href="dashboard_view.php#tab-orders" class="btn btn-primary btn-sm">View Details</a>
     								</div>
-								    	<a href="category_all_products.php" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+								    	<a href="search_products.php" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
 								    </div><!-- .End .tab-pane -->
 
 								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
