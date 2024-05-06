@@ -49,7 +49,7 @@
   </head>
 <body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand ps-3" href="loginadmin.php">SGtech</a>
+            <a class="navbar-brand ps-3" href="loginadmin.php">Molla</a>
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
               
             </ul>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Order Details</title>
+<title>Chi tiết đơn hàng</title>
 <style>
     table {
         width: 100%;
@@ -55,31 +55,39 @@ if(isset($_GET['order_id']) && !empty($_GET['order_id'])) {
 
     // Kiểm tra xem có kết quả trả về không
     if(mysqli_num_rows($result) > 0) {
+        // Khởi tạo biến tổng tiền
+        $total_price = 0;
+
         // Hiển thị thông tin chi tiết đơn hàng
         echo "<table>
                 <thead>
                     <tr>
                         <th>Order ID</th>
-                        <th>Image</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Subtotal</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Tổng</th>
                     </tr>
                 </thead>
                 <tbody>";
         
         while($row = mysqli_fetch_assoc($result)) {
             $subtotal = $row['quantity'] * $row['pdt_price']; // Tính giá bán mỗi sản phẩm
+            $total_price += $subtotal; // Cộng vào tổng tiền
             echo "<tr>
                     <td>{$row['order_id']}</td>
-                    <td><img src='{$row['pdt_img']}' alt='{$row['pdt_name']}'></td>
                     <td>{$row['pdt_name']}</td>
                     <td>{$row['quantity']}</td>
                     <td>{$row['pdt_price']}</td>
                     <td>$subtotal</td>
                 </tr>";
         }
+
+        // Hiển thị tổng tiền ngoài bảng
+        echo "<tr>
+                <td colspan='4'><strong>Tổng tiền</strong></td>
+                <td>$total_price</td>
+              </tr>";
 
         echo "</tbody></table>";
     } else {
