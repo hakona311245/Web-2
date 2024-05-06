@@ -15,7 +15,6 @@ if(!empty($filterAll['user_id'])){
     $userAddressDeleted = delete('user_address', "user_id = $userID");
 
 
-
     if($userAddressDeleted > 0){
         // Nếu có bản ghi user_address được xóa, tiếp tục xóa user trong bảng users
         $deleteUser = delete('users', "user_id = $userID");

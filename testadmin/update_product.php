@@ -177,16 +177,19 @@ if(isPost()){
                                             </div>
 
 
+
                                             <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input style="text-align: left;" name="pdt_img" class="form-control" id="inputFirstName" type="text" placeholder="Enter product image URL" 
-                                                    value="<?php echo old('pdt_img',$old);?>"/>
-                                                    <label for="inputFirstName">Product Image </label>
-                                                    <?php echo (!empty($errors['pdt_img']['required'])) ? '<span class="error-message">' . $errors['pdt_img']['required'] . '</span>' : null;?>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <label style=" margin-top:-14px; " for="inputFirstName">Image(Đổi ảnh thì tải lên)</label>
+                                                        <input name="pdt_img" class="form-control" id="inputFirstName" type="file" name="fileUpload" onchange="previewImage(event)" >
+                                                        <?php echo (!empty($errors['pdt_img']['required'])) ? '<span class="error-message">' . $errors['pdt_img']['required'] . '</span>' : null;?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div id="preview"></div>
+
+
 
                                         <div class="row mb-3">
                                             <div class="col-md-6">
@@ -281,4 +284,14 @@ if(isPost()){
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>
+    <script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('preview');
+            output.innerHTML = '<img src="' + reader.result + '"style = "margin-left : 30px;" width="300" height="300" />';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 </html>

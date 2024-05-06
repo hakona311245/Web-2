@@ -27,7 +27,6 @@ session_start();
     
         <style>
     /* CSS cho overlay */
-    
     .overlay {
         position: fixed;
         top: 0;
@@ -103,7 +102,6 @@ session_start();
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Thống kê
                             </a>
-
 
 
                 </nav>
@@ -196,8 +194,9 @@ session_start();
                                                     <td>{$row['Address']}</td>
                                                     <td>{$row['Total_Amount']}</td>
                                                     <td>{$row['Payment_Method']}</td>
-                                                    <td><button action=\"show_detail.php({$row['Order_ID']})\">View</button></td>
-                                                    
+                                                    <!-- Trang danh sách đơn hàng (index2.php) -->
+                                                    <td><a href='show_detail.php?order_id={$row['Order_ID']}'><button>View</button></a></td>
+                                                                                                        
                                                     <td>
                                                         <input type=\"date\" id=\"deliveryTime_{$row['Order_ID']}\" value=\"{$row['Delivery_Time']}\" onchange=\"updateDeliveryTime({$row['Order_ID']}, this.value)\">
                                                     </td>
