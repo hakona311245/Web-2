@@ -129,15 +129,16 @@ require_once("function.php");
 
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
                                                     <input name="pdt_img" class="form-control" id="inputFirstName" type="file" name="fileUpload" onchange="previewImage(event)">
+                                                    <div class="form-floating mb-3 mb-md-0">
                                                     <label for="inputFirstName">Image</label>
+                                                    <br><br>
                                                     <?php echo (!empty($errors['pdt_img']['required'])) ? '<span class="error-message">' . $errors['pdt_img']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="preview"></div>
-
+                                            <br>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
