@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 02:40 PM
+-- Generation Time: May 06, 2024 at 06:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,7 +86,7 @@ CREATE TABLE `order_details` (
   `total` decimal(10,2) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `day_delivered` datetime DEFAULT NULL
+  `day_delivered` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -94,18 +94,21 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`order_id`, `payment_method`, `Shipping_mobile`, `total`, `product_id`, `quantity`, `day_delivered`) VALUES
-(6, 'Direct Bank Transfer', '909090900', 3996.00, 1, 4, '2024-05-04 11:33:23'),
-(6, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-05-04 11:33:23'),
-(7, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-05-04 11:39:39'),
-(8, 'Check Payments', '909090900', 4396.00, 11, 4, '2024-05-04 11:46:58'),
-(9, 'PayPal', '909090900', 1998.00, 1, 2, '2024-05-05 18:08:17'),
-(10, 'Direct Bank Transfer', '909090900', 799.00, 2, 1, '2024-05-05 21:04:03'),
-(11, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05 21:05:17'),
-(12, 'PayPal', '909090900', 599.00, 3, 1, '2024-05-05 21:07:14'),
-(13, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05 22:08:54'),
-(13, 'Direct Bank Transfer', '909090900', 999.00, 1, 1, '2024-05-05 22:08:54'),
-(14, 'Credit Card (Stripe)', '909797540', 1099.00, 11, 1, '2024-05-06 14:17:24'),
-(14, 'Credit Card (Stripe)', '909797540', 699.00, 12, 1, '2024-05-06 14:17:24');
+(6, 'Direct Bank Transfer', '909090900', 3996.00, 1, 4, '2024-04-19'),
+(6, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-04-19'),
+(7, 'Direct Bank Transfer', '909090900', 7197.00, 14, 3, '2024-05-04'),
+(8, 'Check Payments', '909090900', 4396.00, 11, 4, '2024-05-04'),
+(9, 'PayPal', '909090900', 1998.00, 1, 2, '2024-05-05'),
+(10, 'Direct Bank Transfer', '909090900', 799.00, 2, 1, '2024-05-05'),
+(11, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05'),
+(12, 'PayPal', '909090900', 599.00, 3, 1, '2024-05-05'),
+(13, 'Direct Bank Transfer', '909090900', 1099.00, 11, 1, '2024-05-05'),
+(13, 'Direct Bank Transfer', '909090900', 999.00, 1, 1, '2024-05-05'),
+(14, 'Credit Card (Stripe)', '909797540', 1099.00, 11, 1, '2024-05-06'),
+(14, 'Credit Card (Stripe)', '909797540', 699.00, 12, 1, '2024-05-06'),
+(15, 'Check Payments', '909797540', 1598.00, 2, 2, NULL),
+(16, 'Credit Card (Stripe)', '909797540', 999.00, 1, 1, NULL),
+(16, 'Credit Card (Stripe)', '909797540', 799.00, 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,7 +145,9 @@ INSERT INTO `order_products` (`id`, `user_id`, `amount`, `address`, `address_war
 (11, 7, 1, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 21:05:17', 1099.00, 'order_set'),
 (12, 7, 1, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 21:07:14', 619.00, 'order_set'),
 (13, 7, 2, '135 Nam Ky Khoi Nghia', 'Ward 7', '3 District', 'Ho Chi Minh City', '2024-05-05 22:08:54', 2118.00, 'order_set'),
-(14, 8, 2, '3213kgdfsl', '1', '1', 'hcm', '2024-05-06 14:17:24', 1798.00, 'order_set');
+(14, 8, 2, '3213kgdfsl', '1', '1', 'hcm', '2024-05-06 14:17:24', 1798.00, 'order_set'),
+(15, 10, 2, '32948392', '1', '5', 'HCM', '2024-05-06 16:50:00', 1608.00, 'order_set'),
+(16, 10, 2, '49384', '1', '5', 'HCM', '2024-05-06 16:50:49', 1818.00, 'order_set');
 
 -- --------------------------------------------------------
 
@@ -254,11 +259,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_mobile`, `created_at`, `is_locked`) VALUES
-(4, 'koki', '', '', 'lqk@gmail.com', '$2y$12$TNLsuDyMWKjTNu8e1uqhme7bL3sHdJA7YxBHBYK9XXDIwg3fF4ONa', '0909090900', '2024-05-03 09:37:48', 'active'),
+(4, 'koki', '', '', 'lqk@gmail.com', '$2y$12$TNLsuDyMWKjTNu8e1uqhme7bL3sHdJA7YxBHBYK9XXDIwg3fF4ONa', '0909090900', '2024-05-03 09:37:48', 'banned'),
 (5, 'kohi', 'khoi', 'lam', 'Lam@gmail.com', '$2y$12$IVtvvQu4DjcK26VB0tpVEuCeVqcM1oZDNrTnYxFfpi6sDtK5GVXP6', '0909090900', '2024-05-03 09:43:26', 'active'),
 (6, 'hohi', 'la', 'ki', 'lk@gmail.com', '$2y$12$7FybxqSd8kD2mP8l9KnuJuZzl23J5Da9FGgeTlGFgIQuhhmemN/46', '0909797540', '2024-05-03 09:52:26', 'active'),
 (7, 'hoai', 'hung', 'tran', 'lkl@gmail.com', '$2y$12$9a8cpuMc3YGFYUP9d387c.FQOxqYtB4TFE90S5KwH/ICL9HYQ3Aay', '0909090900', '2024-05-05 13:19:05', 'active'),
-(8, 'lamquangkhoi', '', '', 'lqk2004@gmail.com', '$2y$12$4unbxNuQTczJQp3rw3cnTeTmfI6kpMW8ATxEZdABdQFf/XrXmJ10q', '0909797540', '2024-05-06 12:15:54', 'active');
+(8, 'lamquangkhoi', '', '', 'lqk2004@gmail.com', '$2y$12$4unbxNuQTczJQp3rw3cnTeTmfI6kpMW8ATxEZdABdQFf/XrXmJ10q', '0909797540', '2024-05-06 12:15:54', 'banned'),
+(9, 'khohaodsa', '', '', 'lll@gmail.com', '$2y$12$IFjdzjkmHQXbEaxI4ihjs.MPFDVNDIBEkbq7A6I68t4dFqRHxm7G.', '0909090967', '2024-05-06 13:23:09', 'active'),
+(10, 'SGUer', 'sai', 'gon', 'SGU@gmail.com', '123', '0909797540', '2024-05-06 10:00:30', 'active');
 
 -- --------------------------------------------------------
 
@@ -376,13 +383,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `pdt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `pdt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `product_images`
@@ -394,7 +401,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
