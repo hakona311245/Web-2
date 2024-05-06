@@ -89,7 +89,7 @@ $listUsers = getRaw("SELECT * FROM users ORDER BY created_at DESC;");
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>STT</th>
                                             <th>User Name</th>
                                             <th>Họ</th>
                                             <th>Tên</th>

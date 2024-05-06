@@ -193,7 +193,7 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
                     <td>{$row['Address']}</td>
                     <td>{$row['Total_Amount']}</td>
                     <td>{$row['Payment_Method']}</td>
-                    <td><button onclick=\"show_detail({$row['Order_ID']})\">View</button></td>
+                    <td><a href='show_detail.php?order_id={$row['Order_ID']}'><button>View</button></a></td>
                     <td><input type=\"date\" id=\"deliveryTime_{$row['Order_ID']}\" value=\"{$row['Delivery_Time']}\" onchange=\"updateDeliveryTime({$row['Order_ID']}, this.value)\"></td>
                     <td>
                         <select id=\"orderStatus_{$row['Order_ID']}\" onchange=\"updateOrderStatus({$row['Order_ID']}, this.value)\">

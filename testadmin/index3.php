@@ -86,22 +86,23 @@ require_once("function.php");
                                 Bảng dữ liệu
                             </div>
                             <div class="date-filter">
-                            <form>
-                                <label for="start-date">Từ ngày:</label>
-                                <input type="date" id="start-date" name="start-date">
+    <form method="GET">
+        <label for="start-date">Từ ngày:</label>
+        <input type="date" id="start-date" name="start-date">
 
-                                <label for="end-date">Đến ngày:</label>
-                                <input type="date" id="end-date" name="end-date">
+        <label for="end-date">Đến ngày:</label>
+        <input type="date" id="end-date" name="end-date">
 
-                                <button type="submit">Lọc</button>
-                            </form>
-                        </div>
+        <button type="submit">Lọc</button>
+    </form>
+</div>
+
                         <div class="card-body">
                 <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></a></div>
                 <table class="table">
                         <thead>
                             <tr>
-                                <th>STT</th>
+                                <th>ID</th>
                                 <th>Tên khách hàng</th>
                                 <th>SĐT</th>
                                 <th>Email</th>

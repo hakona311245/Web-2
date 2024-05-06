@@ -90,7 +90,7 @@ $listUsers = getRaw("SELECT * FROM products ORDER BY pdt_id DESC");
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>STT</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Số lượng</th>
                                             <th>Giá bán</th>
