@@ -65,7 +65,7 @@ include_once("includes/header.php");
                                                 </span>
                                             </div><!-- End .intro-price -->
 
-                                            <a href="category.html" class="btn btn-primary btn-round">
+                                            <a href="category_all_products.php" class="btn btn-primary btn-round">
                                                 <span>Click Here</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </a>
@@ -93,7 +93,7 @@ include_once("includes/header.php");
                                                 </span>
                                             </div><!-- End .intro-price -->
 
-                                            <a href="category.html" class="btn btn-primary btn-round">
+                                            <a href="category_all_products.php" class="btn btn-primary btn-round">
                                                 <span>Click Here</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </a>

@@ -46,12 +46,12 @@
 							    	<form action="includes/login.inc.php" method="post">
 							    		<div class="form-group">
 							    			<label for="singin-email-2">Your email address *</label>
-							    			<input type="text" class="form-control" id="singin-email-2" name="singin-email">
+							    			<input type="text" class="form-control" id="singin-email-2" name="signin-email">
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-group">
 							    			<label for="singin-password-2">Password *</label>
-							    			<input type="password" class="form-control" id="singin-password-2" name="singin-password">
+							    			<input type="password" class="form-control" id="singin-password-2" name="signin-password">
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-footer">
@@ -59,13 +59,6 @@
 			                					<span>LOG IN</span>
 			            						<i class="icon-long-arrow-right"></i>
 			                				</button>
-
-			                				<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
-												<label class="custom-control-label" for="signin-remember-2">Remember Me</label>
-											</div><!-- End .custom-checkbox -->
-
-											<a href="#" class="forgot-link">Forgot Your Password?</a>
 							    		</div><!-- End .form-footer -->
 							    	</form>
                                     
@@ -97,14 +90,8 @@
 			                					<span>SIGN UP</span>
 			            						<i class="icon-long-arrow-right"></i>
 			                				</button>
-
-			                				<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="register-policy-2">
-												<label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
-											</div><!-- End .custom-checkbox -->
 							    		</div><!-- End .form-footer -->
 							    	</form>
-
                                     <?php check_signup_errors();?>
                                     <?php check_login_errors();?>
 							    </div><!-- .End .tab-pane -->

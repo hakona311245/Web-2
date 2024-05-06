@@ -185,8 +185,8 @@ class adminback
             // Insert each item from the cart into order_details using the order_id foreign key
             foreach ($cart as $item) {
                 $subtotal = $item['price'] * $item['quantity'];
-                $stmt = $this->conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, total, payment_method, Shipping_mobile, day_delivered) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iiidsds", $orderId, $item['product_id'], $item['quantity'], $subtotal, $paymentMethod, $shippingInfo['phone'], $formattedOrderTime);
+                $stmt = $this->conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, total, payment_method, Shipping_mobile) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiidsd", $orderId, $item['product_id'], $item['quantity'], $subtotal, $paymentMethod, $shippingInfo['phone']);
                 $stmt->execute();
                 $stmt->close();
             }
@@ -203,15 +203,34 @@ class adminback
     public function updateUserDetails($userId, $firstName, $lastName, $userName, $email, $address, $ward, $district, $city, $phone) {
         $this->conn->begin_transaction();
         try {
+            // Update user details in 'users' table
             $stmt = $this->conn->prepare("UPDATE users SET user_firstname = ?, user_lastname = ?, user_name = ?, user_email = ?, user_mobile = ? WHERE user_id = ?");
             $stmt->bind_param("sssssi", $firstName, $lastName, $userName, $email, $phone, $userId);
             $stmt->execute();
             $stmt->close();
-    
-            $stmt = $this->conn->prepare("UPDATE user_address SET user_address = ?, user_ward = ?, user_district = ?, user_city = ? WHERE user_id = ?");
-            $stmt->bind_param("ssssi", $address, $ward, $district, $city, $userId);
+            
+            // Check if address already exists
+            $stmt = $this->conn->prepare("SELECT user_address, user_ward, user_district, user_city FROM user_address WHERE user_id = ?");
+            $stmt->bind_param("i", $userId);
             $stmt->execute();
+            $stmt->bind_result($currentAddress, $currentWard, $currentDistrict, $currentCity);
+            $stmt->fetch();
             $stmt->close();
+    
+            // Compare and decide whether to update or insert
+            if ($currentAddress === null) {
+                // Insert new address
+                $stmt = $this->conn->prepare("INSERT INTO user_address (user_id, user_address, user_ward, user_district, user_city) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("issss", $userId, $address, $ward, $district, $city);
+                $stmt->execute();
+                $stmt->close();
+            } else {
+                // Update existing address
+                $stmt = $this->conn->prepare("UPDATE user_address SET user_address = ?, user_ward = ?, user_district = ?, user_city = ? WHERE user_id = ?");
+                $stmt->bind_param("ssssi", $address, $ward, $district, $city, $userId);
+                $stmt->execute();
+                $stmt->close();
+            }
     
             $this->conn->commit();
             return true;
