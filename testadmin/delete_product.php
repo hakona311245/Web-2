@@ -30,6 +30,7 @@ if(!empty($filterAll['pdt_id'])){
             // Xử lý lỗi nếu cần
         }
     }
+    
 }
 redirect('index1.php');
 ?>
