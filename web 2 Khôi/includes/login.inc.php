@@ -1,8 +1,8 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["singin-email"];
-    $password = $_POST["singin-password"];
+    $username = $_POST["signin-email"];
+    $password = $_POST["signin-password"];
     try {
         require_once("dbh.inc.php");
         require_once("login_model.inc.php");
@@ -15,12 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         $result = get_user($pdo, $username);
-        
+
         if (is_username_wrong($result)) {
             $errors["login_incorrect"] = "Nhập sai thông tin";
         }
         if (!is_username_wrong($result) && is_pwd_wrong($password, $result["user_password"])) {
             $errors["login_incorrect"] = "Nhập sai thông tin";
+        }
+        if($result['is_locked']=="banned"){
+            $errors["account_banned"] = "Tài khoản bị khoá!";
         }
 
         require_once 'config_session.inc.php';

@@ -185,8 +185,8 @@ class adminback
             // Insert each item from the cart into order_details using the order_id foreign key
             foreach ($cart as $item) {
                 $subtotal = $item['price'] * $item['quantity'];
-                $stmt = $this->conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, total, payment_method, Shipping_mobile, day_delivered) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("iiidsds", $orderId, $item['product_id'], $item['quantity'], $subtotal, $paymentMethod, $shippingInfo['phone'], $formattedOrderTime);
+                $stmt = $this->conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, total, payment_method, Shipping_mobile) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("iiidsd", $orderId, $item['product_id'], $item['quantity'], $subtotal, $paymentMethod, $shippingInfo['phone']);
                 $stmt->execute();
                 $stmt->close();
             }
