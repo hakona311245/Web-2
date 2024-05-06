@@ -87,6 +87,7 @@ CREATE TABLE `order_details` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `day_delivered` date DEFAULT NULL
+  `day_delivered` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
