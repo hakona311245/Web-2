@@ -101,7 +101,7 @@ require_once("function.php");
                 <table class="table">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>STT</th>
                                 <th>Tên khách hàng</th>
                                 <th>SĐT</th>
                                 <th>Email</th>
@@ -126,45 +126,55 @@ if (!$conn) {
 }
 
 // Truy vấn để lấy thông tin của khách hàng
-$query = "SELECT users.user_id, users.user_name, users.user_mobile, users.user_email, user_address.user_address,
-    GROUP_CONCAT(DISTINCT order_products.id) AS order_ids,
-    SUM(order_products.total_bill) AS total_cost
-    FROM users
-    INNER JOIN user_address ON users.user_id = user_address.user_id
-    LEFT JOIN order_products ON users.user_id = order_products.user_id
-    WHERE order_products.user_id IS NULL OR users.user_id = order_products.user_id
-    GROUP BY users.user_id";
+$query = "SELECT 
+users.user_id, 
+CONCAT(users.user_firstname, ' ', users.user_lastname) AS user_name, 
+users.user_mobile, 
+users.user_email, 
+user_address.user_address,
+GROUP_CONCAT(DISTINCT order_products.id) AS order_ids,
+SUM(order_products.total_bill) AS total_cost
+FROM 
+users
+LEFT JOIN 
+user_address ON users.user_id = user_address.user_id
+LEFT JOIN 
+order_products ON users.user_id = order_products.user_id
+GROUP BY 
+users.user_id
+ORDER BY 
+total_cost DESC;
+";
+
 $result = mysqli_query($conn, $query);
 
 // Kiểm tra kết quả của truy vấn
 if ($result && mysqli_num_rows($result) > 0) {
-    
-            // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['user_id'] . "</td>";
-                echo "<td>" . $row['user_name'] . "</td>";
-                echo "<td>" . $row['user_mobile'] . "</td>";
-                echo "<td>" . $row['user_email'] . "</td>";
-                echo "<td>" . $row['user_address'] . "</td>";
+    // Lặp qua từng hàng dữ liệu và hiển thị thông tin tương ứng
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $row['user_id'] . "</td>";
+        echo "<td>" . $row['user_name'] . "</td>";
+        echo "<td>" . $row['user_mobile'] . "</td>";
+        echo "<td>" . $row['user_email'] . "</td>";
+        echo "<td>" . $row['user_address'] . "</td>";
 
-                // Hiển thị nút xem duy nhất nếu có ID đơn hàng
-                if (!empty($row['order_ids'])) {
-                    // Tách chuỗi ID thành mảng các ID
-                    $order_ids_array = explode(",", $row['order_ids']);
-                    // Chỉ hiển thị nút xem cho ID đầu tiên
-                    $first_order_id = $order_ids_array[0];
-                    echo "<td>";
-                    echo "<button class='view-btn' data-user-id='{$row['user_id']}' data-order-ids='$first_order_id' style='background-color: white; color: black;'>Xem</button>";
-                    echo "</td>";
-                } else {
-                    // Nếu không có ID đơn hàng, hiển thị thông báo
-                    echo "<td>Không có đơn hàng</td>";
-                }
-                echo "<td>" . ($row['total_cost'] ? $row['total_cost'] : 0) . "</td>";
-                echo "</tr>";
-            }
-        
+        // Hiển thị nút xem duy nhất nếu có ID đơn hàng
+        if (!empty($row['order_ids'])) {
+            // Tách chuỗi ID thành mảng các ID
+            $order_ids_array = explode(",", $row['order_ids']);
+            // Chỉ hiển thị nút xem cho ID đầu tiên
+            $first_order_id = $order_ids_array[0];
+            echo "<td>";
+            echo "<button class='view-btn' data-user-id='{$row['user_id']}' data-order-ids='$first_order_id' style='background-color: white; color: black;'>Xem</button>";
+            echo "</td>";
+        } else {
+            // Nếu không có ID đơn hàng, hiển thị thông báo
+            echo "<td>Không có đơn hàng</td>";
+        }
+        echo "<td>" . ($row['total_cost'] ? $row['total_cost'] : 0) . "</td>";
+        echo "</tr>";
+    }
 } else {
     // Hiển thị thông báo nếu không có dữ liệu
     echo "Không có dữ liệu";
@@ -173,7 +183,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 // Đóng kết nối
 mysqli_close($conn);
 ?>
-
 
                         </tbody>
                         </table>
