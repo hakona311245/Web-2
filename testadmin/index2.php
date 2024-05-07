@@ -26,6 +26,12 @@ session_start();
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
         <style>
+
+.nutdidetrove {
+    display: inline-block;
+    margin-left: 200px;
+}
+
     /* CSS cho overlay */
     .overlay {
         position: fixed;
@@ -126,6 +132,7 @@ session_start();
                                 <button type="submit">Lọc</button>
                             </form>
                         </div>
+                        <div>
                         <div class="card-body">
                             <div class="nutthem_user"><a href="add_user.php"><i style="color:black" class="fa-solid fa-plus"></i></a></div>
                             <table class="table">
@@ -221,6 +228,12 @@ session_start();
 
                                 </tbody>
                             </table>
+                            <div style="text-align: right;">
+                                <a class="nutdidetrove" href="index2.php">
+                                    <button class="trovenao" style="border-radius: 8px; color: black;">Update</button>
+                                </a>
+                            </div>
+
                         </div>
                         </div>
                     </div>

@@ -171,7 +171,6 @@ if(isPost()){
                                                     <input style="text-align: left;" name="pdt_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter product name" 
                                                     value="<?php echo old('pdt_name',$old);?>"/>
                                                     <label for="inputFirstName">Product Name</label>
-                                                    <?php echo (!empty($errors['pdt_name']['required'])) ? '<span class="error-message">' . $errors['pdt_name']['required'] . '</span>' : null;?>
                                                 </div>
                                             </div>
                                             </div>
