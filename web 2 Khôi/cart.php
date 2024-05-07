@@ -215,7 +215,7 @@ $_SESSION['total_with_shipping'] = $totalAmountIncludingShipping;
         </div>
     
     
-    <a href="search_products.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+    <a href="search_products.php" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
 </aside>
 
 
