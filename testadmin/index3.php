@@ -193,8 +193,6 @@ mysqli_close($conn);
                                 <th>Tên khách hàng</th>
                                 <th>SĐT</th>
                                 <th>Email</th>
-                                <th>Địa chỉ</th>
-                                <th>Các đơn hàng</th>
                                 <th>Tổng chi</th>
                             </tr>
                         </thead>
@@ -215,71 +213,60 @@ if ($conn->connect_error) {
 }
 
 // Kiểm tra xem người dùng đã gửi dữ liệu từ form chưa
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Lấy giá trị từ form
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start-date']) && isset($_GET['end-date'])) {
     $start_date = $_GET['start-date'];
     $end_date = $_GET['end-date'];
 
-    // Truy vấn SQL để tìm 5 user_id có tổng chi cao nhất trong khoảng thời gian đã chọn
-    $sql = "SELECT user_id, SUM(total_bill) AS total_spent
-            FROM order_products
-            WHERE order_time BETWEEN '$start_date' AND '$end_date'
-            GROUP BY user_id
-            ORDER BY total_spent DESC
-            LIMIT 5";
+    // Validate and process the input
+    if (!empty($start_date) && !empty($end_date) && $start_date <= $end_date) {
+        $start_date = $conn->real_escape_string($start_date);
+        $end_date = $conn->real_escape_string($end_date);
 
-    $result = $conn->query($sql);
+        // Truy vấn SQL để tìm user_id có tổng chi cao nhất trong khoảng thời gian đã chọn
+        $sql = "SELECT user_id, SUM(total_bill) AS total_spent
+                FROM order_products
+                WHERE order_time BETWEEN '$start_date' AND '$end_date'
+                GROUP BY user_id
+                ORDER BY total_spent DESC
+                LIMIT 5";
 
-    if ($result->num_rows > 0) {
-        // Duyệt qua từng hàng kết quả
-        while ($row = $result->fetch_assoc()) {
-            // Lấy thông tin từ bảng users dựa trên user_id từ kết quả truy vấn đã có
-            $user_id = $row['user_id'];
-            $user_info_query = "SELECT user_firstname, user_lastname, user_mobile, user_email
-                                FROM users
-                                WHERE user_id = $user_id";
-            $user_info_result = $conn->query($user_info_query);
-            $user_info_row = $user_info_result->fetch_assoc();
+        $result = $conn->query($sql);
 
-            // Lấy thông tin địa chỉ từ bảng user_address dựa trên user_id
-            $user_address_query = "SELECT user_address
-                                   FROM user_address
-                                   WHERE user_id = $user_id";
-            $user_address_result = $conn->query($user_address_query);
-            $user_address_row = $user_address_result->fetch_assoc();
-            // lấy chuỗi
-            $order_id_query = "SELECT GROUP_CONCAT(id) AS order_ids
-            FROM order_products
-            WHERE user_id = $user_id
-            AND order_time BETWEEN '$start_date' AND '$end_date'";
-$order_id_result = $conn->query($order_id_query);
-$order_id_row = $order_id_result->fetch_assoc();
-$order_ids_array[$user_id] = $order_id_row['order_ids'];
+        // Process results if available
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Query to fetch user details
+                $user_sql = "SELECT user_firstname, user_lastname, user_mobile, user_email
+                             FROM users
+                             WHERE user_id = " . $row['user_id'];
+                $user_result = $conn->query($user_sql);
+                $user_data = $user_result->fetch_assoc();
 
-            // In ra thông tin của từng user_id
-            echo "<tr>";
-            echo "<td>" . $row["user_id"] . "</td>";
-            echo "<td>" . $user_info_row["user_firstname"] . " " . $user_info_row["user_lastname"] . "</td>";
-            echo "<td>" . $user_info_row["user_mobile"] . "</td>";
-            echo "<td>" . $user_info_row["user_email"] . "</td>";
+                // Query to fetch user address
+                $address_sql = "SELECT user_address
+                                FROM user_address
+                                WHERE user_id = " . $row['user_id'];
+                $address_result = $conn->query($address_sql);
+                $address_data = $address_result->fetch_assoc();
 
-            // In địa chỉ nếu tồn tại
-            if ($user_address_row) {
-                echo "<td>" . $user_address_row["user_address"] . "</td>";
-            } else {
-                echo "<td>Chưa thêm địa chỉ</td>";
+                echo "<tr>";
+                echo "<td>" . $row["user_id"] . "</td>";
+                echo "<td>" . $user_data["user_firstname"] . " " . $user_data["user_lastname"] . "</td>";
+                echo "<td>" . $user_data["user_mobile"] . "</td>";
+                echo "<td>" . $user_data["user_email"] . "</td>";
+                echo "<td>" . $row["total_spent"] . "</td>";
+                echo "</tr>";
             }
-
-            // Hiển thị nút xem duy nhất nếu có ID đơn hàng
-            echo "<td>";
-            echo "<button class='view-btn' data-user-id='{$row['user_id']}' data-order-ids='" . $order_ids_array[$row['user_id']] . "' style='background-color: white; color: black;'>Xem</button>";
-            echo "</td>";
-            echo "<td>" . $row["total_spent"] . "</td>";
-            echo "</tr>";
+        } else {
+            echo "<tr><td colspan='6'>No data found for the specified date range.</td></tr>";
         }
-    } 
-    $conn->close();
+    } else {
+        echo "<tr><td colspan='6'>Invalid date range or start date greater than end date.</td></tr>";
+    }
+} else {
+    echo "<tr><td colspan='6'>Please select a start and end date.</td></tr>";
 }
+$conn->close();
 ?>
 
 
